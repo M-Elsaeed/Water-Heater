@@ -41,8 +41,8 @@ unsigned char state = 'O'; // OFF = F, ON = N, Setting = S
 unsigned char heater_on = 0;
 unsigned char cooler_on = 0;
 
-unsigned int measured_temperature = 0;
-unsigned int set_temperature = 60;
+unsigned int measured_temperature = 55; // avg of max and min temps
+unsigned int set_temperature = 20;
 
 unsigned char t_1sec = 0;
 unsigned char ssd_mask = 1;
@@ -54,9 +54,12 @@ int temps_iterator = 0;
 
 void activate_heater()
 {
-  PORTCbits.RC5 = 1;
-  heater_on = 1;
-  RB6 = 1;
+  if (!heater_on)
+  {
+    PORTCbits.RC5 = 1;
+    heater_on = 1;
+    RB6 = 1;
+  }
 }
 
 void deactivate_heater()
@@ -71,9 +74,12 @@ void deactivate_heater()
 
 void activate_cooler()
 {
-  PORTCbits.RC2 = 1;
-  cooler_on = 1;
-  RB7 = 1;
+  if (!cooler_on)
+  {
+    PORTCbits.RC2 = 1;
+    cooler_on = 1;
+    RB7 = 1;
+  }
 }
 
 void deactivate_cooler()
@@ -183,7 +189,7 @@ void interrupts_init()
 void timer0_init()
 {
   // 256 Prescalar
-  OPTION_REG = 0b111;
+  OPTION_REG = 0b00000111;
   // RegValue = 256-(Delay * Fosc)/(Prescalar*4)), 10 ms
   TMR0 = 61;
 }
@@ -230,12 +236,18 @@ void interrupt ISR()
       {
 
         PORTA = 0x10;
-        PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature % 10)));
+        if (state == 'S')
+          PORTD = ssd_mask & (display7s((unsigned char)(set_temperature % 10)));
+        else
+          PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature % 10)));
       }
       else
       {
         PORTA = 0x08;
-        PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature / 10)));
+        if (state == 'S')
+          PORTD = ssd_mask & (display7s((unsigned char)(set_temperature / 10)));
+        else
+          PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature / 10)));
       }
       i_7sd = !i_7sd;
       TMR0 = 61;
@@ -256,7 +268,7 @@ void interrupt ISR()
         }
         if (state == 'S')
         {
-          ssd_mask = ssd_mask == 0xff ? 0x00 : 0xff;
+          ssd_mask = (ssd_mask == 0xff) ? 0x00 : 0xff;
         }
       }
       TMR1H = 0x0b;
@@ -291,12 +303,12 @@ void main()
   ADCON1 = 0x0F;
   CMCON = 0x07;
   //dip
-  TRISB = 0x03;
-  lcd_cmd(L_CLR);
-  lcd_cmd(L_L1);
-  lcd_str("welcome mfrs");
-  lcd_cmd(L_L2);
-  lcd_str("Press. RB1");
+  // TRISB = 0x03;
+  // lcd_cmd(L_CLR);
+  // lcd_cmd(L_L1);
+  // lcd_str("welcome mfrs");
+  // lcd_cmd(L_L2);
+  // lcd_str("Press. RB1");
   // while (PORTBbits.RB1)
   //   ;
 
@@ -309,25 +321,33 @@ void main()
   {
     if (state != 'F')
     {
-      // if (!PORTBbits.RB1)
-      // {
-      //   while (!PORTBbits.RB1)
-      //     ;
+      if (!PORTBbits.RB1)
+      {
+        while (!PORTBbits.RB1)
+          ;
 
-      //   if (state == 'S')
-      //     set_temperature -= 5;
-      //   else
-      //     state = 'S';
-      // }
-      // else if (!PORTBbits.RB2)
-      // {
-      //   while (!PORTBbits.RB2)
-      //     ;
-      //   if (state == 'S')
-      //     set_temperature += 5;
-      //   else
-      //     state = 'S';
-      // }
+        if (state == 'S')
+        {
+          GIE = 0;
+          set_temperature -= 5;
+          GIE = 1;
+        }
+        else
+          state = 'S';
+      }
+      else if (!PORTBbits.RB2)
+      {
+        while (!PORTBbits.RB2)
+          ;
+        if (state == 'S')
+        {
+          GIE = 0;
+          set_temperature += 5;
+          GIE = 1;
+        }
+        else
+          state = 'S';
+      }
       // +ve diff, Heater On
       // -ve diff, Cooler On
       difference = set_temperature - measured_temperature;
