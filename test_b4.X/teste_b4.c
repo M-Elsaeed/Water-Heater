@@ -37,57 +37,64 @@ __EEPROM_DATA(0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77);
 __EEPROM_DATA(0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF);
 #endif
 
-int measured_temperature = 0;
-int set_temperature = 60;
-char i_7sd = 0;
-char t_1sec = 0;
-char state = 'F'; // OFF = F, ON = N, Setting = S
+unsigned char state = 'S'; // OFF = F, ON = N, Setting = S
+unsigned char heater_on = 0;
+unsigned char cooler_on = 0;
+
+unsigned int measured_temperature = 0;
+unsigned int set_temperature = 60;
+
+unsigned char t_1sec = 0;
+unsigned char ssd_mask = 1;
+
+unsigned char i_7sd = 0;
+
 unsigned int temps[10];
 int temps_iterator = 0;
 
 void activate_heater()
 {
-  // while (PORTBbits.RB1)
-  //   ;
-  // while (!PORTBbits.RB1)
-  //   ;
-  // Heater connected to RC5 1 on, 0 off
-
   PORTCbits.RC5 = 1;
+  heater_on = 1;
+  RB6 = 1;
+}
 
-  // while (PORTBbits.RB1)
-  //   ;
-  // while (!PORTBbits.RB1)
-  //   ;
+void deactivate_heater()
+{
+  if (state == 'F' || set_temperature == measured_temperature)
+  {
+    PORTCbits.RC5 = 0;
+    heater_on = 0;
+    RB6 = 0;
+  }
+}
 
-  PORTCbits.RC5 = 0;
+void deactivate_cooler()
+{
+  if (state == 'F' || set_temperature == measured_temperature)
+  {
+    PORTCbits.RC2 = 0;
+    cooler_on = 0;
+    RB7 = 0;
+  }
 }
 
 void activate_cooler()
 {
-  // while (PORTBbits.RB1)
-  //   ;
-  // while (!PORTBbits.RB1)
-  //   ;
-  // Cooler connected to RC2
-  // 1 on, 0 off
   PORTCbits.RC2 = 1;
-  // while (PORTBbits.RB1)
-  //   ;
-  // while (!PORTBbits.RB1)
-  //   ;
-  PORTCbits.RC2 = 0;
+  cooler_on = 1;
+  RB7 = 1;
 }
 
 void adc_sample()
 {
   // unsigned int tmpi;
   // unsigned char i;
-  char str[6];
+  // char str[6];
   // // 2,3
 
-  lcd_cmd(L_CLR);
-  lcd_cmd(L_L1);
+  // lcd_cmd(L_CLR);
+  // lcd_cmd(L_L1);
   // lcd_str("ADC");
   TRISA = 0x07;
 
@@ -97,11 +104,11 @@ void adc_sample()
   temps[temps_iterator++] = (adc_amostra(2) * 10) / 20;
   measured_temperature = calc_avg();
 
-  itoa(measured_temperature, str);
-  lcd_str(str);
-  lcd_dat(',');
-  lcd_dat((measured_temperature/10) + 48);
-  lcd_dat((measured_temperature%10) + 48);
+  // itoa(measured_temperature, str);
+  // lcd_str(str);
+  // lcd_dat(',');
+  // lcd_dat((measured_temperature/10) + 48);
+  // lcd_dat((measured_temperature%10) + 48);
 
   // lcd_cmd(L_L2);
   // itoa(temps[temps_iterator - 1], str);
@@ -161,7 +168,7 @@ int calc_avg()
   return avg / 10;
 }
 
-void intr_init()
+void interrupts_init()
 {
   // Enabling global and peripheral interrupt masks
   INTCONbits.GIE = 1;
@@ -169,6 +176,8 @@ void intr_init()
   // Enabling timer 0 and timer 1 interrupts
   INTCONbits.TMR0IE = 1;
   PIE1bits.TMR1IE = 1;
+  // enabling interrupts on RB0 as on/off button
+  INTCONbits.INTE = 1; // check on INTF in ISR and clear it
 }
 
 void timer0_init()
@@ -196,48 +205,78 @@ void timer1_init()
 
 void interrupt ISR()
 {
-  // If timer 0
-  if (TMR0IF)
+  // RB0 was pressed
+  if (INTF)
   {
-
-    if (i_7sd)
-    {
-
-      PORTA = 0x10;
-      PORTD = display7s((unsigned char)(measured_temperature % 10));
-    }
-    else
-    {
-      PORTA = 0x08;
-      PORTD = display7s((unsigned char)(measured_temperature / 10));
-    }
-    i_7sd = !i_7sd;
-    TMR0 = 61;
-    TMR0IF = 0;
-    // reload, clear, and begin again
+    state = state == 'O' || state == 'S' ? 'F' : 'O';
+    INTF = 0;
+    return;
   }
-  // if timer 1
+
+  // If on or in setting mode
+  if (state != 'F')
+  {
+    // Enable LCD if on
+    if (state == 'O')
+    {
+      ssd_mask = 0xff;
+    }
+
+    // If timer 0
+    if (TMR0IF)
+    {
+
+      if (i_7sd)
+      {
+
+        PORTA = 0x10;
+        PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature % 10)));
+      }
+      else
+      {
+        PORTA = 0x08;
+        PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature / 10)));
+      }
+      i_7sd = !i_7sd;
+      TMR0 = 61;
+      TMR0IF = 0;
+      // reload, clear, and begin again
+    }
+
+    // if timer 1
+    if (TMR1IF)
+    {
+      adc_sample();
+      if (++t_1sec == 10)
+      {
+        t_1sec = 0;
+        if (heater_on)
+        {
+          PORTB ^= (1 << 7);
+        }
+        if (state == 'S')
+        {
+          ssd_mask = ssd_mask == 0xff ? 0x00 : 0xff;
+        }
+      }
+      TMR1H = 0x0b;
+      TMR1L = 0xdc;
+      PIR1bits.TMR1IF = 0;
+      T1CONbits.TMR1ON = 1;
+    }
+  }
+  // If off
   else
   {
-    adc_sample();
-    // if (++t_1sec == 10)
-    // {
-    //   t_1sec = 0;
-    //   // turn on led for heating
-    //   // flash 7sd if settings mode
-    // }
-    TMR1H = 0x0b;
-    TMR1L = 0xdc;
-    PIR1bits.TMR1IF = 0;
-    T1CONbits.TMR1ON = 1;
+    PORTD = 0x00;
   }
 }
 
 void main()
 {
-
+  int difference;
   TRISA = 0xC3;
-  TRISB = 0x01;
+  TRISB = 0x07; // 6 Heating led, 7 cooling led
   TRISC = 0x01;
   TRISD = 0x00;
   TRISE = 0x00;
@@ -246,7 +285,7 @@ void main()
   i2c_init();
   serial_init();
   adc_init();
-  intr_init();
+  interrupts_init();
   timer1_init();
   timer0_init();
   ADCON1 = 0x0F;
@@ -258,8 +297,8 @@ void main()
   lcd_str("welcome mfrs");
   lcd_cmd(L_L2);
   lcd_str("Press. RB1");
-  while (PORTBbits.RB1)
-    ;
+  // while (PORTBbits.RB1)
+  //   ;
 
   // eprom();
   // activate_heater();
@@ -268,8 +307,50 @@ void main()
   // ssd(39);
   while (1)
   {
-    // if(measured_temperature < 35){
+    if (state != 'F')
+    {
+      // if (!PORTBbits.RB1)
+      // {
+      //   while (!PORTBbits.RB1)
+      //     ;
 
-    // }
+      //   if (state == 'S')
+      //     set_temperature -= 5;
+      //   else
+      //     state = 'S';
+      // }
+      // else if (!PORTBbits.RB2)
+      // {
+      //   while (!PORTBbits.RB2)
+      //     ;
+      //   if (state == 'S')
+      //     set_temperature += 5;
+      //   else
+      //     state = 'S';
+      // }
+      // +ve diff, Heater On
+      // -ve diff, Cooler On
+      difference = set_temperature - measured_temperature;
+      if (difference >= 5)
+      {
+        activate_heater();
+        deactivate_cooler();
+      }
+      else if (difference <= -5)
+      {
+        deactivate_heater();
+        activate_cooler();
+      }
+      else
+      {
+        deactivate_heater();
+        deactivate_cooler();
+      }
+    }
+    else
+    {
+      deactivate_heater();
+      deactivate_cooler();
+    }
   }
 }
