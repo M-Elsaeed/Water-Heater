@@ -42,8 +42,8 @@ int set_temperature = 60;
 char i_7sd = 0;
 char t_1sec = 0;
 char state = 'F'; // OFF = F, ON = N, Setting = S
-unsigned char temps[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-char temps_iterator = 0;
+unsigned int temps[10];
+int temps_iterator = 0;
 
 void activate_heater()
 {
@@ -83,19 +83,35 @@ void adc_sample()
 {
   // unsigned int tmpi;
   // unsigned char i;
-  // char str[6];
+  char str[6];
   // // 2,3
 
-  // lcd_cmd(L_CLR);
-  // lcd_cmd(L_L1);
+  lcd_cmd(L_CLR);
+  lcd_cmd(L_L1);
   // lcd_str("ADC");
   TRISA = 0x07;
 
   adc_init();
 
-  temps[temps_iterator++] = (adc_amostra(2) * 10) / 2;
+  // tmpi = (adc_amostra(2) * 10) / 2;
+  temps[temps_iterator++] = (adc_amostra(2) * 10) / 20;
   measured_temperature = calc_avg();
-  temps_iterator = temps_iterator > 9 ? 0 : temps_iterator;
+
+  itoa(measured_temperature, str);
+  lcd_str(str);
+  lcd_dat(',');
+  lcd_dat((measured_temperature/10) + 48);
+  lcd_dat((measured_temperature%10) + 48);
+
+  // lcd_cmd(L_L2);
+  // itoa(temps[temps_iterator - 1], str);
+  // lcd_str(str);
+  // lcd_dat(',');
+
+  // itoa(tmpi, str);
+  // lcd_str(str);
+
+  temps_iterator = (temps_iterator > 9) ? 0 : temps_iterator;
 
   // for (i = 0; i < 100; i++)
   // {
@@ -137,7 +153,7 @@ void eprom()
 int calc_avg()
 {
   char i;
-  int avg = 0;
+  unsigned int avg = 0;
   for (i = 0; i < 10; i++)
   {
     avg += temps[i];
@@ -145,49 +161,28 @@ int calc_avg()
   return avg / 10;
 }
 
-void interrupt tmr0()
-{
-  if (i_7sd)
-  {
-
-    PORTA = 0x10;
-    PORTD = display7s(set_temperature % 10);
-  }
-  else
-  {
-    PORTA = 0x08;
-    PORTD = display7s(set_temperature / 10);
-  }
-  i_7sd = !i_7sd;
-  // reload, clear, and begin again
-}
-
-void interrupt tmr1()
-{
-  adc_sample();
-  if(++t_1sec == 10){
-    t_1sec = 0;
-    // turn on led for heating
-    // flash 7sd if settings mode
-  }
-  TMR1H = 0x0b;
-  TMR1L = 0xdc;
-  PIR1bits.TMR1IF = 0;
-  T1CONbits.TMR1ON = 1;
-}
-
 void intr_init()
 {
+  // Enabling global and peripheral interrupt masks
   INTCONbits.GIE = 1;
   INTCONbits.PEIE = 1;
+  // Enabling timer 0 and timer 1 interrupts
+  INTCONbits.TMR0IE = 1;
   PIE1bits.TMR1IE = 1;
+}
+
+void timer0_init()
+{
+  // 256 Prescalar
+  OPTION_REG = 0b111;
+  // RegValue = 256-(Delay * Fosc)/(Prescalar*4)), 10 ms
+  TMR0 = 61;
 }
 
 void timer1_init()
 {
 
-  // TMR1IF check flag in PIR1, write to 0 in ISR
-  // 100ms
+  // RegValue = 65536-(Delay * Fosc)/(Prescalar*4)), 100 ms
   TMR1L = 0xdc;
   TMR1H = 0x0b;
 
@@ -199,14 +194,47 @@ void timer1_init()
   T1CONbits.TMR1ON = 1;
 }
 
+void interrupt ISR()
+{
+  // If timer 0
+  if (TMR0IF)
+  {
+
+    if (i_7sd)
+    {
+
+      PORTA = 0x10;
+      PORTD = display7s((unsigned char)(measured_temperature % 10));
+    }
+    else
+    {
+      PORTA = 0x08;
+      PORTD = display7s((unsigned char)(measured_temperature / 10));
+    }
+    i_7sd = !i_7sd;
+    TMR0 = 61;
+    TMR0IF = 0;
+    // reload, clear, and begin again
+  }
+  // if timer 1
+  else
+  {
+    adc_sample();
+    // if (++t_1sec == 10)
+    // {
+    //   t_1sec = 0;
+    //   // turn on led for heating
+    //   // flash 7sd if settings mode
+    // }
+    TMR1H = 0x0b;
+    TMR1L = 0xdc;
+    PIR1bits.TMR1IF = 0;
+    T1CONbits.TMR1ON = 1;
+  }
+}
+
 void main()
 {
-
-  unsigned char i;
-  unsigned char tmp;
-  unsigned int tmpi;
-
-  char str[6];
 
   TRISA = 0xC3;
   TRISB = 0x01;
@@ -220,6 +248,7 @@ void main()
   adc_init();
   intr_init();
   timer1_init();
+  timer0_init();
   ADCON1 = 0x0F;
   CMCON = 0x07;
   //dip
@@ -238,5 +267,9 @@ void main()
   // adc_sample();
   // ssd(39);
   while (1)
-    ;
+  {
+    // if(measured_temperature < 35){
+
+    // }
+  }
 }
