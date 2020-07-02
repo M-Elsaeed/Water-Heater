@@ -40,6 +40,7 @@ __EEPROM_DATA(0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF);
 unsigned char state = 'O'; // OFF = F, ON = N, Setting = S
 unsigned char heater_on = 0;
 unsigned char cooler_on = 0;
+unsigned char n_blinks = 0;
 
 unsigned int measured_temperature = 55; // avg of max and min temps
 unsigned int set_temperature = 20;
@@ -269,6 +270,11 @@ void interrupt ISR()
         if (state == 'S')
         {
           ssd_mask = (ssd_mask == 0xff) ? 0x00 : 0xff;
+          if ((++n_blinks) == 10)
+          {
+            n_blinks = 0;
+            state = 'O';
+          }
         }
       }
       TMR1H = 0x0b;
@@ -323,6 +329,7 @@ void main()
     {
       if (!PORTBbits.RB1)
       {
+        n_blinks = 0;
         while (!PORTBbits.RB1)
           ;
 
@@ -337,6 +344,7 @@ void main()
       }
       else if (!PORTBbits.RB2)
       {
+        n_blinks = 0;
         while (!PORTBbits.RB2)
           ;
         if (state == 'S')
