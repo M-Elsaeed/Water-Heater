@@ -37,7 +37,7 @@ __EEPROM_DATA(0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77);
 __EEPROM_DATA(0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF);
 #endif
 
-unsigned char state = 'S'; // OFF = F, ON = N, Setting = S
+unsigned char state = 'O'; // OFF = F, ON = N, Setting = S
 unsigned char heater_on = 0;
 unsigned char cooler_on = 0;
 
@@ -61,21 +61,11 @@ void activate_heater()
 
 void deactivate_heater()
 {
-  if (state == 'F' || set_temperature == measured_temperature)
+  if (state == 'F' || set_temperature == measured_temperature || cooler_on)
   {
     PORTCbits.RC5 = 0;
     heater_on = 0;
     RB6 = 0;
-  }
-}
-
-void deactivate_cooler()
-{
-  if (state == 'F' || set_temperature == measured_temperature)
-  {
-    PORTCbits.RC2 = 0;
-    cooler_on = 0;
-    RB7 = 0;
   }
 }
 
@@ -84,6 +74,16 @@ void activate_cooler()
   PORTCbits.RC2 = 1;
   cooler_on = 1;
   RB7 = 1;
+}
+
+void deactivate_cooler()
+{
+  if (state == 'F' || set_temperature == measured_temperature || heater_on)
+  {
+    PORTCbits.RC2 = 0;
+    cooler_on = 0;
+    RB7 = 0;
+  }
 }
 
 void adc_sample()
@@ -252,7 +252,7 @@ void interrupt ISR()
         t_1sec = 0;
         if (heater_on)
         {
-          PORTB ^= (1 << 7);
+          PORTB ^= (1 << 6);
         }
         if (state == 'S')
         {
@@ -276,7 +276,7 @@ void main()
 {
   int difference;
   TRISA = 0xC3;
-  TRISB = 0x07; // 6 Heating led, 7 cooling led
+  TRISB = 0x07; // 6 Heating led, 7 cooling led, B0:B2 as inputs
   TRISC = 0x01;
   TRISD = 0x00;
   TRISE = 0x00;
