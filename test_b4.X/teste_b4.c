@@ -27,7 +27,16 @@ unsigned char cooler_on = 0;
 #define SETTING_STATE 'S'
 unsigned char state = ON_STATE;
 
+// Mask to turn on 7SDs
 #define ON_7SD 0xff
+
+/* 
+ON/OFF -> RB0
+UP -> R2
+Down -> R1
+*/
+#define UP_BTN RB2
+#define DOWN_BTN RB1
 
 // To track number of blinks when setting the temperature
 unsigned char n_blinks = 0;
@@ -150,11 +159,9 @@ void show_7sd()
 }
 
 /*
-
 1- Toggles heating/cooling LED if needed.
 2- In settings mode, blinks 7sd every one second, blink count is reset if RB1 or RB2 is pressed.
 3- In settings mode, if 7sd is blinked 5 times without RB1 or RB2 being pressed, save the set temperature to the external e2prom. 
-
 */
 void _1s_handler()
 {
@@ -174,7 +181,11 @@ void _1s_handler()
   }
 }
 
-// Measure the temperature using the ADC, update temps array and its iterator, then calculate the new average of the last 10 temperatures
+/* 
+1 - Measures the temperature using the ADC
+2 - updates "temps" array and its iterator
+3 - updates "avg_measured_temperature" with the new average of the last 10 temperatures
+*/
 void adc_sample()
 {
   adc_init();
@@ -187,13 +198,15 @@ void adc_sample()
 void interrupts_init()
 {
   // Enabling global and peripheral interrupt masks
-  INTCONbits.GIE = 1;
-  INTCONbits.PEIE = 1;
+  GIE = 1;
+  PEIE = 1;
+
   // Enabling timer 0 and timer 1 interrupts
-  INTCONbits.TMR0IE = 1;
-  PIE1bits.TMR1IE = 1;
+  TMR0IE = 1;
+  TMR1IE = 1;
+
   // enabling interrupts on RB0 as on/off button
-  INTCONbits.INTE = 1; // check on INTF in ISR and clear it
+  INTE = 1; // check on INTF in ISR and clear it
 }
 
 // Configuring timer0 to provide 10ms delay
@@ -201,6 +214,7 @@ void timer0_init()
 {
   // Prescalar = 256
   OPTION_REG = 0b00000111;
+
   // TMR0 = 256-(Delay * Fosc)/(Prescalar*4)), delay = 10 ms and Fosc = 20MHz
   TMR0 = 61;
 }
@@ -210,19 +224,18 @@ void timer1_init()
 {
 
   // Prescalar = 8
-  T1CONbits.T1CKPS0 = 1;
-  T1CONbits.T1CKPS1 = 1;
+  T1CKPS0 = 1;
+  T1CKPS1 = 1;
 
   // TMR1L concatenated with TMR1H = 65536-(Delay * Fosc)/(Prescalar*4)), delay = 100 ms and Fosc = 20MHz
   TMR1L = 0xdc;
   TMR1H = 0x0b;
 
   // Turn On timer 1
-  T1CONbits.TMR1ON = 1;
+  TMR1ON = 1;
 }
 
 /*
-
 ISR runs when any enabled interrupt happens
  
  1- RB0 Interrupts are used to switch between the system states (ON, OFF, and Setting)
@@ -231,10 +244,9 @@ ISR runs when any enabled interrupt happens
     that both are working at the same time
 
  3- Timer1 interrupts are used for
-    2.1 - Sampling of the temperature every interrupt (100ms)
-    2.2 - Blinking of the displays every 10 interrupts (1s) in setting mode by toggeling _7sd_mask
-    2.3 - Blinking heating element LED every 10 interrupts (1s) when heating element is on
-
+    3.1 - Sampling of the temperature every interrupt (100ms)
+    3.2 - Blinking of the displays every 10 interrupts (1s) in setting mode by toggeling _7sd_mask
+    3.3 - Blinking heating element LED every 10 interrupts (1s) when heating element is on
 */
 void interrupt ISR()
 {
@@ -246,7 +258,7 @@ void interrupt ISR()
     return;
   }
 
-  // If on or in setting mode
+  // If on or setting mode
   if (state != OFF_STATE)
   {
     // Enable LCD if on
@@ -276,8 +288,8 @@ void interrupt ISR()
       // reload, clear interrupt flag, and restart timer
       TMR1H = 0x0b;
       TMR1L = 0xdc;
-      PIR1bits.TMR1IF = 0;
-      T1CONbits.TMR1ON = 1;
+      TMR1IF = 0;
+      TMR1ON = 1;
     }
   }
   // If off
@@ -288,13 +300,14 @@ void interrupt ISR()
   }
 }
 
+/* 
+  Check the location 11 for our key "0x33"
+  if location 11 contains the key, we load the saved temperature from location 10
+  else, write set_temp (60 by default) to location 10, and write the key in location 11
+*/
 void set_temp_exteeprom_check()
 {
-  // Check the location 11 for our key "0x33"
-  // if location 11 contains the key, we load the saved temperature in location 10
-  // else, write set_temp (60 by default) to location 10, and write the key in location 11
   unsigned char read_char;
-  // TRISB = 0x03;
   read_char = e2pext_r(11);
   if (read_char == 0x33)
   {
@@ -311,6 +324,7 @@ void main()
 {
   // Calculated difference between set and measured temperatures
   int difference;
+
   // First 3 bits used by ADC, others output to control 7SDs
   TRISA = 0x07;
   // 6 Heating led, 7 cooling led, B0:B2 as inputs
@@ -326,21 +340,28 @@ void main()
   i2c_init();
   timer1_init();
   timer0_init();
+
   // Enabling required interrupts
   interrupts_init();
+
   // Reloading/loading of set temperature
   set_temp_exteeprom_check();
+
   // Setting PCFG3:PCFG0 bits, A/D Port Configuration Control bits
   ADCON1 = 0x0F;
 
+  /*
+    1 - Monitors Up and down button presses (handling debouncing effect)
+    2 - Monitors Temperature and activates/deactivates actuators accordingly
+  */
   while (1)
   {
     if (state != OFF_STATE)
     {
-      if (!PORTBbits.RB1)
+      if (!DOWN_BTN)
       {
         n_blinks = 0;
-        while (!PORTBbits.RB1)
+        while (!DOWN_BTN)
           ;
 
         if (state == SETTING_STATE && set_temperature >= 40)
@@ -352,10 +373,10 @@ void main()
         else
           state = SETTING_STATE;
       }
-      else if (!PORTBbits.RB2)
+      else if (!UP_BTN)
       {
         n_blinks = 0;
-        while (!PORTBbits.RB2)
+        while (!UP_BTN)
           ;
         if (state == SETTING_STATE && set_temperature <= 70)
         {
