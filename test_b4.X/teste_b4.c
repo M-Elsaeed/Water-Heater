@@ -1,36 +1,12 @@
 #include <xc.h>
 
-#ifdef _18F452
-#include "config_452.h"
-#endif
-#ifdef _18F4620
-#include "config_4620.h"
-#endif
-#ifdef _18F4550
-#include "config_4550.h"
-#endif
-#ifdef _16F877A
 #include "config_877A.h"
-#endif
-#ifdef _16F777
-#include "config_777.h"
-#endif
 
-#include "atraso.h"
-#include "lcd.h"
 #include "display7s.h"
-#ifndef _18F4550
 #include "i2c.h"
 #include "eeprom_ext.h"
-#include "rtc.h"
-#endif
-#include "serial.h"
-#ifndef _16F777
-#include "eeprom.h"
-#endif
 #include "adc.h"
 #include "itoa.h"
-#include "teclado.h"
 
 #ifndef _16F777
 __EEPROM_DATA(0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77);
@@ -95,73 +71,10 @@ void deactivate_cooler()
 
 void adc_sample()
 {
-  // unsigned int tmpi;
-  // unsigned char i;
-  // char str[6];
-  // // 2,3
-
-  // lcd_cmd(L_CLR);
-  // lcd_cmd(L_L1);
-  // lcd_str("ADC");
-  TRISA = 0x07;
-
   adc_init();
-
-  // tmpi = (adc_amostra(2) * 10) / 2;
   temps[temps_iterator++] = (adc_amostra(2) * 10) / 20;
   measured_temperature = calc_avg();
-
-  // itoa(measured_temperature, str);
-  // lcd_str(str);
-  // lcd_dat(',');
-  // lcd_dat((measured_temperature/10) + 48);
-  // lcd_dat((measured_temperature%10) + 48);
-
-  // lcd_cmd(L_L2);
-  // itoa(temps[temps_iterator - 1], str);
-  // lcd_str(str);
-  // lcd_dat(',');
-
-  // itoa(tmpi, str);
-  // lcd_str(str);
-
   temps_iterator = (temps_iterator > 9) ? 0 : temps_iterator;
-
-  // for (i = 0; i < 100; i++)
-  // {
-  // tmpi = (adc_amostra(2) * 10) / 2;
-  // lcd_cmd(L_L2);
-  // itoa(tmpi, str);
-  // lcd_str(str);
-  // atraso_ms(20);
-  // }
-}
-
-void ssd(int num)
-{
-  unsigned char i;
-  unsigned char tmp;
-  // TRISA = 0xC3;
-  while (1)
-  {
-    PORTA = 0x20;
-    PORTD = display7s(12);
-    atraso_ms(10);
-    PORTA = 0x10;
-    PORTD = display7s(num % 10);
-    atraso_ms(10);
-    PORTA = 0x08;
-    PORTD = display7s(num / 10);
-    atraso_ms(10);
-  }
-}
-
-void eprom()
-{
-  unsigned char tmp;
-  TRISB = 0x03;
-  tmp = e2pext_r(10);
-  e2pext_w(10, 0xA5);
 }
 
 int calc_avg()
@@ -312,38 +225,30 @@ void set_temp_exteeprom_check()
 
 void main()
 {
+  // Calculated difference between set and measured temperatures
   int difference;
-  TRISA = 0xC3;
-  TRISB = 0x07; // 6 Heating led, 7 cooling led, B0:B2 as inputs
-  TRISC = 0x01;
+  // First 3 bits used by ADC, others output to control 7SDs
+  TRISA = 0x07;
+  // 6 Heating led, 7 cooling led, B0:B2 as inputs
+  TRISB = 0x07;
+  // All output to prevent unwanted inputs.
+  TRISC = 0x00;
+  // 7SD connected to PORTD
   TRISD = 0x00;
+  // Unused ADC channels
   TRISE = 0x00;
 
-  lcd_init();
+  // Initializing drivers
   i2c_init();
-  serial_init();
-  adc_init();
-  interrupts_init();
   timer1_init();
   timer0_init();
+  // Enabling required interrupts
+  interrupts_init();
+  // Reloading/loading of set temperature
   set_temp_exteeprom_check();
+  // Setting PCFG3:PCFG0 bits, A/D Port Configuration Control bits
   ADCON1 = 0x0F;
-  CMCON = 0x07;
-  //dip
-  // TRISB = 0x03;
-  // lcd_cmd(L_CLR);
-  // lcd_cmd(L_L1);
-  // lcd_str("welcome mfrs");
-  // lcd_cmd(L_L2);
-  // lcd_str("Press. RB1");
-  // while (PORTBbits.RB1)
-  //   ;
 
-  // eprom();
-  // activate_heater();
-  // activate_cooler();
-  // adc_sample();
-  // ssd(39);
   while (1)
   {
     if (state != 'F')
