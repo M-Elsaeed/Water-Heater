@@ -43,7 +43,7 @@ unsigned char cooler_on = 0;
 unsigned char n_blinks = 0;
 
 unsigned int measured_temperature = 55; // avg of max and min temps
-unsigned int set_temperature = 20;
+unsigned int set_temperature = 60;
 
 unsigned char t_1sec = 0;
 unsigned char ssd_mask = 1;
@@ -272,6 +272,7 @@ void interrupt ISR()
           ssd_mask = (ssd_mask == 0xff) ? 0x00 : 0xff;
           if ((++n_blinks) == 10)
           {
+            e2pext_w(10, set_temperature);
             n_blinks = 0;
             state = 'O';
           }
@@ -287,6 +288,25 @@ void interrupt ISR()
   else
   {
     PORTD = 0x00;
+  }
+}
+
+void set_temp_exteeprom_check()
+{
+  // Check the location 11 for our key "0x33"
+  // if location 11 contains the key, we load the saved temperature in location 10
+  // else, write set_temp (60 by default) to location 10, and write the key in location 11
+  unsigned char read_char;
+  // TRISB = 0x03;
+  read_char = e2pext_r(11);
+  if (read_char == 0x33)
+  {
+    set_temperature = e2pext_r(10);
+  }
+  else
+  {
+    e2pext_w(10, set_temperature);
+    e2pext_w(11, 0x33);
   }
 }
 
@@ -306,6 +326,7 @@ void main()
   interrupts_init();
   timer1_init();
   timer0_init();
+  set_temp_exteeprom_check();
   ADCON1 = 0x0F;
   CMCON = 0x07;
   //dip
@@ -333,7 +354,7 @@ void main()
         while (!PORTBbits.RB1)
           ;
 
-        if (state == 'S')
+        if (state == 'S' && set_temperature >= 40)
         {
           GIE = 0;
           set_temperature -= 5;
@@ -347,7 +368,7 @@ void main()
         n_blinks = 0;
         while (!PORTBbits.RB2)
           ;
-        if (state == 'S')
+        if (state == 'S' && set_temperature <= 70)
         {
           GIE = 0;
           set_temperature += 5;
