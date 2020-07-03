@@ -35,9 +35,6 @@ unsigned char n_blinks = 0;
 // Avg of last 10 measured temperatures, initially equals avg of max and min possible set temperatures
 unsigned int avg_measured_temperature = 55;
 
-// Latest measured temperature
-unsigned int latest_measured_temperature = 0;
-
 // The temperature set by the user, loaded from external E2PROM on startup if available, or default(60)
 unsigned int set_temperature = 60;
 
@@ -117,28 +114,48 @@ unsigned int calc_avg()
   return avg / 10;
 }
 
+/*
+
+Writes to 7SD then updates i_7sd to write to the next 7sd when called the next time.
+
+*/
 void show_7sd()
 {
-  if (i_7sd)
+  switch (i_7sd)
   {
-
+  case 0:
+    PORTA = 0x20;
+    PORTD = _7sd_mask & (display7s(12));
+    i_7sd = 1;
+    break;
+  case 1:
     PORTA = 0x10;
     if (state == SETTING_STATE)
       PORTD = _7sd_mask & (display7s((unsigned char)(set_temperature % 10)));
     else
       PORTD = _7sd_mask & (display7s((unsigned char)(avg_measured_temperature % 10)));
-  }
-  else
-  {
+    i_7sd = 2;
+    break;
+  case 2:
     PORTA = 0x08;
     if (state == SETTING_STATE)
       PORTD = _7sd_mask & (display7s((unsigned char)(set_temperature / 10)));
     else
       PORTD = _7sd_mask & (display7s((unsigned char)(avg_measured_temperature / 10)));
+    i_7sd = 0;
+    break;
+  default:
+    break;
   }
-  i_7sd = !i_7sd;
 }
 
+/*
+
+1- Toggles heating/cooling LED if needed.
+2- In settings mode, blinks 7sd every one second, blink count is reset if RB1 or RB2 is pressed.
+3- In settings mode, if 7sd is blinked 5 times without RB1 or RB2 being pressed, save the set temperature to the external e2prom. 
+
+*/
 void _1s_handler()
 {
   if (heater_on)
