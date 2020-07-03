@@ -45,7 +45,8 @@ void deactivate_heater()
   {
     PORTCbits.RC5 = 0;
     heater_on = 0;
-    RB6 = 0;
+    if (!cooler_on)
+      RB6 = 0;
   }
 }
 
@@ -55,7 +56,7 @@ void activate_cooler()
   {
     PORTCbits.RC2 = 1;
     cooler_on = 1;
-    RB7 = 1;
+    RB6 = 1;
   }
 }
 
@@ -65,7 +66,8 @@ void deactivate_cooler()
   {
     PORTCbits.RC2 = 0;
     cooler_on = 0;
-    RB7 = 0;
+    if (!heater_on)
+      RB6 = 0;
   }
 }
 
