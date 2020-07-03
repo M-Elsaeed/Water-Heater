@@ -25,7 +25,7 @@ unsigned char cooler_on = 0;
 #define ON_STATE 'O'
 #define OFF_STATE 'F'
 #define SETTING_STATE 'S'
-unsigned char state = ON_STATE;
+unsigned char state = OFF_STATE;
 
 // Mask to turn on 7SDs
 #define ON_7SD 0xff
