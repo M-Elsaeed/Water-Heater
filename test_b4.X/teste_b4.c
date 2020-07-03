@@ -13,73 +13,100 @@ __EEPROM_DATA(0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77);
 __EEPROM_DATA(0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF);
 #endif
 
-unsigned char state = 'O'; // OFF = F, ON = N, Setting = S
+// Heater and cooler state variables
 unsigned char heater_on = 0;
 unsigned char cooler_on = 0;
+// Defining pins for heating and cooling elements and the indicator LED
+#define HEATING_COOLING_LED RB6
+#define HEATING_ELEMENT_PIN RC5
+#define COOLING_ELEMENT_PIN RC2
+
+// System's state definitions and state variable
+#define ON_STATE 'O'
+#define OFF_STATE 'F'
+#define SETTING_STATE 'S'
+unsigned char state = ON_STATE;
+
+#define ON_7SD 0xff
+
+// To track number of blinks when setting the temperature
 unsigned char n_blinks = 0;
 
-unsigned int measured_temperature = 55; // avg of max and min temps
+// Avg of last 10 measured temperatures, initially equals avg of max and min possible set temperatures
+unsigned int avg_measured_temperature = 55;
+
+// Latest measured temperature
+unsigned int latest_measured_temperature = 0;
+
+// The temperature set by the user, loaded from external E2PROM on startup if available, or default(60)
 unsigned int set_temperature = 60;
 
+// Counter to measure 1 sec, incremented by 1 every 100ms in ISR of timer 1, and is reset when it reaches 10
 unsigned char t_1sec = 0;
-unsigned char ssd_mask = 1;
 
+// Mask for blinking LED in the setting state
+unsigned char _7sd_mask = ON_7SD;
+
+// Toggled every 10ms to track which 7SD to output to at some given time
 unsigned char i_7sd = 0;
 
+// Array to track last 10 temperature measurements
 unsigned int temps[10];
+
+/* 
+ iterator to track the index of the measurement to update in the "temps" array next
+ Reset when it reaches 10
+*/
 int temps_iterator = 0;
 
+// Activate heating element, its LED, and set the heating state variable
 void activate_heater()
 {
   if (!heater_on)
   {
-    PORTCbits.RC5 = 1;
+    HEATING_ELEMENT_PIN = 1;
     heater_on = 1;
-    RB6 = 1;
+    HEATING_COOLING_LED = 1;
   }
 }
 
+// Activate heating element, its LED, and clear the heating state variable
 void deactivate_heater()
 {
-  if (state == 'F' || set_temperature == measured_temperature || cooler_on)
+  if (state == OFF_STATE || set_temperature == avg_measured_temperature || cooler_on)
   {
-    PORTCbits.RC5 = 0;
+    HEATING_ELEMENT_PIN = 0;
     heater_on = 0;
     if (!cooler_on)
-      RB6 = 0;
+      HEATING_COOLING_LED = 0;
   }
 }
 
+// Activate cooling element, its LED, and set the cooling state variable
 void activate_cooler()
 {
   if (!cooler_on)
   {
-    PORTCbits.RC2 = 1;
+    COOLING_ELEMENT_PIN = 1;
     cooler_on = 1;
-    RB6 = 1;
+    HEATING_COOLING_LED = 1;
   }
 }
 
+// Dectivate cooling element, its LED, and clear the cooling state variable
 void deactivate_cooler()
 {
-  if (state == 'F' || set_temperature == measured_temperature || heater_on)
+  if (state == OFF_STATE || set_temperature == avg_measured_temperature || heater_on)
   {
-    PORTCbits.RC2 = 0;
+    COOLING_ELEMENT_PIN = 0;
     cooler_on = 0;
     if (!heater_on)
-      RB6 = 0;
+      HEATING_COOLING_LED = 0;
   }
 }
 
-void adc_sample()
-{
-  adc_init();
-  temps[temps_iterator++] = (adc_amostra(2) * 10) / 20;
-  measured_temperature = calc_avg();
-  temps_iterator = (temps_iterator > 9) ? 0 : temps_iterator;
-}
-
-int calc_avg()
+// Calculates the average of values in the "temps" array and returns it.
+unsigned int calc_avg()
 {
   char i;
   unsigned int avg = 0;
@@ -90,6 +117,56 @@ int calc_avg()
   return avg / 10;
 }
 
+void show_7sd()
+{
+  if (i_7sd)
+  {
+
+    PORTA = 0x10;
+    if (state == SETTING_STATE)
+      PORTD = _7sd_mask & (display7s((unsigned char)(set_temperature % 10)));
+    else
+      PORTD = _7sd_mask & (display7s((unsigned char)(avg_measured_temperature % 10)));
+  }
+  else
+  {
+    PORTA = 0x08;
+    if (state == SETTING_STATE)
+      PORTD = _7sd_mask & (display7s((unsigned char)(set_temperature / 10)));
+    else
+      PORTD = _7sd_mask & (display7s((unsigned char)(avg_measured_temperature / 10)));
+  }
+  i_7sd = !i_7sd;
+}
+
+void _1s_handler()
+{
+  if (heater_on)
+  {
+    PORTB ^= (1 << 6); // Toggle RB6
+  }
+  if (state == SETTING_STATE)
+  {
+    _7sd_mask = (_7sd_mask == ON_7SD) ? 0x00 : ON_7SD;
+    if ((++n_blinks) == 10)
+    {
+      e2pext_w(10, set_temperature);
+      n_blinks = 0;
+      state = ON_STATE;
+    }
+  }
+}
+
+// Measure the temperature using the ADC, update temps array and its iterator, then calculate the new average of the last 10 temperatures
+void adc_sample()
+{
+  adc_init();
+  temps[temps_iterator++] = (adc_amostra(2) * 10) / 20;
+  avg_measured_temperature = calc_avg();
+  temps_iterator = (temps_iterator > 9) ? 0 : temps_iterator;
+}
+
+// Enables interrupts on timer0, timer1, and RB0
 void interrupts_init()
 {
   // Enabling global and peripheral interrupt masks
@@ -102,73 +179,72 @@ void interrupts_init()
   INTCONbits.INTE = 1; // check on INTF in ISR and clear it
 }
 
+// Configuring timer0 to provide 10ms delay
 void timer0_init()
 {
-  // 256 Prescalar
+  // Prescalar = 256
   OPTION_REG = 0b00000111;
-  // RegValue = 256-(Delay * Fosc)/(Prescalar*4)), 10 ms
+  // TMR0 = 256-(Delay * Fosc)/(Prescalar*4)), delay = 10 ms and Fosc = 20MHz
   TMR0 = 61;
 }
 
+// Configuring timer1 to provide 100ms delay
 void timer1_init()
 {
-
-  // RegValue = 65536-(Delay * Fosc)/(Prescalar*4)), 100 ms
-  TMR1L = 0xdc;
-  TMR1H = 0x0b;
 
   // Prescalar = 8
   T1CONbits.T1CKPS0 = 1;
   T1CONbits.T1CKPS1 = 1;
 
+  // TMR1L concatenated with TMR1H = 65536-(Delay * Fosc)/(Prescalar*4)), delay = 100 ms and Fosc = 20MHz
+  TMR1L = 0xdc;
+  TMR1H = 0x0b;
+
   // Turn On timer 1
   T1CONbits.TMR1ON = 1;
 }
 
+/*
+
+ISR runs when any enabled interrupt happens
+ 
+ 1- RB0 Interrupts are used to switch between the system states (ON, OFF, and Setting)
+
+ 2- Timer0 interrupts are used to switch between writing to the two 7SDs every 10ms to create the illusion 
+    that both are working at the same time
+
+ 3- Timer1 interrupts are used for
+    2.1 - Sampling of the temperature every interrupt (100ms)
+    2.2 - Blinking of the displays every 10 interrupts (1s) in setting mode by toggeling _7sd_mask
+    2.3 - Blinking heating element LED every 10 interrupts (1s) when heating element is on
+
+*/
 void interrupt ISR()
 {
   // RB0 was pressed
   if (INTF)
   {
-    state = state == 'O' || state == 'S' ? 'F' : 'O';
+    state = state == ON_STATE || state == SETTING_STATE ? OFF_STATE : ON_STATE;
     INTF = 0;
     return;
   }
 
   // If on or in setting mode
-  if (state != 'F')
+  if (state != OFF_STATE)
   {
     // Enable LCD if on
-    if (state == 'O')
+    if (state == ON_STATE)
     {
-      ssd_mask = 0xff;
+      _7sd_mask = ON_7SD;
     }
 
     // If timer 0
     if (TMR0IF)
     {
-
-      if (i_7sd)
-      {
-
-        PORTA = 0x10;
-        if (state == 'S')
-          PORTD = ssd_mask & (display7s((unsigned char)(set_temperature % 10)));
-        else
-          PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature % 10)));
-      }
-      else
-      {
-        PORTA = 0x08;
-        if (state == 'S')
-          PORTD = ssd_mask & (display7s((unsigned char)(set_temperature / 10)));
-        else
-          PORTD = ssd_mask & (display7s((unsigned char)(measured_temperature / 10)));
-      }
-      i_7sd = !i_7sd;
+      show_7sd();
+      // reload and clear interrupt flag
       TMR0 = 61;
       TMR0IF = 0;
-      // reload, clear, and begin again
     }
 
     // if timer 1
@@ -178,21 +254,9 @@ void interrupt ISR()
       if (++t_1sec == 10)
       {
         t_1sec = 0;
-        if (heater_on)
-        {
-          PORTB ^= (1 << 6);
-        }
-        if (state == 'S')
-        {
-          ssd_mask = (ssd_mask == 0xff) ? 0x00 : 0xff;
-          if ((++n_blinks) == 10)
-          {
-            e2pext_w(10, set_temperature);
-            n_blinks = 0;
-            state = 'O';
-          }
-        }
+        _1s_handler();
       }
+      // reload, clear interrupt flag, and restart timer
       TMR1H = 0x0b;
       TMR1L = 0xdc;
       PIR1bits.TMR1IF = 0;
@@ -202,6 +266,7 @@ void interrupt ISR()
   // If off
   else
   {
+    // Switch Off the 7SDs
     PORTD = 0x00;
   }
 }
@@ -253,7 +318,7 @@ void main()
 
   while (1)
   {
-    if (state != 'F')
+    if (state != OFF_STATE)
     {
       if (!PORTBbits.RB1)
       {
@@ -261,32 +326,32 @@ void main()
         while (!PORTBbits.RB1)
           ;
 
-        if (state == 'S' && set_temperature >= 40)
+        if (state == SETTING_STATE && set_temperature >= 40)
         {
           GIE = 0;
           set_temperature -= 5;
           GIE = 1;
         }
         else
-          state = 'S';
+          state = SETTING_STATE;
       }
       else if (!PORTBbits.RB2)
       {
         n_blinks = 0;
         while (!PORTBbits.RB2)
           ;
-        if (state == 'S' && set_temperature <= 70)
+        if (state == SETTING_STATE && set_temperature <= 70)
         {
           GIE = 0;
           set_temperature += 5;
           GIE = 1;
         }
         else
-          state = 'S';
+          state = SETTING_STATE;
       }
       // +ve diff, Heater On
       // -ve diff, Cooler On
-      difference = set_temperature - measured_temperature;
+      difference = set_temperature - avg_measured_temperature;
       if (difference >= 5)
       {
         activate_heater();
