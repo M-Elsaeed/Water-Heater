@@ -39,7 +39,7 @@ Down -> R1
 #define DOWN_BTN RB1
 
 // To track number of blinks when setting the temperature
-unsigned char g_num_of_blinks = 0;
+unsigned char g_num_of_7sd_toggles = 0;
 
 // Avg of last 10 measured temperatures, initially equals avg of max and min possible set temperatures
 unsigned int g_avg_measured_temperature = 55;
@@ -73,7 +73,7 @@ void activate_cooler();
 void deactivate_cooler();
 unsigned int calc_avg();
 void show_7sd();
-void _1s_handler();
+void half_s_handler();
 void adc_sample_and_update_average();
 void interrupts_init();
 void timer0_init();
@@ -180,7 +180,7 @@ void show_7sd()
 2- In settings mode, blinks 7sd every one second, blink count is reset if RB1 or RB2 is pressed.
 3- In settings mode, if 7sd is blinked 5 times without RB1 or RB2 being pressed, save the set temperature to the external e2prom. 
 */
-void _1s_handler()
+void half_s_handler()
 {
   if (gb_heater_on)
   {
@@ -189,10 +189,10 @@ void _1s_handler()
   if (g_state == SETTING_STATE)
   {
     g_7sd_mask = (g_7sd_mask == ON_7SD) ? 0x00 : ON_7SD;
-    if ((++g_num_of_blinks) == 10)
+    if ((++g_num_of_7sd_toggles) == 10)
     {
       e2pext_w(10, g_set_temperature);
-      g_num_of_blinks = 0;
+      g_num_of_7sd_toggles = 0;
       g_state = ON_STATE;
     }
   }
@@ -232,8 +232,8 @@ void timer0_init()
   // Prescalar = 256
   OPTION_REG = 0b00000111;
 
-  // TMR0 = 256-(Delay * Fosc)/(Prescalar*4)), delay = 10 ms and Fosc = 20MHz
-  TMR0 = 61;
+  // TMR0 = 256-(Delay * Fosc)/(Prescalar*4)), delay = 3 ms and Fosc = 20MHz
+  TMR0 = 198;
 }
 
 // Configuring timer1 to provide 100ms delay
@@ -289,7 +289,7 @@ void interrupt ISR()
     {
       show_7sd();
       // reload and clear interrupt flag
-      TMR0 = 61;
+      TMR0 = 198;
       TMR0IF = 0;
     }
 
@@ -297,10 +297,10 @@ void interrupt ISR()
     if (TMR1IF)
     {
       adc_sample_and_update_average();
-      if (++g_tenths_of_1sec == 10)
+      if (++g_tenths_of_1sec == 5)
       {
         g_tenths_of_1sec = 0;
-        _1s_handler();
+        half_s_handler();
       }
       // reload, clear interrupt flag, and restart timer
       TMR1H = 0x0b;
@@ -342,9 +342,9 @@ void main()
   // Calculated difference between set and measured temperatures
   int difference;
 
-  // First 3 bits used by ADC, others output to control 7SDs
+  // A2:A0 used by ADC, others output to control 7SDs
   TRISA = 0x07;
-  // 6 Heating led, 7 cooling led, B0:B2 as inputs
+  // 6 Heating/cooling led, B2:B0 as inputs
   TRISB = 0x07;
   // All output to prevent unwanted inputs.
   TRISC = 0x00;
@@ -374,7 +374,7 @@ void main()
     {
       if (!DOWN_BTN)
       {
-        g_num_of_blinks = 0;
+        g_num_of_7sd_toggles = 0;
         while (!DOWN_BTN)
           ;
 
@@ -389,7 +389,7 @@ void main()
       }
       else if (!UP_BTN)
       {
-        g_num_of_blinks = 0;
+        g_num_of_7sd_toggles = 0;
         while (!UP_BTN)
           ;
         if (g_state == SETTING_STATE && g_set_temperature <= 70)
