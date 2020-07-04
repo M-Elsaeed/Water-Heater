@@ -1,3 +1,10 @@
+/*
+  Author: Mohammed Ehab Elsaeed
+  email: m.elsaeed1998@gmail.com
+  Drivers are obtained from 
+  "https://github.com/lcgamboa/picsimlab"
+*/
+
 #include <xc.h>
 
 #include "config_877A.h"

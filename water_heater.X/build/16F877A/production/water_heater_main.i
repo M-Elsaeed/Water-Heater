@@ -1,5 +1,5 @@
 
-# 1 "i2c.c"
+# 1 "water_heater_main.c"
 
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\xc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -1703,6 +1703,20 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
+
+# 40 "config_877A.h"
+#pragma config FOSC = HS
+#pragma config WDTE = OFF
+#pragma config PWRTE = OFF
+#pragma config BOREN = OFF
+#pragma config LVP = ON
+#pragma config CPD = OFF
+#pragma config WRT = OFF
+#pragma config CP = OFF
+
+# 26 "display7s.h"
+unsigned char display7s(unsigned char v);
+
 # 32 "i2c.h"
 void i2c_init(void);
 void i2c_start(void);
@@ -1711,93 +1725,374 @@ void i2c_wb(unsigned char val);
 unsigned char i2c_rb(unsigned char ack);
 void i2c_acktst(unsigned char val);
 
-# 30 "i2c.c"
-void delay(void)
+# 28 "eeprom_ext.h"
+unsigned char e2pext_r(unsigned int addr);
+void e2pext_w(unsigned int addr, unsigned char val);
+
+# 27 "adc.h"
+void adc_init(void);
+
+unsigned int adc_sample(unsigned char canal);
+
+# 15 "water_heater_main.c"
+unsigned char gb_heater_on = 0;
+unsigned char gb_cooler_on = 0;
+
+# 26
+unsigned char g_state = 'F';
+
+# 40
+unsigned char g_num_of_blinks = 0;
+
+
+unsigned int g_avg_measured_temperature = 55;
+
+
+unsigned int g_set_temperature = 60;
+
+
+unsigned char g_tenths_of_1sec = 0;
+
+
+unsigned char g_7sd_mask = 0xff;
+
+
+unsigned char g_7sd_index = 0;
+
+
+unsigned int g_last_ten_temps[10];
+
+# 64
+int g_temps_arr_iterator = 0;
+
+
+
+void activate_heater();
+void deactivate_heater();
+void activate_cooler();
+void deactivate_cooler();
+unsigned int calc_avg();
+void show_7sd();
+void _1s_handler();
+void adc_sample_and_update_average();
+void interrupts_init();
+void timer0_init();
+void timer1_init();
+void interrupt ISR();
+void set_temp_exteeprom_check();
+void main();
+
+
+void activate_heater()
 {
-
-# 32
-#asm
-     NOP
- NOP
- NOP
- NOP
- NOP
- NOP
- NOP
- NOP
-#endasm 
-# 41
-
- }
-
-void i2c_init(void)
+if (!gb_heater_on)
 {
-TRISCbits.TRISC4=0;
-PORTCbits.RC3=1;
-PORTCbits.RC4=1;
+RC5 = 1;
+gb_heater_on = 1;
+RB6 = 1;
+}
 }
 
-void i2c_start(void)
+
+void deactivate_heater()
 {
-PORTCbits.RC3=1;
-PORTCbits.RC4=1;
-delay();
-PORTCbits.RC4=0;
-delay();
+if (g_state == 'F' || g_set_temperature == g_avg_measured_temperature || gb_cooler_on)
+{
+RC5 = 0;
+gb_heater_on = 0;
+if (!gb_cooler_on)
+RB6 = 0;
+}
 }
 
-void i2c_stop(void)
+
+void activate_cooler()
 {
-PORTCbits.RC3=1;
-PORTCbits.RC4=0;
-delay();
-PORTCbits.RC4=1;
-delay();
+if (!gb_cooler_on)
+{
+RC2 = 1;
+gb_cooler_on = 1;
+RB6 = 1;
+}
 }
 
-void i2c_wb(unsigned char val)
+
+void deactivate_cooler()
 {
-unsigned char i;
-PORTCbits.RC3=0;
-for(i=0;i<8;i++)
+if (g_state == 'F' || g_set_temperature == g_avg_measured_temperature || gb_heater_on)
 {
-PORTCbits.RC4=((val>>(7-i))& 0x01);
-PORTCbits.RC3=1;
-delay();
-PORTCbits.RC3=0;
+RC2 = 0;
+gb_cooler_on = 0;
+if (!gb_heater_on)
+RB6 = 0;
 }
-PORTCbits.RC4=1;
-delay();
-PORTCbits.RC3=1;
-delay();
-PORTCbits.RC3=0;
 }
 
-unsigned char i2c_rb(unsigned char ack)
+
+unsigned int calc_avg()
 {
 char i;
-unsigned char ret=0;
-
-PORTCbits.RC3=0;
-TRISCbits.TRISC4=1;
-PORTCbits.RC4=1;
-for(i=0;i<8;i++)
+unsigned int avg = 0;
+for (i = 0; i < 10; i++)
 {
-PORTCbits.RC3=1;
-delay();
-ret|=(PORTCbits.RC4<<(7-i));
-PORTCbits.RC3=0;
+avg += g_last_ten_temps[i];
 }
-TRISCbits.TRISC4=0;
-if(ack)
-PORTCbits.RC4=0;
+return avg / 10;
+}
+
+# 146
+void show_7sd()
+{
+switch (g_7sd_index)
+{
+case 0:
+PORTA = 0x20;
+PORTD = g_7sd_mask & (display7s(12));
+g_7sd_index = 1;
+break;
+case 1:
+PORTA = 0x10;
+if (g_state == 'S')
+PORTD = g_7sd_mask & (display7s((unsigned char)(g_set_temperature % 10)));
 else
-PORTCbits.RC4=1;
-delay();
-PORTCbits.RC3=1;
-delay();
-PORTCbits.RC3=0;
-
-return ret;
+PORTD = g_7sd_mask & (display7s((unsigned char)(g_avg_measured_temperature % 10)));
+g_7sd_index = 2;
+break;
+case 2:
+PORTA = 0x08;
+if (g_state == 'S')
+PORTD = g_7sd_mask & (display7s((unsigned char)(g_set_temperature / 10)));
+else
+PORTD = g_7sd_mask & (display7s((unsigned char)(g_avg_measured_temperature / 10)));
+g_7sd_index = 0;
+break;
+default:
+break;
+}
 }
 
+# 181
+void _1s_handler()
+{
+if (gb_heater_on)
+{
+PORTB ^= (1 << 6);
+}
+if (g_state == 'S')
+{
+g_7sd_mask = (g_7sd_mask == 0xff) ? 0x00 : 0xff;
+if ((++g_num_of_blinks) == 10)
+{
+e2pext_w(10, g_set_temperature);
+g_num_of_blinks = 0;
+g_state = 'O';
+}
+}
+}
+
+# 204
+void adc_sample_and_update_average()
+{
+adc_init();
+g_last_ten_temps[g_temps_arr_iterator++] = (adc_sample(2) * 10) / 20;
+g_avg_measured_temperature = calc_avg();
+g_temps_arr_iterator = (g_temps_arr_iterator > 9) ? 0 : g_temps_arr_iterator;
+}
+
+
+void interrupts_init()
+{
+
+GIE = 1;
+PEIE = 1;
+
+
+TMR0IE = 1;
+TMR1IE = 1;
+
+
+INTE = 1;
+}
+
+
+void timer0_init()
+{
+
+OPTION_REG = 0b00000111;
+
+
+TMR0 = 61;
+}
+
+
+void timer1_init()
+{
+
+
+T1CKPS0 = 1;
+T1CKPS1 = 1;
+
+
+TMR1L = 0xdc;
+TMR1H = 0x0b;
+
+
+TMR1ON = 1;
+}
+
+# 266
+void interrupt ISR()
+{
+
+if (INTF)
+{
+g_state = g_state == 'O' || g_state == 'S' ? 'F' : 'O';
+INTF = 0;
+return;
+}
+
+
+if (g_state != 'F')
+{
+
+if (g_state == 'O')
+{
+g_7sd_mask = 0xff;
+}
+
+
+if (TMR0IF)
+{
+show_7sd();
+
+TMR0 = 61;
+TMR0IF = 0;
+}
+
+
+if (TMR1IF)
+{
+adc_sample_and_update_average();
+if (++g_tenths_of_1sec == 10)
+{
+g_tenths_of_1sec = 0;
+_1s_handler();
+}
+
+TMR1H = 0x0b;
+TMR1L = 0xdc;
+TMR1IF = 0;
+TMR1ON = 1;
+}
+}
+
+else
+{
+
+PORTD = 0x00;
+}
+}
+
+# 323
+void set_temp_exteeprom_check()
+{
+unsigned char read_char;
+read_char = e2pext_r(11);
+if (read_char == 0x33)
+{
+g_set_temperature = e2pext_r(10);
+}
+else
+{
+e2pext_w(10, g_set_temperature);
+e2pext_w(11, 0x33);
+}
+}
+
+void main()
+{
+
+int difference;
+
+
+TRISA = 0x07;
+
+TRISB = 0x07;
+
+TRISC = 0x00;
+
+TRISD = 0x00;
+
+TRISE = 0x00;
+
+
+i2c_init();
+timer1_init();
+timer0_init();
+
+
+interrupts_init();
+
+
+set_temp_exteeprom_check();
+
+# 369
+while (1)
+{
+if (g_state != 'F')
+{
+if (!RB1)
+{
+g_num_of_blinks = 0;
+while (!RB1)
+;
+
+if (g_state == 'S' && g_set_temperature >= 40)
+{
+GIE = 0;
+g_set_temperature -= 5;
+GIE = 1;
+}
+else
+g_state = 'S';
+}
+else if (!RB2)
+{
+g_num_of_blinks = 0;
+while (!RB2)
+;
+if (g_state == 'S' && g_set_temperature <= 70)
+{
+GIE = 0;
+g_set_temperature += 5;
+GIE = 1;
+}
+else
+g_state = 'S';
+}
+
+
+difference = g_set_temperature - g_avg_measured_temperature;
+if (difference >= 5)
+{
+activate_heater();
+deactivate_cooler();
+}
+else if (difference <= -5)
+{
+deactivate_heater();
+activate_cooler();
+}
+else
+{
+deactivate_heater();
+deactivate_cooler();
+}
+}
+else
+{
+deactivate_heater();
+deactivate_cooler();
+}
+}
+}

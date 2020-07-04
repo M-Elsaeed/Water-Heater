@@ -1111,913 +1111,927 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_ext.h: 29: void e2pext_w(unsigned int addr, unsigned char val);
 [; ;adc.h: 27: void adc_init(void);
 [; ;adc.h: 29: unsigned int adc_sample(unsigned char canal);
-"10 teste_b4.c
-[v _heater_on `uc ~T0 @X0 1 e ]
-[i _heater_on
+"15 water_heater_main.c
+[v _gb_heater_on `uc ~T0 @X0 1 e ]
+[i _gb_heater_on
 -> -> 0 `i `uc
 ]
-[; ;teste_b4.c: 10: unsigned char heater_on = 0;
-"11
-[v _cooler_on `uc ~T0 @X0 1 e ]
-[i _cooler_on
+[; ;water_heater_main.c: 15: unsigned char gb_heater_on = 0;
+"16
+[v _gb_cooler_on `uc ~T0 @X0 1 e ]
+[i _gb_cooler_on
 -> -> 0 `i `uc
 ]
-[; ;teste_b4.c: 11: unsigned char cooler_on = 0;
-"21
-[v _state `uc ~T0 @X0 1 e ]
-[i _state
+[; ;water_heater_main.c: 16: unsigned char gb_cooler_on = 0;
+"26
+[v _g_state `uc ~T0 @X0 1 e ]
+[i _g_state
 -> -> 70 `ui `uc
 ]
-[; ;teste_b4.c: 21: unsigned char state = 'F';
-"35
-[v _n_blinks `uc ~T0 @X0 1 e ]
-[i _n_blinks
+[; ;water_heater_main.c: 26: unsigned char g_state = 'F';
+"40
+[v _g_num_of_blinks `uc ~T0 @X0 1 e ]
+[i _g_num_of_blinks
 -> -> 0 `i `uc
 ]
-[; ;teste_b4.c: 35: unsigned char n_blinks = 0;
-"38
-[v _avg_measured_temperature `ui ~T0 @X0 1 e ]
-[i _avg_measured_temperature
+[; ;water_heater_main.c: 40: unsigned char g_num_of_blinks = 0;
+"43
+[v _g_avg_measured_temperature `ui ~T0 @X0 1 e ]
+[i _g_avg_measured_temperature
 -> -> 55 `i `ui
 ]
-[; ;teste_b4.c: 38: unsigned int avg_measured_temperature = 55;
-"41
-[v _set_temperature `ui ~T0 @X0 1 e ]
-[i _set_temperature
+[; ;water_heater_main.c: 43: unsigned int g_avg_measured_temperature = 55;
+"46
+[v _g_set_temperature `ui ~T0 @X0 1 e ]
+[i _g_set_temperature
 -> -> 60 `i `ui
 ]
-[; ;teste_b4.c: 41: unsigned int set_temperature = 60;
-"44
-[v _t_1sec `uc ~T0 @X0 1 e ]
-[i _t_1sec
+[; ;water_heater_main.c: 46: unsigned int g_set_temperature = 60;
+"49
+[v _g_tenths_of_1sec `uc ~T0 @X0 1 e ]
+[i _g_tenths_of_1sec
 -> -> 0 `i `uc
 ]
-[; ;teste_b4.c: 44: unsigned char t_1sec = 0;
-"47
-[v __7sd_mask `uc ~T0 @X0 1 e ]
-[i __7sd_mask
+[; ;water_heater_main.c: 49: unsigned char g_tenths_of_1sec = 0;
+"52
+[v _g_7sd_mask `uc ~T0 @X0 1 e ]
+[i _g_7sd_mask
 -> -> 255 `i `uc
 ]
-[; ;teste_b4.c: 47: unsigned char _7sd_mask = 0xff;
-"50
-[v _i_7sd `uc ~T0 @X0 1 e ]
-[i _i_7sd
+[; ;water_heater_main.c: 52: unsigned char g_7sd_mask = 0xff;
+"55
+[v _g_7sd_index `uc ~T0 @X0 1 e ]
+[i _g_7sd_index
 -> -> 0 `i `uc
 ]
-[; ;teste_b4.c: 50: unsigned char i_7sd = 0;
-"53
-[v _temps `ui ~T0 @X0 -> 10 `i e ]
-[; ;teste_b4.c: 53: unsigned int temps[10];
-"59
-[v _temps_iterator `i ~T0 @X0 1 e ]
-[i _temps_iterator
+[; ;water_heater_main.c: 55: unsigned char g_7sd_index = 0;
+"58
+[v _g_last_ten_temps `ui ~T0 @X0 -> 10 `i e ]
+[; ;water_heater_main.c: 58: unsigned int g_last_ten_temps[10];
+"64
+[v _g_temps_arr_iterator `i ~T0 @X0 1 e ]
+[i _g_temps_arr_iterator
 -> 0 `i
 ]
-[; ;teste_b4.c: 59: int temps_iterator = 0;
-"62
+[; ;water_heater_main.c: 64: int g_temps_arr_iterator = 0;
+[; ;water_heater_main.c: 68: void activate_heater();
+[; ;water_heater_main.c: 69: void deactivate_heater();
+[; ;water_heater_main.c: 70: void activate_cooler();
+[; ;water_heater_main.c: 71: void deactivate_cooler();
+[; ;water_heater_main.c: 72: unsigned int calc_avg();
+[; ;water_heater_main.c: 73: void show_7sd();
+[; ;water_heater_main.c: 74: void _1s_handler();
+[; ;water_heater_main.c: 75: void adc_sample_and_update_average();
+[; ;water_heater_main.c: 76: void interrupts_init();
+[; ;water_heater_main.c: 77: void timer0_init();
+[; ;water_heater_main.c: 78: void timer1_init();
+[; ;water_heater_main.c: 79: void interrupt ISR();
+[; ;water_heater_main.c: 80: void set_temp_exteeprom_check();
+[; ;water_heater_main.c: 81: void main();
+"84
 [v _activate_heater `(v ~T0 @X0 1 ef ]
-"63
+"85
 {
-[; ;teste_b4.c: 62: void activate_heater()
-[; ;teste_b4.c: 63: {
+[; ;water_heater_main.c: 84: void activate_heater()
+[; ;water_heater_main.c: 85: {
 [e :U _activate_heater ]
 [f ]
-[; ;teste_b4.c: 64: if (!heater_on)
-"64
-[e $ ! ! != -> _heater_on `i -> -> -> 0 `i `uc `i 96  ]
-[; ;teste_b4.c: 65: {
-"65
+[; ;water_heater_main.c: 86: if (!gb_heater_on)
+"86
+[e $ ! ! != -> _gb_heater_on `i -> -> -> 0 `i `uc `i 96  ]
+[; ;water_heater_main.c: 87: {
+"87
 {
-[; ;teste_b4.c: 66: RC5 = 1;
-"66
+[; ;water_heater_main.c: 88: RC5 = 1;
+"88
 [e = _RC5 -> -> 1 `i `b ]
-[; ;teste_b4.c: 67: heater_on = 1;
-"67
-[e = _heater_on -> -> 1 `i `uc ]
-[; ;teste_b4.c: 68: RB6 = 1;
-"68
+[; ;water_heater_main.c: 89: gb_heater_on = 1;
+"89
+[e = _gb_heater_on -> -> 1 `i `uc ]
+[; ;water_heater_main.c: 90: RB6 = 1;
+"90
 [e = _RB6 -> -> 1 `i `b ]
-"69
+"91
 }
 [e :U 96 ]
-[; ;teste_b4.c: 69: }
-[; ;teste_b4.c: 70: }
-"70
+[; ;water_heater_main.c: 91: }
+[; ;water_heater_main.c: 92: }
+"92
 [e :UE 95 ]
 }
-"73
+"95
 [v _deactivate_heater `(v ~T0 @X0 1 ef ]
-"74
+"96
 {
-[; ;teste_b4.c: 73: void deactivate_heater()
-[; ;teste_b4.c: 74: {
+[; ;water_heater_main.c: 95: void deactivate_heater()
+[; ;water_heater_main.c: 96: {
 [e :U _deactivate_heater ]
 [f ]
-[; ;teste_b4.c: 75: if (state == 'F' || set_temperature == avg_measured_temperature || cooler_on)
-"75
-[e $ ! || || == -> _state `ui -> 70 `ui == _set_temperature _avg_measured_temperature != -> _cooler_on `i -> -> -> 0 `i `uc `i 98  ]
-[; ;teste_b4.c: 76: {
-"76
+[; ;water_heater_main.c: 97: if (g_state == 'F' || g_set_temperature == g_avg_measured_temperature || gb_cooler_on)
+"97
+[e $ ! || || == -> _g_state `ui -> 70 `ui == _g_set_temperature _g_avg_measured_temperature != -> _gb_cooler_on `i -> -> -> 0 `i `uc `i 98  ]
+[; ;water_heater_main.c: 98: {
+"98
 {
-[; ;teste_b4.c: 77: RC5 = 0;
-"77
+[; ;water_heater_main.c: 99: RC5 = 0;
+"99
 [e = _RC5 -> -> 0 `i `b ]
-[; ;teste_b4.c: 78: heater_on = 0;
-"78
-[e = _heater_on -> -> 0 `i `uc ]
-[; ;teste_b4.c: 79: if (!cooler_on)
-"79
-[e $ ! ! != -> _cooler_on `i -> -> -> 0 `i `uc `i 99  ]
-[; ;teste_b4.c: 80: RB6 = 0;
-"80
+[; ;water_heater_main.c: 100: gb_heater_on = 0;
+"100
+[e = _gb_heater_on -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 101: if (!gb_cooler_on)
+"101
+[e $ ! ! != -> _gb_cooler_on `i -> -> -> 0 `i `uc `i 99  ]
+[; ;water_heater_main.c: 102: RB6 = 0;
+"102
 [e = _RB6 -> -> 0 `i `b ]
 [e :U 99 ]
-"81
+"103
 }
 [e :U 98 ]
-[; ;teste_b4.c: 81: }
-[; ;teste_b4.c: 82: }
-"82
+[; ;water_heater_main.c: 103: }
+[; ;water_heater_main.c: 104: }
+"104
 [e :UE 97 ]
 }
-"85
+"107
 [v _activate_cooler `(v ~T0 @X0 1 ef ]
-"86
+"108
 {
-[; ;teste_b4.c: 85: void activate_cooler()
-[; ;teste_b4.c: 86: {
+[; ;water_heater_main.c: 107: void activate_cooler()
+[; ;water_heater_main.c: 108: {
 [e :U _activate_cooler ]
 [f ]
-[; ;teste_b4.c: 87: if (!cooler_on)
-"87
-[e $ ! ! != -> _cooler_on `i -> -> -> 0 `i `uc `i 101  ]
-[; ;teste_b4.c: 88: {
-"88
+[; ;water_heater_main.c: 109: if (!gb_cooler_on)
+"109
+[e $ ! ! != -> _gb_cooler_on `i -> -> -> 0 `i `uc `i 101  ]
+[; ;water_heater_main.c: 110: {
+"110
 {
-[; ;teste_b4.c: 89: RC2 = 1;
-"89
+[; ;water_heater_main.c: 111: RC2 = 1;
+"111
 [e = _RC2 -> -> 1 `i `b ]
-[; ;teste_b4.c: 90: cooler_on = 1;
-"90
-[e = _cooler_on -> -> 1 `i `uc ]
-[; ;teste_b4.c: 91: RB6 = 1;
-"91
+[; ;water_heater_main.c: 112: gb_cooler_on = 1;
+"112
+[e = _gb_cooler_on -> -> 1 `i `uc ]
+[; ;water_heater_main.c: 113: RB6 = 1;
+"113
 [e = _RB6 -> -> 1 `i `b ]
-"92
+"114
 }
 [e :U 101 ]
-[; ;teste_b4.c: 92: }
-[; ;teste_b4.c: 93: }
-"93
+[; ;water_heater_main.c: 114: }
+[; ;water_heater_main.c: 115: }
+"115
 [e :UE 100 ]
 }
-"96
+"118
 [v _deactivate_cooler `(v ~T0 @X0 1 ef ]
-"97
+"119
 {
-[; ;teste_b4.c: 96: void deactivate_cooler()
-[; ;teste_b4.c: 97: {
+[; ;water_heater_main.c: 118: void deactivate_cooler()
+[; ;water_heater_main.c: 119: {
 [e :U _deactivate_cooler ]
 [f ]
-[; ;teste_b4.c: 98: if (state == 'F' || set_temperature == avg_measured_temperature || heater_on)
-"98
-[e $ ! || || == -> _state `ui -> 70 `ui == _set_temperature _avg_measured_temperature != -> _heater_on `i -> -> -> 0 `i `uc `i 103  ]
-[; ;teste_b4.c: 99: {
-"99
+[; ;water_heater_main.c: 120: if (g_state == 'F' || g_set_temperature == g_avg_measured_temperature || gb_heater_on)
+"120
+[e $ ! || || == -> _g_state `ui -> 70 `ui == _g_set_temperature _g_avg_measured_temperature != -> _gb_heater_on `i -> -> -> 0 `i `uc `i 103  ]
+[; ;water_heater_main.c: 121: {
+"121
 {
-[; ;teste_b4.c: 100: RC2 = 0;
-"100
+[; ;water_heater_main.c: 122: RC2 = 0;
+"122
 [e = _RC2 -> -> 0 `i `b ]
-[; ;teste_b4.c: 101: cooler_on = 0;
-"101
-[e = _cooler_on -> -> 0 `i `uc ]
-[; ;teste_b4.c: 102: if (!heater_on)
-"102
-[e $ ! ! != -> _heater_on `i -> -> -> 0 `i `uc `i 104  ]
-[; ;teste_b4.c: 103: RB6 = 0;
-"103
+[; ;water_heater_main.c: 123: gb_cooler_on = 0;
+"123
+[e = _gb_cooler_on -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 124: if (!gb_heater_on)
+"124
+[e $ ! ! != -> _gb_heater_on `i -> -> -> 0 `i `uc `i 104  ]
+[; ;water_heater_main.c: 125: RB6 = 0;
+"125
 [e = _RB6 -> -> 0 `i `b ]
 [e :U 104 ]
-"104
+"126
 }
 [e :U 103 ]
-[; ;teste_b4.c: 104: }
-[; ;teste_b4.c: 105: }
-"105
+[; ;water_heater_main.c: 126: }
+[; ;water_heater_main.c: 127: }
+"127
 [e :UE 102 ]
 }
-"108
+"130
 [v _calc_avg `(ui ~T0 @X0 1 ef ]
-"109
+"131
 {
-[; ;teste_b4.c: 108: unsigned int calc_avg()
-[; ;teste_b4.c: 109: {
+[; ;water_heater_main.c: 130: unsigned int calc_avg()
+[; ;water_heater_main.c: 131: {
 [e :U _calc_avg ]
 [f ]
-"110
+"132
 [v _i `uc ~T0 @X0 1 a ]
-"111
+"133
 [v _avg `ui ~T0 @X0 1 a ]
-[; ;teste_b4.c: 110: char i;
-[; ;teste_b4.c: 111: unsigned int avg = 0;
+[; ;water_heater_main.c: 132: char i;
+[; ;water_heater_main.c: 133: unsigned int avg = 0;
 [e = _avg -> -> 0 `i `ui ]
-[; ;teste_b4.c: 112: for (i = 0; i < 10; i++)
-"112
+[; ;water_heater_main.c: 134: for (i = 0; i < 10; i++)
+"134
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 10 `i 106  ]
 [e $U 107  ]
-"113
+"135
 [e :U 106 ]
-[; ;teste_b4.c: 113: {
+[; ;water_heater_main.c: 135: {
 {
-[; ;teste_b4.c: 114: avg += temps[i];
-"114
-[e =+ _avg *U + &U _temps * -> _i `ux -> -> # *U &U _temps `ui `ux ]
-"115
+[; ;water_heater_main.c: 136: avg += g_last_ten_temps[i];
+"136
+[e =+ _avg *U + &U _g_last_ten_temps * -> _i `ux -> -> # *U &U _g_last_ten_temps `ui `ux ]
+"137
 }
-"112
+"134
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 10 `i 106  ]
 [e :U 107 ]
-"115
+"137
 }
-[; ;teste_b4.c: 115: }
-[; ;teste_b4.c: 116: return avg / 10;
-"116
+[; ;water_heater_main.c: 137: }
+[; ;water_heater_main.c: 138: return avg / 10;
+"138
 [e ) / _avg -> -> 10 `i `ui ]
 [e $UE 105  ]
-[; ;teste_b4.c: 117: }
-"117
+[; ;water_heater_main.c: 139: }
+"139
 [e :UE 105 ]
 }
-"124
+"146
 [v _show_7sd `(v ~T0 @X0 1 ef ]
-"125
+"147
 {
-[; ;teste_b4.c: 124: void show_7sd()
-[; ;teste_b4.c: 125: {
+[; ;water_heater_main.c: 146: void show_7sd()
+[; ;water_heater_main.c: 147: {
 [e :U _show_7sd ]
 [f ]
-[; ;teste_b4.c: 126: switch (i_7sd)
-"126
-[e $U 111  ]
-[; ;teste_b4.c: 127: {
-"127
-{
-[; ;teste_b4.c: 128: case 0:
-"128
-[e :U 112 ]
-[; ;teste_b4.c: 129: PORTA = 0x20;
-"129
-[e = _PORTA -> -> 32 `i `uc ]
-[; ;teste_b4.c: 130: PORTD = _7sd_mask & (display7s(12));
-"130
-[e = _PORTD -> & -> __7sd_mask `i -> ( _display7s (1 -> -> 12 `i `uc `i `uc ]
-[; ;teste_b4.c: 131: i_7sd = 1;
-"131
-[e = _i_7sd -> -> 1 `i `uc ]
-[; ;teste_b4.c: 132: break;
-"132
-[e $U 110  ]
-[; ;teste_b4.c: 133: case 1:
-"133
-[e :U 113 ]
-[; ;teste_b4.c: 134: PORTA = 0x10;
-"134
-[e = _PORTA -> -> 16 `i `uc ]
-[; ;teste_b4.c: 135: if (state == 'S')
-"135
-[e $ ! == -> _state `ui -> 83 `ui 114  ]
-[; ;teste_b4.c: 136: PORTD = _7sd_mask & (display7s((unsigned char)(set_temperature % 10)));
-"136
-[e = _PORTD -> & -> __7sd_mask `i -> ( _display7s (1 -> % _set_temperature -> -> 10 `i `ui `uc `i `uc ]
-[e $U 115  ]
-"137
-[e :U 114 ]
-[; ;teste_b4.c: 137: else
-[; ;teste_b4.c: 138: PORTD = _7sd_mask & (display7s((unsigned char)(avg_measured_temperature % 10)));
-"138
-[e = _PORTD -> & -> __7sd_mask `i -> ( _display7s (1 -> % _avg_measured_temperature -> -> 10 `i `ui `uc `i `uc ]
-[e :U 115 ]
-[; ;teste_b4.c: 139: i_7sd = 2;
-"139
-[e = _i_7sd -> -> 2 `i `uc ]
-[; ;teste_b4.c: 140: break;
-"140
-[e $U 110  ]
-[; ;teste_b4.c: 141: case 2:
-"141
-[e :U 116 ]
-[; ;teste_b4.c: 142: PORTA = 0x08;
-"142
-[e = _PORTA -> -> 8 `i `uc ]
-[; ;teste_b4.c: 143: if (state == 'S')
-"143
-[e $ ! == -> _state `ui -> 83 `ui 117  ]
-[; ;teste_b4.c: 144: PORTD = _7sd_mask & (display7s((unsigned char)(set_temperature / 10)));
-"144
-[e = _PORTD -> & -> __7sd_mask `i -> ( _display7s (1 -> / _set_temperature -> -> 10 `i `ui `uc `i `uc ]
-[e $U 118  ]
-"145
-[e :U 117 ]
-[; ;teste_b4.c: 145: else
-[; ;teste_b4.c: 146: PORTD = _7sd_mask & (display7s((unsigned char)(avg_measured_temperature / 10)));
-"146
-[e = _PORTD -> & -> __7sd_mask `i -> ( _display7s (1 -> / _avg_measured_temperature -> -> 10 `i `ui `uc `i `uc ]
-[e :U 118 ]
-[; ;teste_b4.c: 147: i_7sd = 0;
-"147
-[e = _i_7sd -> -> 0 `i `uc ]
-[; ;teste_b4.c: 148: break;
+[; ;water_heater_main.c: 148: switch (g_7sd_index)
 "148
-[e $U 110  ]
-[; ;teste_b4.c: 149: default:
+[e $U 111  ]
+[; ;water_heater_main.c: 149: {
 "149
-[e :U 119 ]
-[; ;teste_b4.c: 150: break;
+{
+[; ;water_heater_main.c: 150: case 0:
 "150
-[e $U 110  ]
+[e :U 112 ]
+[; ;water_heater_main.c: 151: PORTA = 0x20;
 "151
-}
-[; ;teste_b4.c: 151: }
+[e = _PORTA -> -> 32 `i `uc ]
+[; ;water_heater_main.c: 152: PORTD = g_7sd_mask & (display7s(12));
+"152
+[e = _PORTD -> & -> _g_7sd_mask `i -> ( _display7s (1 -> -> 12 `i `uc `i `uc ]
+[; ;water_heater_main.c: 153: g_7sd_index = 1;
+"153
+[e = _g_7sd_index -> -> 1 `i `uc ]
+[; ;water_heater_main.c: 154: break;
+"154
 [e $U 110  ]
-"126
+[; ;water_heater_main.c: 155: case 1:
+"155
+[e :U 113 ]
+[; ;water_heater_main.c: 156: PORTA = 0x10;
+"156
+[e = _PORTA -> -> 16 `i `uc ]
+[; ;water_heater_main.c: 157: if (g_state == 'S')
+"157
+[e $ ! == -> _g_state `ui -> 83 `ui 114  ]
+[; ;water_heater_main.c: 158: PORTD = g_7sd_mask & (display7s((unsigned char)(g_set_temperature % 10)));
+"158
+[e = _PORTD -> & -> _g_7sd_mask `i -> ( _display7s (1 -> % _g_set_temperature -> -> 10 `i `ui `uc `i `uc ]
+[e $U 115  ]
+"159
+[e :U 114 ]
+[; ;water_heater_main.c: 159: else
+[; ;water_heater_main.c: 160: PORTD = g_7sd_mask & (display7s((unsigned char)(g_avg_measured_temperature % 10)));
+"160
+[e = _PORTD -> & -> _g_7sd_mask `i -> ( _display7s (1 -> % _g_avg_measured_temperature -> -> 10 `i `ui `uc `i `uc ]
+[e :U 115 ]
+[; ;water_heater_main.c: 161: g_7sd_index = 2;
+"161
+[e = _g_7sd_index -> -> 2 `i `uc ]
+[; ;water_heater_main.c: 162: break;
+"162
+[e $U 110  ]
+[; ;water_heater_main.c: 163: case 2:
+"163
+[e :U 116 ]
+[; ;water_heater_main.c: 164: PORTA = 0x08;
+"164
+[e = _PORTA -> -> 8 `i `uc ]
+[; ;water_heater_main.c: 165: if (g_state == 'S')
+"165
+[e $ ! == -> _g_state `ui -> 83 `ui 117  ]
+[; ;water_heater_main.c: 166: PORTD = g_7sd_mask & (display7s((unsigned char)(g_set_temperature / 10)));
+"166
+[e = _PORTD -> & -> _g_7sd_mask `i -> ( _display7s (1 -> / _g_set_temperature -> -> 10 `i `ui `uc `i `uc ]
+[e $U 118  ]
+"167
+[e :U 117 ]
+[; ;water_heater_main.c: 167: else
+[; ;water_heater_main.c: 168: PORTD = g_7sd_mask & (display7s((unsigned char)(g_avg_measured_temperature / 10)));
+"168
+[e = _PORTD -> & -> _g_7sd_mask `i -> ( _display7s (1 -> / _g_avg_measured_temperature -> -> 10 `i `ui `uc `i `uc ]
+[e :U 118 ]
+[; ;water_heater_main.c: 169: g_7sd_index = 0;
+"169
+[e = _g_7sd_index -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 170: break;
+"170
+[e $U 110  ]
+[; ;water_heater_main.c: 171: default:
+"171
+[e :U 119 ]
+[; ;water_heater_main.c: 172: break;
+"172
+[e $U 110  ]
+"173
+}
+[; ;water_heater_main.c: 173: }
+[e $U 110  ]
+"148
 [e :U 111 ]
-[e [\ _i_7sd , $ -> -> 0 `i `uc 112
+[e [\ _g_7sd_index , $ -> -> 0 `i `uc 112
  , $ -> -> 1 `i `uc 113
  , $ -> -> 2 `i `uc 116
  119 ]
-"151
+"173
 [e :U 110 ]
-[; ;teste_b4.c: 152: }
-"152
+[; ;water_heater_main.c: 174: }
+"174
 [e :UE 109 ]
 }
-"159
+"181
 [v __1s_handler `(v ~T0 @X0 1 ef ]
-"160
+"182
 {
-[; ;teste_b4.c: 159: void _1s_handler()
-[; ;teste_b4.c: 160: {
+[; ;water_heater_main.c: 181: void _1s_handler()
+[; ;water_heater_main.c: 182: {
 [e :U __1s_handler ]
 [f ]
-[; ;teste_b4.c: 161: if (heater_on)
-"161
-[e $ ! != -> _heater_on `i -> -> -> 0 `i `uc `i 121  ]
-[; ;teste_b4.c: 162: {
-"162
+[; ;water_heater_main.c: 183: if (gb_heater_on)
+"183
+[e $ ! != -> _gb_heater_on `i -> -> -> 0 `i `uc `i 121  ]
+[; ;water_heater_main.c: 184: {
+"184
 {
-[; ;teste_b4.c: 163: PORTB ^= (1 << 6);
-"163
+[; ;water_heater_main.c: 185: PORTB ^= (1 << 6);
+"185
 [e =^ _PORTB -> << -> 1 `i -> 6 `i `uc ]
-"164
+"186
 }
 [e :U 121 ]
-[; ;teste_b4.c: 164: }
-[; ;teste_b4.c: 165: if (state == 'S')
-"165
-[e $ ! == -> _state `ui -> 83 `ui 122  ]
-[; ;teste_b4.c: 166: {
-"166
+[; ;water_heater_main.c: 186: }
+[; ;water_heater_main.c: 187: if (g_state == 'S')
+"187
+[e $ ! == -> _g_state `ui -> 83 `ui 122  ]
+[; ;water_heater_main.c: 188: {
+"188
 {
-[; ;teste_b4.c: 167: _7sd_mask = (_7sd_mask == 0xff) ? 0x00 : 0xff;
-"167
-[e = __7sd_mask -> ? == -> __7sd_mask `i -> 255 `i : -> 0 `i -> 255 `i `uc ]
-[; ;teste_b4.c: 168: if ((++n_blinks) == 10)
-"168
-[e $ ! == -> =+ _n_blinks -> -> 1 `i `uc `i -> 10 `i 123  ]
-[; ;teste_b4.c: 169: {
-"169
+[; ;water_heater_main.c: 189: g_7sd_mask = (g_7sd_mask == 0xff) ? 0x00 : 0xff;
+"189
+[e = _g_7sd_mask -> ? == -> _g_7sd_mask `i -> 255 `i : -> 0 `i -> 255 `i `uc ]
+[; ;water_heater_main.c: 190: if ((++g_num_of_blinks) == 10)
+"190
+[e $ ! == -> =+ _g_num_of_blinks -> -> 1 `i `uc `i -> 10 `i 123  ]
+[; ;water_heater_main.c: 191: {
+"191
 {
-[; ;teste_b4.c: 170: e2pext_w(10, set_temperature);
-"170
-[e ( _e2pext_w (2 , -> -> 10 `i `ui -> _set_temperature `uc ]
-[; ;teste_b4.c: 171: n_blinks = 0;
-"171
-[e = _n_blinks -> -> 0 `i `uc ]
-[; ;teste_b4.c: 172: state = 'O';
-"172
-[e = _state -> -> 79 `ui `uc ]
-"173
+[; ;water_heater_main.c: 192: e2pext_w(10, g_set_temperature);
+"192
+[e ( _e2pext_w (2 , -> -> 10 `i `ui -> _g_set_temperature `uc ]
+[; ;water_heater_main.c: 193: g_num_of_blinks = 0;
+"193
+[e = _g_num_of_blinks -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 194: g_state = 'O';
+"194
+[e = _g_state -> -> 79 `ui `uc ]
+"195
 }
 [e :U 123 ]
-"174
+"196
 }
 [e :U 122 ]
-[; ;teste_b4.c: 173: }
-[; ;teste_b4.c: 174: }
-[; ;teste_b4.c: 175: }
-"175
+[; ;water_heater_main.c: 195: }
+[; ;water_heater_main.c: 196: }
+[; ;water_heater_main.c: 197: }
+"197
 [e :UE 120 ]
 }
-"182
+"204
 [v _adc_sample_and_update_average `(v ~T0 @X0 1 ef ]
-"183
+"205
 {
-[; ;teste_b4.c: 182: void adc_sample_and_update_average()
-[; ;teste_b4.c: 183: {
+[; ;water_heater_main.c: 204: void adc_sample_and_update_average()
+[; ;water_heater_main.c: 205: {
 [e :U _adc_sample_and_update_average ]
 [f ]
-[; ;teste_b4.c: 184: adc_init();
-"184
+[; ;water_heater_main.c: 206: adc_init();
+"206
 [e ( _adc_init ..  ]
-[; ;teste_b4.c: 185: temps[temps_iterator++] = (adc_sample(2) * 10) / 20;
-"185
-[e = *U + &U _temps * -> -> ++ _temps_iterator -> 1 `i `ui `ux -> -> # *U &U _temps `ui `ux / * ( _adc_sample (1 -> -> 2 `i `uc -> -> 10 `i `ui -> -> 20 `i `ui ]
-[; ;teste_b4.c: 186: avg_measured_temperature = calc_avg();
-"186
-[e = _avg_measured_temperature ( _calc_avg ..  ]
-[; ;teste_b4.c: 187: temps_iterator = (temps_iterator > 9) ? 0 : temps_iterator;
-"187
-[e = _temps_iterator ? > _temps_iterator -> 9 `i : -> 0 `i _temps_iterator ]
-[; ;teste_b4.c: 188: }
-"188
+[; ;water_heater_main.c: 207: g_last_ten_temps[g_temps_arr_iterator++] = (adc_sample(2) * 10) / 20;
+"207
+[e = *U + &U _g_last_ten_temps * -> -> ++ _g_temps_arr_iterator -> 1 `i `ui `ux -> -> # *U &U _g_last_ten_temps `ui `ux / * ( _adc_sample (1 -> -> 2 `i `uc -> -> 10 `i `ui -> -> 20 `i `ui ]
+[; ;water_heater_main.c: 208: g_avg_measured_temperature = calc_avg();
+"208
+[e = _g_avg_measured_temperature ( _calc_avg ..  ]
+[; ;water_heater_main.c: 209: g_temps_arr_iterator = (g_temps_arr_iterator > 9) ? 0 : g_temps_arr_iterator;
+"209
+[e = _g_temps_arr_iterator ? > _g_temps_arr_iterator -> 9 `i : -> 0 `i _g_temps_arr_iterator ]
+[; ;water_heater_main.c: 210: }
+"210
 [e :UE 124 ]
 }
-"191
+"213
 [v _interrupts_init `(v ~T0 @X0 1 ef ]
-"192
+"214
 {
-[; ;teste_b4.c: 191: void interrupts_init()
-[; ;teste_b4.c: 192: {
+[; ;water_heater_main.c: 213: void interrupts_init()
+[; ;water_heater_main.c: 214: {
 [e :U _interrupts_init ]
 [f ]
-[; ;teste_b4.c: 194: GIE = 1;
-"194
+[; ;water_heater_main.c: 216: GIE = 1;
+"216
 [e = _GIE -> -> 1 `i `b ]
-[; ;teste_b4.c: 195: PEIE = 1;
-"195
+[; ;water_heater_main.c: 217: PEIE = 1;
+"217
 [e = _PEIE -> -> 1 `i `b ]
-[; ;teste_b4.c: 198: TMR0IE = 1;
-"198
+[; ;water_heater_main.c: 220: TMR0IE = 1;
+"220
 [e = _TMR0IE -> -> 1 `i `b ]
-[; ;teste_b4.c: 199: TMR1IE = 1;
-"199
+[; ;water_heater_main.c: 221: TMR1IE = 1;
+"221
 [e = _TMR1IE -> -> 1 `i `b ]
-[; ;teste_b4.c: 202: INTE = 1;
-"202
+[; ;water_heater_main.c: 224: INTE = 1;
+"224
 [e = _INTE -> -> 1 `i `b ]
-[; ;teste_b4.c: 203: }
-"203
+[; ;water_heater_main.c: 225: }
+"225
 [e :UE 125 ]
 }
-"206
+"228
 [v _timer0_init `(v ~T0 @X0 1 ef ]
-"207
+"229
 {
-[; ;teste_b4.c: 206: void timer0_init()
-[; ;teste_b4.c: 207: {
+[; ;water_heater_main.c: 228: void timer0_init()
+[; ;water_heater_main.c: 229: {
 [e :U _timer0_init ]
 [f ]
-[; ;teste_b4.c: 209: OPTION_REG = 0b00000111;
-"209
+[; ;water_heater_main.c: 231: OPTION_REG = 0b00000111;
+"231
 [e = _OPTION_REG -> -> 7 `i `uc ]
-[; ;teste_b4.c: 212: TMR0 = 61;
-"212
+[; ;water_heater_main.c: 234: TMR0 = 61;
+"234
 [e = _TMR0 -> -> 61 `i `uc ]
-[; ;teste_b4.c: 213: }
-"213
+[; ;water_heater_main.c: 235: }
+"235
 [e :UE 126 ]
 }
-"216
+"238
 [v _timer1_init `(v ~T0 @X0 1 ef ]
-"217
+"239
 {
-[; ;teste_b4.c: 216: void timer1_init()
-[; ;teste_b4.c: 217: {
+[; ;water_heater_main.c: 238: void timer1_init()
+[; ;water_heater_main.c: 239: {
 [e :U _timer1_init ]
 [f ]
-[; ;teste_b4.c: 220: T1CKPS0 = 1;
-"220
+[; ;water_heater_main.c: 242: T1CKPS0 = 1;
+"242
 [e = _T1CKPS0 -> -> 1 `i `b ]
-[; ;teste_b4.c: 221: T1CKPS1 = 1;
-"221
+[; ;water_heater_main.c: 243: T1CKPS1 = 1;
+"243
 [e = _T1CKPS1 -> -> 1 `i `b ]
-[; ;teste_b4.c: 224: TMR1L = 0xdc;
-"224
+[; ;water_heater_main.c: 246: TMR1L = 0xdc;
+"246
 [e = _TMR1L -> -> 220 `i `uc ]
-[; ;teste_b4.c: 225: TMR1H = 0x0b;
-"225
+[; ;water_heater_main.c: 247: TMR1H = 0x0b;
+"247
 [e = _TMR1H -> -> 11 `i `uc ]
-[; ;teste_b4.c: 228: TMR1ON = 1;
-"228
+[; ;water_heater_main.c: 250: TMR1ON = 1;
+"250
 [e = _TMR1ON -> -> 1 `i `b ]
-[; ;teste_b4.c: 229: }
-"229
+[; ;water_heater_main.c: 251: }
+"251
 [e :UE 127 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
-[v F903 `(v ~T0 @X0 1 tf ]
-"244
-[v _ISR `IF903 ~T0 @X0 1 e ]
-"245
+[v F897 `(v ~T0 @X0 1 tf ]
+"266
+[v _ISR `IF897 ~T0 @X0 1 e ]
+"267
 {
-[; ;teste_b4.c: 244: void interrupt ISR()
-[; ;teste_b4.c: 245: {
+[; ;water_heater_main.c: 266: void interrupt ISR()
+[; ;water_heater_main.c: 267: {
 [e :U _ISR ]
 [f ]
-[; ;teste_b4.c: 247: if (INTF)
-"247
+[; ;water_heater_main.c: 269: if (INTF)
+"269
 [e $ ! _INTF 129  ]
-[; ;teste_b4.c: 248: {
-"248
+[; ;water_heater_main.c: 270: {
+"270
 {
-[; ;teste_b4.c: 249: state = state == 'O' || state == 'S' ? 'F' : 'O';
-"249
-[e = _state -> ? || == -> _state `ui -> 79 `ui == -> _state `ui -> 83 `ui : -> 70 `ui -> 79 `ui `uc ]
-[; ;teste_b4.c: 250: INTF = 0;
-"250
+[; ;water_heater_main.c: 271: g_state = g_state == 'O' || g_state == 'S' ? 'F' : 'O';
+"271
+[e = _g_state -> ? || == -> _g_state `ui -> 79 `ui == -> _g_state `ui -> 83 `ui : -> 70 `ui -> 79 `ui `uc ]
+[; ;water_heater_main.c: 272: INTF = 0;
+"272
 [e = _INTF -> -> 0 `i `b ]
-[; ;teste_b4.c: 251: return;
-"251
+[; ;water_heater_main.c: 273: return;
+"273
 [e $UE 128  ]
-"252
+"274
 }
 [e :U 129 ]
-[; ;teste_b4.c: 252: }
-[; ;teste_b4.c: 255: if (state != 'F')
-"255
-[e $ ! != -> _state `ui -> 70 `ui 130  ]
-[; ;teste_b4.c: 256: {
-"256
+[; ;water_heater_main.c: 274: }
+[; ;water_heater_main.c: 277: if (g_state != 'F')
+"277
+[e $ ! != -> _g_state `ui -> 70 `ui 130  ]
+[; ;water_heater_main.c: 278: {
+"278
 {
-[; ;teste_b4.c: 258: if (state == 'O')
-"258
-[e $ ! == -> _state `ui -> 79 `ui 131  ]
-[; ;teste_b4.c: 259: {
-"259
+[; ;water_heater_main.c: 280: if (g_state == 'O')
+"280
+[e $ ! == -> _g_state `ui -> 79 `ui 131  ]
+[; ;water_heater_main.c: 281: {
+"281
 {
-[; ;teste_b4.c: 260: _7sd_mask = 0xff;
-"260
-[e = __7sd_mask -> -> 255 `i `uc ]
-"261
+[; ;water_heater_main.c: 282: g_7sd_mask = 0xff;
+"282
+[e = _g_7sd_mask -> -> 255 `i `uc ]
+"283
 }
 [e :U 131 ]
-[; ;teste_b4.c: 261: }
-[; ;teste_b4.c: 264: if (TMR0IF)
-"264
+[; ;water_heater_main.c: 283: }
+[; ;water_heater_main.c: 286: if (TMR0IF)
+"286
 [e $ ! _TMR0IF 132  ]
-[; ;teste_b4.c: 265: {
-"265
+[; ;water_heater_main.c: 287: {
+"287
 {
-[; ;teste_b4.c: 266: show_7sd();
-"266
+[; ;water_heater_main.c: 288: show_7sd();
+"288
 [e ( _show_7sd ..  ]
-[; ;teste_b4.c: 268: TMR0 = 61;
-"268
+[; ;water_heater_main.c: 290: TMR0 = 61;
+"290
 [e = _TMR0 -> -> 61 `i `uc ]
-[; ;teste_b4.c: 269: TMR0IF = 0;
-"269
+[; ;water_heater_main.c: 291: TMR0IF = 0;
+"291
 [e = _TMR0IF -> -> 0 `i `b ]
-"270
+"292
 }
 [e :U 132 ]
-[; ;teste_b4.c: 270: }
-[; ;teste_b4.c: 273: if (TMR1IF)
-"273
+[; ;water_heater_main.c: 292: }
+[; ;water_heater_main.c: 295: if (TMR1IF)
+"295
 [e $ ! _TMR1IF 133  ]
-[; ;teste_b4.c: 274: {
-"274
+[; ;water_heater_main.c: 296: {
+"296
 {
-[; ;teste_b4.c: 275: adc_sample_and_update_average();
-"275
+[; ;water_heater_main.c: 297: adc_sample_and_update_average();
+"297
 [e ( _adc_sample_and_update_average ..  ]
-[; ;teste_b4.c: 276: if (++t_1sec == 10)
-"276
-[e $ ! == -> =+ _t_1sec -> -> 1 `i `uc `i -> 10 `i 134  ]
-[; ;teste_b4.c: 277: {
-"277
+[; ;water_heater_main.c: 298: if (++g_tenths_of_1sec == 10)
+"298
+[e $ ! == -> =+ _g_tenths_of_1sec -> -> 1 `i `uc `i -> 10 `i 134  ]
+[; ;water_heater_main.c: 299: {
+"299
 {
-[; ;teste_b4.c: 278: t_1sec = 0;
-"278
-[e = _t_1sec -> -> 0 `i `uc ]
-[; ;teste_b4.c: 279: _1s_handler();
-"279
+[; ;water_heater_main.c: 300: g_tenths_of_1sec = 0;
+"300
+[e = _g_tenths_of_1sec -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 301: _1s_handler();
+"301
 [e ( __1s_handler ..  ]
-"280
+"302
 }
 [e :U 134 ]
-[; ;teste_b4.c: 280: }
-[; ;teste_b4.c: 282: TMR1H = 0x0b;
-"282
-[e = _TMR1H -> -> 11 `i `uc ]
-[; ;teste_b4.c: 283: TMR1L = 0xdc;
-"283
-[e = _TMR1L -> -> 220 `i `uc ]
-[; ;teste_b4.c: 284: TMR1IF = 0;
-"284
-[e = _TMR1IF -> -> 0 `i `b ]
-[; ;teste_b4.c: 285: TMR1ON = 1;
-"285
-[e = _TMR1ON -> -> 1 `i `b ]
-"286
-}
-[e :U 133 ]
-"287
-}
-[; ;teste_b4.c: 286: }
-[; ;teste_b4.c: 287: }
-[e $U 135  ]
-"289
-[e :U 130 ]
-[; ;teste_b4.c: 289: else
-[; ;teste_b4.c: 290: {
-"290
-{
-[; ;teste_b4.c: 292: PORTD = 0x00;
-"292
-[e = _PORTD -> -> 0 `i `uc ]
-"293
-}
-[e :U 135 ]
-[; ;teste_b4.c: 293: }
-[; ;teste_b4.c: 294: }
-"294
-[e :UE 128 ]
-}
-"301
-[v _set_temp_exteeprom_check `(v ~T0 @X0 1 ef ]
-"302
-{
-[; ;teste_b4.c: 301: void set_temp_exteeprom_check()
-[; ;teste_b4.c: 302: {
-[e :U _set_temp_exteeprom_check ]
-[f ]
-"303
-[v _read_char `uc ~T0 @X0 1 a ]
-[; ;teste_b4.c: 303: unsigned char read_char;
-[; ;teste_b4.c: 304: read_char = e2pext_r(11);
+[; ;water_heater_main.c: 302: }
+[; ;water_heater_main.c: 304: TMR1H = 0x0b;
 "304
-[e = _read_char ( _e2pext_r (1 -> -> 11 `i `ui ]
-[; ;teste_b4.c: 305: if (read_char == 0x33)
+[e = _TMR1H -> -> 11 `i `uc ]
+[; ;water_heater_main.c: 305: TMR1L = 0xdc;
 "305
-[e $ ! == -> _read_char `i -> 51 `i 137  ]
-[; ;teste_b4.c: 306: {
+[e = _TMR1L -> -> 220 `i `uc ]
+[; ;water_heater_main.c: 306: TMR1IF = 0;
 "306
-{
-[; ;teste_b4.c: 307: set_temperature = e2pext_r(10);
+[e = _TMR1IF -> -> 0 `i `b ]
+[; ;water_heater_main.c: 307: TMR1ON = 1;
 "307
-[e = _set_temperature -> ( _e2pext_r (1 -> -> 10 `i `ui `ui ]
+[e = _TMR1ON -> -> 1 `i `b ]
 "308
 }
-[; ;teste_b4.c: 308: }
-[e $U 138  ]
+[e :U 133 ]
 "309
-[e :U 137 ]
-[; ;teste_b4.c: 309: else
-[; ;teste_b4.c: 310: {
-"310
-{
-[; ;teste_b4.c: 311: e2pext_w(10, set_temperature);
+}
+[; ;water_heater_main.c: 308: }
+[; ;water_heater_main.c: 309: }
+[e $U 135  ]
 "311
-[e ( _e2pext_w (2 , -> -> 10 `i `ui -> _set_temperature `uc ]
-[; ;teste_b4.c: 312: e2pext_w(11, 0x33);
+[e :U 130 ]
+[; ;water_heater_main.c: 311: else
+[; ;water_heater_main.c: 312: {
 "312
+{
+[; ;water_heater_main.c: 314: PORTD = 0x00;
+"314
+[e = _PORTD -> -> 0 `i `uc ]
+"315
+}
+[e :U 135 ]
+[; ;water_heater_main.c: 315: }
+[; ;water_heater_main.c: 316: }
+"316
+[e :UE 128 ]
+}
+"323
+[v _set_temp_exteeprom_check `(v ~T0 @X0 1 ef ]
+"324
+{
+[; ;water_heater_main.c: 323: void set_temp_exteeprom_check()
+[; ;water_heater_main.c: 324: {
+[e :U _set_temp_exteeprom_check ]
+[f ]
+"325
+[v _read_char `uc ~T0 @X0 1 a ]
+[; ;water_heater_main.c: 325: unsigned char read_char;
+[; ;water_heater_main.c: 326: read_char = e2pext_r(11);
+"326
+[e = _read_char ( _e2pext_r (1 -> -> 11 `i `ui ]
+[; ;water_heater_main.c: 327: if (read_char == 0x33)
+"327
+[e $ ! == -> _read_char `i -> 51 `i 137  ]
+[; ;water_heater_main.c: 328: {
+"328
+{
+[; ;water_heater_main.c: 329: g_set_temperature = e2pext_r(10);
+"329
+[e = _g_set_temperature -> ( _e2pext_r (1 -> -> 10 `i `ui `ui ]
+"330
+}
+[; ;water_heater_main.c: 330: }
+[e $U 138  ]
+"331
+[e :U 137 ]
+[; ;water_heater_main.c: 331: else
+[; ;water_heater_main.c: 332: {
+"332
+{
+[; ;water_heater_main.c: 333: e2pext_w(10, g_set_temperature);
+"333
+[e ( _e2pext_w (2 , -> -> 10 `i `ui -> _g_set_temperature `uc ]
+[; ;water_heater_main.c: 334: e2pext_w(11, 0x33);
+"334
 [e ( _e2pext_w (2 , -> -> 11 `i `ui -> -> 51 `i `uc ]
-"313
+"335
 }
 [e :U 138 ]
-[; ;teste_b4.c: 313: }
-[; ;teste_b4.c: 314: }
-"314
+[; ;water_heater_main.c: 335: }
+[; ;water_heater_main.c: 336: }
+"336
 [e :UE 136 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"316
+"338
 [v _main `(v ~T0 @X0 1 ef ]
-"317
+"339
 {
-[; ;teste_b4.c: 316: void main()
-[; ;teste_b4.c: 317: {
+[; ;water_heater_main.c: 338: void main()
+[; ;water_heater_main.c: 339: {
 [e :U _main ]
 [f ]
-"319
-[v _difference `i ~T0 @X0 1 a ]
-[; ;teste_b4.c: 319: int difference;
-[; ;teste_b4.c: 322: TRISA = 0x07;
-"322
-[e = _TRISA -> -> 7 `i `uc ]
-[; ;teste_b4.c: 324: TRISB = 0x07;
-"324
-[e = _TRISB -> -> 7 `i `uc ]
-[; ;teste_b4.c: 326: TRISC = 0x00;
-"326
-[e = _TRISC -> -> 0 `i `uc ]
-[; ;teste_b4.c: 328: TRISD = 0x00;
-"328
-[e = _TRISD -> -> 0 `i `uc ]
-[; ;teste_b4.c: 330: TRISE = 0x00;
-"330
-[e = _TRISE -> -> 0 `i `uc ]
-[; ;teste_b4.c: 333: i2c_init();
-"333
-[e ( _i2c_init ..  ]
-[; ;teste_b4.c: 334: timer1_init();
-"334
-[e ( _timer1_init ..  ]
-[; ;teste_b4.c: 335: timer0_init();
-"335
-[e ( _timer0_init ..  ]
-[; ;teste_b4.c: 338: interrupts_init();
-"338
-[e ( _interrupts_init ..  ]
-[; ;teste_b4.c: 341: set_temp_exteeprom_check();
 "341
-[e ( _set_temp_exteeprom_check ..  ]
-[; ;teste_b4.c: 347: while (1)
-"347
-[e :U 141 ]
-[; ;teste_b4.c: 348: {
+[v _difference `i ~T0 @X0 1 a ]
+[; ;water_heater_main.c: 341: int difference;
+[; ;water_heater_main.c: 344: TRISA = 0x07;
+"344
+[e = _TRISA -> -> 7 `i `uc ]
+[; ;water_heater_main.c: 346: TRISB = 0x07;
+"346
+[e = _TRISB -> -> 7 `i `uc ]
+[; ;water_heater_main.c: 348: TRISC = 0x00;
 "348
-{
-[; ;teste_b4.c: 349: if (state != 'F')
-"349
-[e $ ! != -> _state `ui -> 70 `ui 143  ]
-[; ;teste_b4.c: 350: {
+[e = _TRISC -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 350: TRISD = 0x00;
 "350
-{
-[; ;teste_b4.c: 351: if (!RB1)
-"351
-[e $ ! ! _RB1 144  ]
-[; ;teste_b4.c: 352: {
+[e = _TRISD -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 352: TRISE = 0x00;
 "352
-{
-[; ;teste_b4.c: 353: n_blinks = 0;
-"353
-[e = _n_blinks -> -> 0 `i `uc ]
-[; ;teste_b4.c: 354: while (!RB1)
-"354
-[e $U 145  ]
-[e :U 146 ]
-[; ;teste_b4.c: 355: ;
+[e = _TRISE -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 355: i2c_init();
 "355
-[e :U 145 ]
-"354
-[e $ ! _RB1 146  ]
-[e :U 147 ]
-[; ;teste_b4.c: 357: if (state == 'S' && set_temperature >= 40)
+[e ( _i2c_init ..  ]
+[; ;water_heater_main.c: 356: timer1_init();
+"356
+[e ( _timer1_init ..  ]
+[; ;water_heater_main.c: 357: timer0_init();
 "357
-[e $ ! && == -> _state `ui -> 83 `ui >= _set_temperature -> -> 40 `i `ui 148  ]
-[; ;teste_b4.c: 358: {
-"358
-{
-[; ;teste_b4.c: 359: GIE = 0;
-"359
-[e = _GIE -> -> 0 `i `b ]
-[; ;teste_b4.c: 360: set_temperature -= 5;
+[e ( _timer0_init ..  ]
+[; ;water_heater_main.c: 360: interrupts_init();
 "360
-[e =- _set_temperature -> -> 5 `i `ui ]
-[; ;teste_b4.c: 361: GIE = 1;
-"361
-[e = _GIE -> -> 1 `i `b ]
-"362
-}
-[; ;teste_b4.c: 362: }
-[e $U 149  ]
+[e ( _interrupts_init ..  ]
+[; ;water_heater_main.c: 363: set_temp_exteeprom_check();
 "363
-[e :U 148 ]
-[; ;teste_b4.c: 363: else
-[; ;teste_b4.c: 364: state = 'S';
-"364
-[e = _state -> -> 83 `ui `uc ]
-[e :U 149 ]
-"365
-}
-[; ;teste_b4.c: 365: }
-[e $U 150  ]
-"366
-[e :U 144 ]
-[; ;teste_b4.c: 366: else if (!RB2)
-[e $ ! ! _RB2 151  ]
-[; ;teste_b4.c: 367: {
-"367
-{
-[; ;teste_b4.c: 368: n_blinks = 0;
-"368
-[e = _n_blinks -> -> 0 `i `uc ]
-[; ;teste_b4.c: 369: while (!RB2)
+[e ( _set_temp_exteeprom_check ..  ]
+[; ;water_heater_main.c: 369: while (1)
 "369
-[e $U 152  ]
-[e :U 153 ]
-[; ;teste_b4.c: 370: ;
+[e :U 141 ]
+[; ;water_heater_main.c: 370: {
 "370
-[e :U 152 ]
-"369
-[e $ ! _RB2 153  ]
-[e :U 154 ]
-[; ;teste_b4.c: 371: if (state == 'S' && set_temperature <= 70)
+{
+[; ;water_heater_main.c: 371: if (g_state != 'F')
 "371
-[e $ ! && == -> _state `ui -> 83 `ui <= _set_temperature -> -> 70 `i `ui 155  ]
-[; ;teste_b4.c: 372: {
+[e $ ! != -> _g_state `ui -> 70 `ui 143  ]
+[; ;water_heater_main.c: 372: {
 "372
 {
-[; ;teste_b4.c: 373: GIE = 0;
+[; ;water_heater_main.c: 373: if (!RB1)
 "373
-[e = _GIE -> -> 0 `i `b ]
-[; ;teste_b4.c: 374: set_temperature += 5;
+[e $ ! ! _RB1 144  ]
+[; ;water_heater_main.c: 374: {
 "374
-[e =+ _set_temperature -> -> 5 `i `ui ]
-[; ;teste_b4.c: 375: GIE = 1;
-"375
-[e = _GIE -> -> 1 `i `b ]
-"376
-}
-[; ;teste_b4.c: 376: }
-[e $U 156  ]
-"377
-[e :U 155 ]
-[; ;teste_b4.c: 377: else
-[; ;teste_b4.c: 378: state = 'S';
-"378
-[e = _state -> -> 83 `ui `uc ]
-[e :U 156 ]
-"379
-}
-[e :U 151 ]
-"382
-[e :U 150 ]
-[; ;teste_b4.c: 379: }
-[; ;teste_b4.c: 382: difference = set_temperature - avg_measured_temperature;
-[e = _difference -> - _set_temperature _avg_measured_temperature `i ]
-[; ;teste_b4.c: 383: if (difference >= 5)
-"383
-[e $ ! >= _difference -> 5 `i 157  ]
-[; ;teste_b4.c: 384: {
-"384
 {
-[; ;teste_b4.c: 385: activate_heater();
+[; ;water_heater_main.c: 375: g_num_of_blinks = 0;
+"375
+[e = _g_num_of_blinks -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 376: while (!RB1)
+"376
+[e $U 145  ]
+[e :U 146 ]
+[; ;water_heater_main.c: 377: ;
+"377
+[e :U 145 ]
+"376
+[e $ ! _RB1 146  ]
+[e :U 147 ]
+[; ;water_heater_main.c: 379: if (g_state == 'S' && g_set_temperature >= 40)
+"379
+[e $ ! && == -> _g_state `ui -> 83 `ui >= _g_set_temperature -> -> 40 `i `ui 148  ]
+[; ;water_heater_main.c: 380: {
+"380
+{
+[; ;water_heater_main.c: 381: GIE = 0;
+"381
+[e = _GIE -> -> 0 `i `b ]
+[; ;water_heater_main.c: 382: g_set_temperature -= 5;
+"382
+[e =- _g_set_temperature -> -> 5 `i `ui ]
+[; ;water_heater_main.c: 383: GIE = 1;
+"383
+[e = _GIE -> -> 1 `i `b ]
+"384
+}
+[; ;water_heater_main.c: 384: }
+[e $U 149  ]
 "385
-[e ( _activate_heater ..  ]
-[; ;teste_b4.c: 386: deactivate_cooler();
+[e :U 148 ]
+[; ;water_heater_main.c: 385: else
+[; ;water_heater_main.c: 386: g_state = 'S';
 "386
-[e ( _deactivate_cooler ..  ]
+[e = _g_state -> -> 83 `ui `uc ]
+[e :U 149 ]
 "387
 }
-[; ;teste_b4.c: 387: }
-[e $U 158  ]
+[; ;water_heater_main.c: 387: }
+[e $U 150  ]
 "388
-[e :U 157 ]
-[; ;teste_b4.c: 388: else if (difference <= -5)
-[e $ ! <= _difference -U -> 5 `i 159  ]
-[; ;teste_b4.c: 389: {
+[e :U 144 ]
+[; ;water_heater_main.c: 388: else if (!RB2)
+[e $ ! ! _RB2 151  ]
+[; ;water_heater_main.c: 389: {
 "389
 {
-[; ;teste_b4.c: 390: deactivate_heater();
+[; ;water_heater_main.c: 390: g_num_of_blinks = 0;
 "390
-[e ( _deactivate_heater ..  ]
-[; ;teste_b4.c: 391: activate_cooler();
+[e = _g_num_of_blinks -> -> 0 `i `uc ]
+[; ;water_heater_main.c: 391: while (!RB2)
 "391
-[e ( _activate_cooler ..  ]
+[e $U 152  ]
+[e :U 153 ]
+[; ;water_heater_main.c: 392: ;
 "392
-}
-[; ;teste_b4.c: 392: }
-[e $U 160  ]
+[e :U 152 ]
+"391
+[e $ ! _RB2 153  ]
+[e :U 154 ]
+[; ;water_heater_main.c: 393: if (g_state == 'S' && g_set_temperature <= 70)
 "393
-[e :U 159 ]
-[; ;teste_b4.c: 393: else
-[; ;teste_b4.c: 394: {
+[e $ ! && == -> _g_state `ui -> 83 `ui <= _g_set_temperature -> -> 70 `i `ui 155  ]
+[; ;water_heater_main.c: 394: {
 "394
 {
-[; ;teste_b4.c: 395: deactivate_heater();
+[; ;water_heater_main.c: 395: GIE = 0;
 "395
-[e ( _deactivate_heater ..  ]
-[; ;teste_b4.c: 396: deactivate_cooler();
+[e = _GIE -> -> 0 `i `b ]
+[; ;water_heater_main.c: 396: g_set_temperature += 5;
 "396
-[e ( _deactivate_cooler ..  ]
+[e =+ _g_set_temperature -> -> 5 `i `ui ]
+[; ;water_heater_main.c: 397: GIE = 1;
 "397
+[e = _GIE -> -> 1 `i `b ]
+"398
+}
+[; ;water_heater_main.c: 398: }
+[e $U 156  ]
+"399
+[e :U 155 ]
+[; ;water_heater_main.c: 399: else
+[; ;water_heater_main.c: 400: g_state = 'S';
+"400
+[e = _g_state -> -> 83 `ui `uc ]
+[e :U 156 ]
+"401
+}
+[e :U 151 ]
+"404
+[e :U 150 ]
+[; ;water_heater_main.c: 401: }
+[; ;water_heater_main.c: 404: difference = g_set_temperature - g_avg_measured_temperature;
+[e = _difference -> - _g_set_temperature _g_avg_measured_temperature `i ]
+[; ;water_heater_main.c: 405: if (difference >= 5)
+"405
+[e $ ! >= _difference -> 5 `i 157  ]
+[; ;water_heater_main.c: 406: {
+"406
+{
+[; ;water_heater_main.c: 407: activate_heater();
+"407
+[e ( _activate_heater ..  ]
+[; ;water_heater_main.c: 408: deactivate_cooler();
+"408
+[e ( _deactivate_cooler ..  ]
+"409
+}
+[; ;water_heater_main.c: 409: }
+[e $U 158  ]
+"410
+[e :U 157 ]
+[; ;water_heater_main.c: 410: else if (difference <= -5)
+[e $ ! <= _difference -U -> 5 `i 159  ]
+[; ;water_heater_main.c: 411: {
+"411
+{
+[; ;water_heater_main.c: 412: deactivate_heater();
+"412
+[e ( _deactivate_heater ..  ]
+[; ;water_heater_main.c: 413: activate_cooler();
+"413
+[e ( _activate_cooler ..  ]
+"414
+}
+[; ;water_heater_main.c: 414: }
+[e $U 160  ]
+"415
+[e :U 159 ]
+[; ;water_heater_main.c: 415: else
+[; ;water_heater_main.c: 416: {
+"416
+{
+[; ;water_heater_main.c: 417: deactivate_heater();
+"417
+[e ( _deactivate_heater ..  ]
+[; ;water_heater_main.c: 418: deactivate_cooler();
+"418
+[e ( _deactivate_cooler ..  ]
+"419
 }
 [e :U 160 ]
 [e :U 158 ]
-"398
+"420
 }
-[; ;teste_b4.c: 397: }
-[; ;teste_b4.c: 398: }
+[; ;water_heater_main.c: 419: }
+[; ;water_heater_main.c: 420: }
 [e $U 161  ]
-"399
+"421
 [e :U 143 ]
-[; ;teste_b4.c: 399: else
-[; ;teste_b4.c: 400: {
-"400
+[; ;water_heater_main.c: 421: else
+[; ;water_heater_main.c: 422: {
+"422
 {
-[; ;teste_b4.c: 401: deactivate_heater();
-"401
+[; ;water_heater_main.c: 423: deactivate_heater();
+"423
 [e ( _deactivate_heater ..  ]
-[; ;teste_b4.c: 402: deactivate_cooler();
-"402
+[; ;water_heater_main.c: 424: deactivate_cooler();
+"424
 [e ( _deactivate_cooler ..  ]
-"403
+"425
 }
 [e :U 161 ]
-"404
+"426
 }
 [e :U 140 ]
-"347
+"369
 [e $U 141  ]
 [e :U 142 ]
-[; ;teste_b4.c: 403: }
-[; ;teste_b4.c: 404: }
-[; ;teste_b4.c: 405: }
-"405
+[; ;water_heater_main.c: 425: }
+[; ;water_heater_main.c: 426: }
+[; ;water_heater_main.c: 427: }
+"427
 [e :UE 139 ]
 }

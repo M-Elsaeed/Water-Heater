@@ -5,7 +5,7 @@ Linker command line:
 --edf=C:\Program Files\Microchip\xc8\v2.20\pic\dat\en_msgs.txt -cn \
   -h+dist/16F877A/production\water_heater.X.production.sym \
   --cmf=dist/16F877A/production\water_heater.X.production.cmf -z -Q16F877A \
-  -oC:\Users\MOHAMM~1\AppData\Local\Temp\shfg.2 --defsym=__MPLAB_BUILD=1 \
+  -oC:\Users\MOHAMM~1\AppData\Local\Temp\ske0.2 --defsym=__MPLAB_BUILD=1 \
   -Mdist/16F877A/production/water_heater.X.production.map -E1 \
   -ver=XC8 Compiler --acfsm=1493 -ASTACK=0110h-016Fh -pstack=STACK \
   -ACODE=00h-07FFhx4 -ASTRCODE=00h-01FFFh -ASTRING=00h-0FFhx32 \
@@ -18,7 +18,7 @@ Linker command line:
   -preset_vec=00h,intentry=04h,init,end_init -ppowerup=CODE -pcinit=CODE \
   -pfunctab=ENTRY -AEEDATA=00h-0FFh/02100h -peeprom_data=EEDATA -DEEDATA=2 \
   -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\MOHAMM~1\AppData\Local\Temp\shfg.o \
+  C:\Users\MOHAMM~1\AppData\Local\Temp\ske0.o \
   dist/16F877A/production\water_heater.X.production.o 
 
 Object code version is 3.11
@@ -28,7 +28,7 @@ Machine type is 16F877A
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\MOHAMM~1\AppData\Local\Temp\shfg.o
+C:\Users\MOHAMM~1\AppData\Local\Temp\ske0.o
                 end_init                             12       12        3        8       0
                 reset_vec                             0        0        3        0       0
                 config                             2007     2007        1        0       4
@@ -256,7 +256,6 @@ _TRISD                                  (abs)        0088
 _TRISE                                  (abs)        0089
 __1s_handler                            text27       05A9
 __1s_handler$240                        cstackBANK0  0025
-__7sd_mask                              dataBANK0    0056
 __Habs1                                 abs1         0000
 __Hbank0                                bank0        0000
 __Hbank1                                bank1        0000
@@ -475,32 +474,33 @@ _activate_heater                        text15       0786
 _adc_init                               text25       07E1
 _adc_sample                             text24       0563
 _adc_sample_and_update_average          text21       02D9
-_avg_measured_temperature               dataBANK0    0054
 _calc_avg                               text22       069F
-_cooler_on                              bssBANK0     0050
 _deactivate_cooler                      text14       071E
 _deactivate_heater                      text13       06FE
 _delay                                  text10       07B1
 _display7s                              text19       038C
 _e2pext_r                               text5        0333
 _e2pext_w                               text4        020F
-_heater_on                              bssBANK0     0051
+_g_7sd_index                            bssBANK0     004D
+_g_7sd_mask                             dataBANK0    0056
+_g_avg_measured_temperature             dataBANK0    0054
+_g_last_ten_temps                       bssBANK1     00A0
+_g_num_of_blinks                        bssBANK0     004F
+_g_set_temperature                      dataBANK0    0052
+_g_state                                dataBANK0    0057
+_g_temps_arr_iterator                   bssBANK0     004B
+_g_tenths_of_1sec                       bssBANK0     004E
+_gb_cooler_on                           bssBANK0     0050
+_gb_heater_on                           bssBANK0     0051
 _i2c_init                               text12       07D3
 _i2c_rb                                 text9        0482
 _i2c_start                              text8        0750
 _i2c_stop                               text7        073E
 _i2c_wb                                 text6        05E9
-_i_7sd                                  bssBANK0     004D
 _interrupts_init                        text11       07CB
 _main                                   maintext     004D
-_n_blinks                               bssBANK0     004F
 _set_temp_exteeprom_check               text3        0433
-_set_temperature                        dataBANK0    0052
 _show_7sd                               text18       010B
-_state                                  dataBANK0    0057
-_t_1sec                                 bssBANK0     004E
-_temps                                  bssBANK1     00A0
-_temps_iterator                         bssBANK0     004B
 _timer0_init                            text2        07A8
 _timer1_init                            text1        079E
 adc_sample@canal                        cstackCOMMON 0079
@@ -567,7 +567,7 @@ FUNCTION INFORMATION:
 
  *************** function _main *****************
  Defined at:
-		line 316 in file "teste_b4.c"
+		line 338 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -604,7 +604,7 @@ Total ram usage:        2 bytes
 
  *************** function _timer1_init *****************
  Defined at:
-		line 216 in file "teste_b4.c"
+		line 238 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -634,7 +634,7 @@ Total ram usage:        0 bytes
 
  *************** function _timer0_init *****************
  Defined at:
-		line 206 in file "teste_b4.c"
+		line 228 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -664,7 +664,7 @@ Total ram usage:        0 bytes
 
  *************** function _set_temp_exteeprom_check *****************
  Defined at:
-		line 301 in file "teste_b4.c"
+		line 323 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -927,7 +927,7 @@ Total ram usage:        0 bytes
 
  *************** function _interrupts_init *****************
  Defined at:
-		line 191 in file "teste_b4.c"
+		line 213 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -987,7 +987,7 @@ Total ram usage:        0 bytes
 
  *************** function _deactivate_heater *****************
  Defined at:
-		line 73 in file "teste_b4.c"
+		line 95 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1017,7 +1017,7 @@ Total ram usage:        0 bytes
 
  *************** function _deactivate_cooler *****************
  Defined at:
-		line 96 in file "teste_b4.c"
+		line 118 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1047,7 +1047,7 @@ Total ram usage:        0 bytes
 
  *************** function _activate_heater *****************
  Defined at:
-		line 62 in file "teste_b4.c"
+		line 84 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1077,7 +1077,7 @@ Total ram usage:        0 bytes
 
  *************** function _activate_cooler *****************
  Defined at:
-		line 85 in file "teste_b4.c"
+		line 107 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1107,7 +1107,7 @@ Total ram usage:        0 bytes
 
  *************** function _ISR *****************
  Defined at:
-		line 244 in file "teste_b4.c"
+		line 266 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1139,7 +1139,7 @@ Total ram usage:        6 bytes
 
  *************** function _show_7sd *****************
  Defined at:
-		line 124 in file "teste_b4.c"
+		line 146 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1230,7 +1230,7 @@ Total ram usage:        5 bytes
 
  *************** function _adc_sample_and_update_average *****************
  Defined at:
-		line 182 in file "teste_b4.c"
+		line 204 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1264,7 +1264,7 @@ Total ram usage:        1 bytes
 
  *************** function _calc_avg *****************
  Defined at:
-		line 108 in file "teste_b4.c"
+		line 130 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1416,7 +1416,7 @@ Total ram usage:        6 bytes
 
  *************** function __1s_handler *****************
  Defined at:
-		line 159 in file "teste_b4.c"
+		line 181 in file "water_heater_main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1684,24 +1684,6 @@ eeprom_ext.c
 
 eeprom_ext.c estimated size: 192
 
-teste_b4.c
-		_interrupts_init		CODE           	07CB	0000	9
-		_ISR           		CODE           	01A2	0000	110
-		__1s_handler   		CODE           	05A9	0000	65
-		_calc_avg      		CODE           	069F	0000	53
-		_main          		CODE           	004D	0000	191
-		_activate_heater		CODE           	0786	0000	13
-		_activate_cooler		CODE           	0792	0000	13
-		_set_temp_exteeprom_check		CODE           	0433	0000	80
-		_adc_sample_and_update_average		CODE           	02D9	0000	91
-		_timer0_init   		CODE           	07A8	0000	10
-		_deactivate_heater		CODE           	06FE	0000	33
-		_deactivate_cooler		CODE           	071E	0000	33
-		_timer1_init   		CODE           	079E	0000	11
-		_show_7sd      		CODE           	010B	0000	152
-
-teste_b4.c estimated size: 864
-
 i2c.c
 		_i2c_rb        		CODE           	0482	0000	79
 		_delay         		CODE           	07B1	0000	10
@@ -1739,6 +1721,24 @@ shared
 		i1_e2pext_w    		CODE           	0274	0000	102
 
 shared estimated size: 425
+
+water_heater_main.c
+		_interrupts_init		CODE           	07CB	0000	9
+		_ISR           		CODE           	01A2	0000	110
+		__1s_handler   		CODE           	05A9	0000	65
+		_calc_avg      		CODE           	069F	0000	53
+		_main          		CODE           	004D	0000	191
+		_activate_heater		CODE           	0786	0000	13
+		_activate_cooler		CODE           	0792	0000	13
+		_set_temp_exteeprom_check		CODE           	0433	0000	80
+		_adc_sample_and_update_average		CODE           	02D9	0000	91
+		_timer0_init   		CODE           	07A8	0000	10
+		_deactivate_heater		CODE           	06FE	0000	33
+		_deactivate_cooler		CODE           	071E	0000	33
+		_timer1_init   		CODE           	079E	0000	11
+		_show_7sd      		CODE           	010B	0000	152
+
+water_heater_main.c estimated size: 864
 
 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
 		___wmul        		CODE           	06D3	0000	44
