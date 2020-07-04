@@ -1,0 +1,1008 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+reset_vec CODE 0 0 0 3 2
+end_init CODE 0 12 12 3 2
+config CONFIG 4 2007 2007 1 2
+$dist/16F877A/production\water_heater.X.production.o
+cinit CODE 0 15 15 39 2
+text1 CODE 0 7B1 7B1 A 2
+text2 CODE 0 7BB 7BB 9 2
+text3 CODE 0 3EA 3EA 51 2
+text4 CODE 0 210 210 6B 2
+text5 CODE 0 33A 33A 59 2
+text6 CODE 0 5F2 5F2 3E 2
+text7 CODE 0 747 747 12 2
+text8 CODE 0 759 759 12 2
+text9 CODE 0 48B 48B 4E 2
+text10 CODE 0 7C4 7C4 9 2
+text11 CODE 0 7DE 7DE 8 2
+text12 CODE 0 7E6 7E6 8 2
+text13 CODE 0 707 707 20 2
+text14 CODE 0 727 727 20 2
+text15 CODE 0 78F 78F C 2
+text16 CODE 0 79B 79B C 2
+text17 CODE 0 1A3 1A3 6D 2
+text18 CODE 0 10C 10C 97 2
+text19 CODE 0 393 393 57 2
+text20 CODE 0 66E 66E 3A 2
+text21 CODE 0 2E0 2E0 5A 2
+text22 CODE 0 6A8 6A8 34 2
+text23 CODE 0 526 526 46 2
+text24 CODE 0 56C 56C 46 2
+text25 CODE 0 7F4 7F4 5 2
+text26 CODE 0 6DC 6DC 2B 2
+text27 CODE 0 5B2 5B2 40 2
+text28 CODE 0 27B 27B 65 2
+text29 CODE 0 4D9 4D9 4D 2
+text30 CODE 0 630 630 3E 2
+text31 CODE 0 76B 76B 12 2
+text32 CODE 0 77D 77D 12 2
+text33 CODE 0 43B 43B 50 2
+text34 CODE 0 7CD 7CD 9 2
+maintext CODE 0 4E 4E BE 2
+cstackCOMMON COMMON 1 70 70 E 1
+cstackBANK0 BANK0 1 20 20 21 1
+cstackBANK1 BANK1 1 BE BE F 1
+intentry CODE 0 4 4 E 2
+bssBANK0 BANK0 1 41 41 11 1
+bssBANK1 BANK1 1 A0 A0 1E 1
+idataBANK0 CODE 0 7EE 7EE 6 2
+strings STRING 0 7A7 7A7 A 2
+dataBANK0 BANK0 1 52 52 6 1
+clrtext CODE 0 7D6 7D6 8 2
+config CONFIG 4 2007 2007 1 2
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 58-6F 1
+RAM CD-EF 1
+RAM 110-16F 1
+RAM 190-1EF 1
+BANK0 58-6F 1
+BANK1 CD-EF 1
+BANK2 110-16F 1
+BANK3 190-1EF 1
+CONST 3-3 2
+CONST 7F9-1FFF 2
+ENTRY 3-3 2
+ENTRY 7F9-1FFF 2
+IDLOC 2000-2003 2
+STACK 110-16F 1
+CODE 3-3 2
+CODE 7F9-1FFF 2
+SFR0 0-1F 1
+SFR1 80-9F 1
+SFR2 100-10F 1
+SFR3 180-18F 1
+EEDATA 2100-21FF 2
+STRCODE 3-3 2
+STRCODE 7F9-1FFF 2
+STRING 3-3 2
+STRING 7F9-1FFF 2
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$dist/16F877A/production\water_heater.X.production.o
+15 cinit CODE >1649:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+15 cinit CODE >1652:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+15 cinit CODE >1717:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+1A cinit CODE >1718:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+1B cinit CODE >1719:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+20 cinit CODE >1720:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+21 cinit CODE >1721:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+26 cinit CODE >1722:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+27 cinit CODE >1723:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+2C cinit CODE >1724:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+2D cinit CODE >1725:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+32 cinit CODE >1726:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+33 cinit CODE >1727:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+38 cinit CODE >1728:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+39 cinit CODE >1747:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+3A cinit CODE >1748:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+3B cinit CODE >1749:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+3C cinit CODE >1750:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+3D cinit CODE >1751:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+42 cinit CODE >1754:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+43 cinit CODE >1755:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+44 cinit CODE >1756:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+45 cinit CODE >1757:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+4A cinit CODE >1763:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+4A cinit CODE >1765:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+4B cinit CODE >1766:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+4 intentry CODE >244:D:\Swift_lab\water_heater.X\teste_b4.c
+7CD text34 CODE >30:D:\Swift_lab\water_heater.X\i2c.c
+7CD text34 CODE >33:D:\Swift_lab\water_heater.X\i2c.c
+7CE text34 CODE >34:D:\Swift_lab\water_heater.X\i2c.c
+7CF text34 CODE >35:D:\Swift_lab\water_heater.X\i2c.c
+7D0 text34 CODE >36:D:\Swift_lab\water_heater.X\i2c.c
+7D1 text34 CODE >37:D:\Swift_lab\water_heater.X\i2c.c
+7D2 text34 CODE >38:D:\Swift_lab\water_heater.X\i2c.c
+7D3 text34 CODE >39:D:\Swift_lab\water_heater.X\i2c.c
+7D4 text34 CODE >40:D:\Swift_lab\water_heater.X\i2c.c
+7D5 text34 CODE >42:D:\Swift_lab\water_heater.X\i2c.c
+43B text33 CODE >87:D:\Swift_lab\water_heater.X\i2c.c
+43C text33 CODE >90:D:\Swift_lab\water_heater.X\i2c.c
+43D text33 CODE >92:D:\Swift_lab\water_heater.X\i2c.c
+440 text33 CODE >93:D:\Swift_lab\water_heater.X\i2c.c
+443 text33 CODE >94:D:\Swift_lab\water_heater.X\i2c.c
+446 text33 CODE >95:D:\Swift_lab\water_heater.X\i2c.c
+447 text33 CODE >96:D:\Swift_lab\water_heater.X\i2c.c
+447 text33 CODE >97:D:\Swift_lab\water_heater.X\i2c.c
+448 text33 CODE >98:D:\Swift_lab\water_heater.X\i2c.c
+44D text33 CODE >99:D:\Swift_lab\water_heater.X\i2c.c
+45F text33 CODE >100:D:\Swift_lab\water_heater.X\i2c.c
+460 text33 CODE >95:D:\Swift_lab\water_heater.X\i2c.c
+46A text33 CODE >102:D:\Swift_lab\water_heater.X\i2c.c
+46D text33 CODE >103:D:\Swift_lab\water_heater.X\i2c.c
+472 text33 CODE >104:D:\Swift_lab\water_heater.X\i2c.c
+476 text33 CODE >105:D:\Swift_lab\water_heater.X\i2c.c
+476 text33 CODE >106:D:\Swift_lab\water_heater.X\i2c.c
+479 text33 CODE >107:D:\Swift_lab\water_heater.X\i2c.c
+47E text33 CODE >108:D:\Swift_lab\water_heater.X\i2c.c
+481 text33 CODE >109:D:\Swift_lab\water_heater.X\i2c.c
+486 text33 CODE >110:D:\Swift_lab\water_heater.X\i2c.c
+489 text33 CODE >112:D:\Swift_lab\water_heater.X\i2c.c
+48A text33 CODE >113:D:\Swift_lab\water_heater.X\i2c.c
+77D text32 CODE >51:D:\Swift_lab\water_heater.X\i2c.c
+77D text32 CODE >53:D:\Swift_lab\water_heater.X\i2c.c
+780 text32 CODE >54:D:\Swift_lab\water_heater.X\i2c.c
+781 text32 CODE >55:D:\Swift_lab\water_heater.X\i2c.c
+786 text32 CODE >56:D:\Swift_lab\water_heater.X\i2c.c
+789 text32 CODE >57:D:\Swift_lab\water_heater.X\i2c.c
+78E text32 CODE >58:D:\Swift_lab\water_heater.X\i2c.c
+76B text31 CODE >60:D:\Swift_lab\water_heater.X\i2c.c
+76B text31 CODE >62:D:\Swift_lab\water_heater.X\i2c.c
+76E text31 CODE >63:D:\Swift_lab\water_heater.X\i2c.c
+76F text31 CODE >64:D:\Swift_lab\water_heater.X\i2c.c
+774 text31 CODE >65:D:\Swift_lab\water_heater.X\i2c.c
+777 text31 CODE >66:D:\Swift_lab\water_heater.X\i2c.c
+77C text31 CODE >67:D:\Swift_lab\water_heater.X\i2c.c
+630 text30 CODE >69:D:\Swift_lab\water_heater.X\i2c.c
+631 text30 CODE >72:D:\Swift_lab\water_heater.X\i2c.c
+634 text30 CODE >73:D:\Swift_lab\water_heater.X\i2c.c
+635 text30 CODE >75:D:\Swift_lab\water_heater.X\i2c.c
+649 text30 CODE >76:D:\Swift_lab\water_heater.X\i2c.c
+64A text30 CODE >77:D:\Swift_lab\water_heater.X\i2c.c
+64F text30 CODE >78:D:\Swift_lab\water_heater.X\i2c.c
+652 text30 CODE >73:D:\Swift_lab\water_heater.X\i2c.c
+65C text30 CODE >80:D:\Swift_lab\water_heater.X\i2c.c
+65D text30 CODE >81:D:\Swift_lab\water_heater.X\i2c.c
+662 text30 CODE >82:D:\Swift_lab\water_heater.X\i2c.c
+665 text30 CODE >83:D:\Swift_lab\water_heater.X\i2c.c
+66A text30 CODE >84:D:\Swift_lab\water_heater.X\i2c.c
+66D text30 CODE >85:D:\Swift_lab\water_heater.X\i2c.c
+4D9 text29 CODE >29:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4D9 text29 CODE >35:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4DE text29 CODE >36:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4E2 text29 CODE >38:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4E7 text29 CODE >39:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4EC text29 CODE >41:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4F2 text29 CODE >42:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4F3 text29 CODE >45:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4F9 text29 CODE >46:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4F9 text29 CODE >47:D:\Swift_lab\water_heater.X\eeprom_ext.c
+4FF text29 CODE >49:D:\Swift_lab\water_heater.X\eeprom_ext.c
+504 text29 CODE >50:D:\Swift_lab\water_heater.X\eeprom_ext.c
+509 text29 CODE >52:D:\Swift_lab\water_heater.X\eeprom_ext.c
+50F text29 CODE >53:D:\Swift_lab\water_heater.X\eeprom_ext.c
+510 text29 CODE >56:D:\Swift_lab\water_heater.X\eeprom_ext.c
+516 text29 CODE >57:D:\Swift_lab\water_heater.X\eeprom_ext.c
+516 text29 CODE >58:D:\Swift_lab\water_heater.X\eeprom_ext.c
+51F text29 CODE >59:D:\Swift_lab\water_heater.X\eeprom_ext.c
+524 text29 CODE >61:D:\Swift_lab\water_heater.X\eeprom_ext.c
+525 text29 CODE >62:D:\Swift_lab\water_heater.X\eeprom_ext.c
+27B text28 CODE >65:D:\Swift_lab\water_heater.X\eeprom_ext.c
+27B text28 CODE >72:D:\Swift_lab\water_heater.X\eeprom_ext.c
+284 text28 CODE >73:D:\Swift_lab\water_heater.X\eeprom_ext.c
+289 text28 CODE >74:D:\Swift_lab\water_heater.X\eeprom_ext.c
+28D text28 CODE >75:D:\Swift_lab\water_heater.X\eeprom_ext.c
+28E text28 CODE >79:D:\Swift_lab\water_heater.X\eeprom_ext.c
+293 text28 CODE >80:D:\Swift_lab\water_heater.X\eeprom_ext.c
+29A text28 CODE >82:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2A0 text28 CODE >83:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2A1 text28 CODE >86:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2A7 text28 CODE >87:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2A7 text28 CODE >88:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2AF text28 CODE >89:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2B7 text28 CODE >90:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2BC text28 CODE >92:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2C2 text28 CODE >94:D:\Swift_lab\water_heater.X\eeprom_ext.c
+2DF text28 CODE >95:D:\Swift_lab\water_heater.X\eeprom_ext.c
+5B2 text27 CODE >159:D:\Swift_lab\water_heater.X\teste_b4.c
+5B2 text27 CODE >161:D:\Swift_lab\water_heater.X\teste_b4.c
+5B9 text27 CODE >163:D:\Swift_lab\water_heater.X\teste_b4.c
+5BD text27 CODE >165:D:\Swift_lab\water_heater.X\teste_b4.c
+5C3 text27 CODE >167:D:\Swift_lab\water_heater.X\teste_b4.c
+5D3 text27 CODE >168:D:\Swift_lab\water_heater.X\teste_b4.c
+5DD text27 CODE >170:D:\Swift_lab\water_heater.X\teste_b4.c
+5EA text27 CODE >171:D:\Swift_lab\water_heater.X\teste_b4.c
+5ED text27 CODE >172:D:\Swift_lab\water_heater.X\teste_b4.c
+5F1 text27 CODE >175:D:\Swift_lab\water_heater.X\teste_b4.c
+6DC text26 CODE >15:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+6DC text26 CODE >43:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+6E0 text26 CODE >45:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+6E4 text26 CODE >46:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+6EC text26 CODE >47:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+6F3 text26 CODE >48:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+6FA text26 CODE >49:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+700 text26 CODE >52:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+706 text26 CODE >53:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
+7F4 text25 CODE >4:D:\Swift_lab\water_heater.X\adc.c
+7F4 text25 CODE >6:D:\Swift_lab\water_heater.X\adc.c
+7F8 text25 CODE >7:D:\Swift_lab\water_heater.X\adc.c
+56C text24 CODE >9:D:\Swift_lab\water_heater.X\adc.c
+56D text24 CODE >12:D:\Swift_lab\water_heater.X\adc.c
+56E text24 CODE >15:D:\Swift_lab\water_heater.X\adc.c
+572 text24 CODE >16:D:\Swift_lab\water_heater.X\adc.c
+573 text24 CODE >18:D:\Swift_lab\water_heater.X\adc.c
+577 text24 CODE >19:D:\Swift_lab\water_heater.X\adc.c
+578 text24 CODE >21:D:\Swift_lab\water_heater.X\adc.c
+57C text24 CODE >22:D:\Swift_lab\water_heater.X\adc.c
+57D text24 CODE >12:D:\Swift_lab\water_heater.X\adc.c
+588 text24 CODE >23:D:\Swift_lab\water_heater.X\adc.c
+588 text24 CODE >25:D:\Swift_lab\water_heater.X\adc.c
+58B text24 CODE >26:D:\Swift_lab\water_heater.X\adc.c
+58B text24 CODE >27:D:\Swift_lab\water_heater.X\adc.c
+58F text24 CODE >29:D:\Swift_lab\water_heater.X\adc.c
+5B1 text24 CODE >30:D:\Swift_lab\water_heater.X\adc.c
+526 text23 CODE >5:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+526 text23 CODE >13:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+52A text23 CODE >14:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+530 text23 CODE >15:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+532 text23 CODE >16:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+533 text23 CODE >17:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+53A text23 CODE >18:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+53E text23 CODE >16:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+542 text23 CODE >21:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+549 text23 CODE >22:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+553 text23 CODE >23:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+559 text23 CODE >24:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+55A text23 CODE >26:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+561 text23 CODE >27:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+567 text23 CODE >29:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+56B text23 CODE >30:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
+6A8 text22 CODE >108:D:\Swift_lab\water_heater.X\teste_b4.c
+6A8 text22 CODE >111:D:\Swift_lab\water_heater.X\teste_b4.c
+6AC text22 CODE >112:D:\Swift_lab\water_heater.X\teste_b4.c
+6AD text22 CODE >114:D:\Swift_lab\water_heater.X\teste_b4.c
+6BE text22 CODE >112:D:\Swift_lab\water_heater.X\teste_b4.c
+6C8 text22 CODE >116:D:\Swift_lab\water_heater.X\teste_b4.c
+6DB text22 CODE >117:D:\Swift_lab\water_heater.X\teste_b4.c
+2E0 text21 CODE >182:D:\Swift_lab\water_heater.X\teste_b4.c
+2E0 text21 CODE >184:D:\Swift_lab\water_heater.X\teste_b4.c
+2E5 text21 CODE >185:D:\Swift_lab\water_heater.X\teste_b4.c
+31C text21 CODE >186:D:\Swift_lab\water_heater.X\teste_b4.c
+327 text21 CODE >187:D:\Swift_lab\water_heater.X\teste_b4.c
+339 text21 CODE >188:D:\Swift_lab\water_heater.X\teste_b4.c
+66E text20 CODE >5:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+66E text20 CODE >12:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+674 text20 CODE >13:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+676 text20 CODE >14:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+677 text20 CODE >15:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+67E text20 CODE >16:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+682 text20 CODE >14:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+686 text20 CODE >19:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+690 text20 CODE >20:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+696 text20 CODE >21:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+69D text20 CODE >22:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+6A3 text20 CODE >24:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+6A7 text20 CODE >25:C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
+393 text19 CODE >35:D:\Swift_lab\water_heater.X\display7s.c
+394 text19 CODE >37:D:\Swift_lab\water_heater.X\display7s.c
+395 text19 CODE >40:D:\Swift_lab\water_heater.X\display7s.c
+397 text19 CODE >42:D:\Swift_lab\water_heater.X\display7s.c
+399 text19 CODE >44:D:\Swift_lab\water_heater.X\display7s.c
+39B text19 CODE >46:D:\Swift_lab\water_heater.X\display7s.c
+39D text19 CODE >48:D:\Swift_lab\water_heater.X\display7s.c
+39F text19 CODE >50:D:\Swift_lab\water_heater.X\display7s.c
+3A1 text19 CODE >52:D:\Swift_lab\water_heater.X\display7s.c
+3A3 text19 CODE >54:D:\Swift_lab\water_heater.X\display7s.c
+3A5 text19 CODE >56:D:\Swift_lab\water_heater.X\display7s.c
+3A7 text19 CODE >58:D:\Swift_lab\water_heater.X\display7s.c
+3A9 text19 CODE >60:D:\Swift_lab\water_heater.X\display7s.c
+3AB text19 CODE >62:D:\Swift_lab\water_heater.X\display7s.c
+3AD text19 CODE >64:D:\Swift_lab\water_heater.X\display7s.c
+3AF text19 CODE >66:D:\Swift_lab\water_heater.X\display7s.c
+3B1 text19 CODE >68:D:\Swift_lab\water_heater.X\display7s.c
+3B3 text19 CODE >70:D:\Swift_lab\water_heater.X\display7s.c
+3B5 text19 CODE >72:D:\Swift_lab\water_heater.X\display7s.c
+3B7 text19 CODE >37:D:\Swift_lab\water_heater.X\display7s.c
+3E9 text19 CODE >74:D:\Swift_lab\water_heater.X\display7s.c
+10C text18 CODE >124:D:\Swift_lab\water_heater.X\teste_b4.c
+10C text18 CODE >126:D:\Swift_lab\water_heater.X\teste_b4.c
+10D text18 CODE >129:D:\Swift_lab\water_heater.X\teste_b4.c
+10F text18 CODE >130:D:\Swift_lab\water_heater.X\teste_b4.c
+119 text18 CODE >131:D:\Swift_lab\water_heater.X\teste_b4.c
+11B text18 CODE >132:D:\Swift_lab\water_heater.X\teste_b4.c
+11C text18 CODE >134:D:\Swift_lab\water_heater.X\teste_b4.c
+11E text18 CODE >135:D:\Swift_lab\water_heater.X\teste_b4.c
+124 text18 CODE >136:D:\Swift_lab\water_heater.X\teste_b4.c
+13C text18 CODE >138:D:\Swift_lab\water_heater.X\teste_b4.c
+153 text18 CODE >139:D:\Swift_lab\water_heater.X\teste_b4.c
+157 text18 CODE >140:D:\Swift_lab\water_heater.X\teste_b4.c
+158 text18 CODE >142:D:\Swift_lab\water_heater.X\teste_b4.c
+15A text18 CODE >143:D:\Swift_lab\water_heater.X\teste_b4.c
+160 text18 CODE >144:D:\Swift_lab\water_heater.X\teste_b4.c
+17A text18 CODE >146:D:\Swift_lab\water_heater.X\teste_b4.c
+193 text18 CODE >147:D:\Swift_lab\water_heater.X\teste_b4.c
+194 text18 CODE >148:D:\Swift_lab\water_heater.X\teste_b4.c
+195 text18 CODE >126:D:\Swift_lab\water_heater.X\teste_b4.c
+1A2 text18 CODE >152:D:\Swift_lab\water_heater.X\teste_b4.c
+1A3 text17 CODE >244:D:\Swift_lab\water_heater.X\teste_b4.c
+1A3 text17 CODE >247:D:\Swift_lab\water_heater.X\teste_b4.c
+1A7 text17 CODE >249:D:\Swift_lab\water_heater.X\teste_b4.c
+1C0 text17 CODE >250:D:\Swift_lab\water_heater.X\teste_b4.c
+1C2 text17 CODE >255:D:\Swift_lab\water_heater.X\teste_b4.c
+1C8 text17 CODE >258:D:\Swift_lab\water_heater.X\teste_b4.c
+1CE text17 CODE >260:D:\Swift_lab\water_heater.X\teste_b4.c
+1D2 text17 CODE >264:D:\Swift_lab\water_heater.X\teste_b4.c
+1D6 text17 CODE >266:D:\Swift_lab\water_heater.X\teste_b4.c
+1DB text17 CODE >268:D:\Swift_lab\water_heater.X\teste_b4.c
+1DF text17 CODE >269:D:\Swift_lab\water_heater.X\teste_b4.c
+1E0 text17 CODE >273:D:\Swift_lab\water_heater.X\teste_b4.c
+1E4 text17 CODE >275:D:\Swift_lab\water_heater.X\teste_b4.c
+1E9 text17 CODE >276:D:\Swift_lab\water_heater.X\teste_b4.c
+1F5 text17 CODE >278:D:\Swift_lab\water_heater.X\teste_b4.c
+1F6 text17 CODE >279:D:\Swift_lab\water_heater.X\teste_b4.c
+1FB text17 CODE >282:D:\Swift_lab\water_heater.X\teste_b4.c
+1FF text17 CODE >283:D:\Swift_lab\water_heater.X\teste_b4.c
+201 text17 CODE >284:D:\Swift_lab\water_heater.X\teste_b4.c
+202 text17 CODE >285:D:\Swift_lab\water_heater.X\teste_b4.c
+204 text17 CODE >292:D:\Swift_lab\water_heater.X\teste_b4.c
+205 text17 CODE >294:D:\Swift_lab\water_heater.X\teste_b4.c
+79B text16 CODE >85:D:\Swift_lab\water_heater.X\teste_b4.c
+79B text16 CODE >87:D:\Swift_lab\water_heater.X\teste_b4.c
+7A2 text16 CODE >89:D:\Swift_lab\water_heater.X\teste_b4.c
+7A3 text16 CODE >90:D:\Swift_lab\water_heater.X\teste_b4.c
+7A5 text16 CODE >91:D:\Swift_lab\water_heater.X\teste_b4.c
+7A6 text16 CODE >93:D:\Swift_lab\water_heater.X\teste_b4.c
+78F text15 CODE >62:D:\Swift_lab\water_heater.X\teste_b4.c
+78F text15 CODE >64:D:\Swift_lab\water_heater.X\teste_b4.c
+796 text15 CODE >66:D:\Swift_lab\water_heater.X\teste_b4.c
+797 text15 CODE >67:D:\Swift_lab\water_heater.X\teste_b4.c
+799 text15 CODE >68:D:\Swift_lab\water_heater.X\teste_b4.c
+79A text15 CODE >70:D:\Swift_lab\water_heater.X\teste_b4.c
+727 text14 CODE >96:D:\Swift_lab\water_heater.X\teste_b4.c
+727 text14 CODE >98:D:\Swift_lab\water_heater.X\teste_b4.c
+73E text14 CODE >100:D:\Swift_lab\water_heater.X\teste_b4.c
+73F text14 CODE >101:D:\Swift_lab\water_heater.X\teste_b4.c
+740 text14 CODE >102:D:\Swift_lab\water_heater.X\teste_b4.c
+745 text14 CODE >103:D:\Swift_lab\water_heater.X\teste_b4.c
+746 text14 CODE >105:D:\Swift_lab\water_heater.X\teste_b4.c
+707 text13 CODE >73:D:\Swift_lab\water_heater.X\teste_b4.c
+707 text13 CODE >75:D:\Swift_lab\water_heater.X\teste_b4.c
+71E text13 CODE >77:D:\Swift_lab\water_heater.X\teste_b4.c
+71F text13 CODE >78:D:\Swift_lab\water_heater.X\teste_b4.c
+720 text13 CODE >79:D:\Swift_lab\water_heater.X\teste_b4.c
+725 text13 CODE >80:D:\Swift_lab\water_heater.X\teste_b4.c
+726 text13 CODE >82:D:\Swift_lab\water_heater.X\teste_b4.c
+7E6 text12 CODE >44:D:\Swift_lab\water_heater.X\i2c.c
+7E6 text12 CODE >46:D:\Swift_lab\water_heater.X\i2c.c
+7E9 text12 CODE >47:D:\Swift_lab\water_heater.X\i2c.c
+7EC text12 CODE >48:D:\Swift_lab\water_heater.X\i2c.c
+7ED text12 CODE >49:D:\Swift_lab\water_heater.X\i2c.c
+7DE text11 CODE >191:D:\Swift_lab\water_heater.X\teste_b4.c
+7DE text11 CODE >194:D:\Swift_lab\water_heater.X\teste_b4.c
+7DF text11 CODE >195:D:\Swift_lab\water_heater.X\teste_b4.c
+7E0 text11 CODE >198:D:\Swift_lab\water_heater.X\teste_b4.c
+7E1 text11 CODE >199:D:\Swift_lab\water_heater.X\teste_b4.c
+7E4 text11 CODE >202:D:\Swift_lab\water_heater.X\teste_b4.c
+7E5 text11 CODE >203:D:\Swift_lab\water_heater.X\teste_b4.c
+7C4 text10 CODE >30:D:\Swift_lab\water_heater.X\i2c.c
+7C4 text10 CODE >33:D:\Swift_lab\water_heater.X\i2c.c
+7C5 text10 CODE >34:D:\Swift_lab\water_heater.X\i2c.c
+7C6 text10 CODE >35:D:\Swift_lab\water_heater.X\i2c.c
+7C7 text10 CODE >36:D:\Swift_lab\water_heater.X\i2c.c
+7C8 text10 CODE >37:D:\Swift_lab\water_heater.X\i2c.c
+7C9 text10 CODE >38:D:\Swift_lab\water_heater.X\i2c.c
+7CA text10 CODE >39:D:\Swift_lab\water_heater.X\i2c.c
+7CB text10 CODE >40:D:\Swift_lab\water_heater.X\i2c.c
+7CC text10 CODE >42:D:\Swift_lab\water_heater.X\i2c.c
+48B text9 CODE >87:D:\Swift_lab\water_heater.X\i2c.c
+48E text9 CODE >90:D:\Swift_lab\water_heater.X\i2c.c
+48F text9 CODE >92:D:\Swift_lab\water_heater.X\i2c.c
+490 text9 CODE >93:D:\Swift_lab\water_heater.X\i2c.c
+493 text9 CODE >94:D:\Swift_lab\water_heater.X\i2c.c
+496 text9 CODE >95:D:\Swift_lab\water_heater.X\i2c.c
+497 text9 CODE >96:D:\Swift_lab\water_heater.X\i2c.c
+497 text9 CODE >97:D:\Swift_lab\water_heater.X\i2c.c
+498 text9 CODE >98:D:\Swift_lab\water_heater.X\i2c.c
+49D text9 CODE >99:D:\Swift_lab\water_heater.X\i2c.c
+4AF text9 CODE >100:D:\Swift_lab\water_heater.X\i2c.c
+4B0 text9 CODE >95:D:\Swift_lab\water_heater.X\i2c.c
+4BA text9 CODE >102:D:\Swift_lab\water_heater.X\i2c.c
+4BD text9 CODE >103:D:\Swift_lab\water_heater.X\i2c.c
+4C4 text9 CODE >104:D:\Swift_lab\water_heater.X\i2c.c
+4C6 text9 CODE >105:D:\Swift_lab\water_heater.X\i2c.c
+4C6 text9 CODE >106:D:\Swift_lab\water_heater.X\i2c.c
+4C7 text9 CODE >107:D:\Swift_lab\water_heater.X\i2c.c
+4CC text9 CODE >108:D:\Swift_lab\water_heater.X\i2c.c
+4CF text9 CODE >109:D:\Swift_lab\water_heater.X\i2c.c
+4D4 text9 CODE >110:D:\Swift_lab\water_heater.X\i2c.c
+4D7 text9 CODE >112:D:\Swift_lab\water_heater.X\i2c.c
+4D8 text9 CODE >113:D:\Swift_lab\water_heater.X\i2c.c
+759 text8 CODE >51:D:\Swift_lab\water_heater.X\i2c.c
+759 text8 CODE >53:D:\Swift_lab\water_heater.X\i2c.c
+75C text8 CODE >54:D:\Swift_lab\water_heater.X\i2c.c
+75D text8 CODE >55:D:\Swift_lab\water_heater.X\i2c.c
+762 text8 CODE >56:D:\Swift_lab\water_heater.X\i2c.c
+765 text8 CODE >57:D:\Swift_lab\water_heater.X\i2c.c
+76A text8 CODE >58:D:\Swift_lab\water_heater.X\i2c.c
+747 text7 CODE >60:D:\Swift_lab\water_heater.X\i2c.c
+747 text7 CODE >62:D:\Swift_lab\water_heater.X\i2c.c
+74A text7 CODE >63:D:\Swift_lab\water_heater.X\i2c.c
+74B text7 CODE >64:D:\Swift_lab\water_heater.X\i2c.c
+750 text7 CODE >65:D:\Swift_lab\water_heater.X\i2c.c
+753 text7 CODE >66:D:\Swift_lab\water_heater.X\i2c.c
+758 text7 CODE >67:D:\Swift_lab\water_heater.X\i2c.c
+5F2 text6 CODE >69:D:\Swift_lab\water_heater.X\i2c.c
+5F5 text6 CODE >72:D:\Swift_lab\water_heater.X\i2c.c
+5F6 text6 CODE >73:D:\Swift_lab\water_heater.X\i2c.c
+5F7 text6 CODE >75:D:\Swift_lab\water_heater.X\i2c.c
+60B text6 CODE >76:D:\Swift_lab\water_heater.X\i2c.c
+60C text6 CODE >77:D:\Swift_lab\water_heater.X\i2c.c
+611 text6 CODE >78:D:\Swift_lab\water_heater.X\i2c.c
+614 text6 CODE >73:D:\Swift_lab\water_heater.X\i2c.c
+61E text6 CODE >80:D:\Swift_lab\water_heater.X\i2c.c
+61F text6 CODE >81:D:\Swift_lab\water_heater.X\i2c.c
+624 text6 CODE >82:D:\Swift_lab\water_heater.X\i2c.c
+627 text6 CODE >83:D:\Swift_lab\water_heater.X\i2c.c
+62C text6 CODE >84:D:\Swift_lab\water_heater.X\i2c.c
+62F text6 CODE >85:D:\Swift_lab\water_heater.X\i2c.c
+33A text5 CODE >29:D:\Swift_lab\water_heater.X\eeprom_ext.c
+33A text5 CODE >35:D:\Swift_lab\water_heater.X\eeprom_ext.c
+341 text5 CODE >36:D:\Swift_lab\water_heater.X\eeprom_ext.c
+345 text5 CODE >38:D:\Swift_lab\water_heater.X\eeprom_ext.c
+34A text5 CODE >39:D:\Swift_lab\water_heater.X\eeprom_ext.c
+351 text5 CODE >41:D:\Swift_lab\water_heater.X\eeprom_ext.c
+357 text5 CODE >42:D:\Swift_lab\water_heater.X\eeprom_ext.c
+358 text5 CODE >45:D:\Swift_lab\water_heater.X\eeprom_ext.c
+35E text5 CODE >46:D:\Swift_lab\water_heater.X\eeprom_ext.c
+35E text5 CODE >47:D:\Swift_lab\water_heater.X\eeprom_ext.c
+366 text5 CODE >49:D:\Swift_lab\water_heater.X\eeprom_ext.c
+36B text5 CODE >50:D:\Swift_lab\water_heater.X\eeprom_ext.c
+372 text5 CODE >52:D:\Swift_lab\water_heater.X\eeprom_ext.c
+378 text5 CODE >53:D:\Swift_lab\water_heater.X\eeprom_ext.c
+379 text5 CODE >56:D:\Swift_lab\water_heater.X\eeprom_ext.c
+37F text5 CODE >57:D:\Swift_lab\water_heater.X\eeprom_ext.c
+37F text5 CODE >58:D:\Swift_lab\water_heater.X\eeprom_ext.c
+38A text5 CODE >59:D:\Swift_lab\water_heater.X\eeprom_ext.c
+38F text5 CODE >61:D:\Swift_lab\water_heater.X\eeprom_ext.c
+392 text5 CODE >62:D:\Swift_lab\water_heater.X\eeprom_ext.c
+210 text4 CODE >65:D:\Swift_lab\water_heater.X\eeprom_ext.c
+210 text4 CODE >72:D:\Swift_lab\water_heater.X\eeprom_ext.c
+219 text4 CODE >73:D:\Swift_lab\water_heater.X\eeprom_ext.c
+21E text4 CODE >74:D:\Swift_lab\water_heater.X\eeprom_ext.c
+222 text4 CODE >75:D:\Swift_lab\water_heater.X\eeprom_ext.c
+223 text4 CODE >79:D:\Swift_lab\water_heater.X\eeprom_ext.c
+228 text4 CODE >80:D:\Swift_lab\water_heater.X\eeprom_ext.c
+22F text4 CODE >82:D:\Swift_lab\water_heater.X\eeprom_ext.c
+235 text4 CODE >83:D:\Swift_lab\water_heater.X\eeprom_ext.c
+236 text4 CODE >86:D:\Swift_lab\water_heater.X\eeprom_ext.c
+23C text4 CODE >87:D:\Swift_lab\water_heater.X\eeprom_ext.c
+23C text4 CODE >88:D:\Swift_lab\water_heater.X\eeprom_ext.c
+244 text4 CODE >89:D:\Swift_lab\water_heater.X\eeprom_ext.c
+24C text4 CODE >90:D:\Swift_lab\water_heater.X\eeprom_ext.c
+251 text4 CODE >92:D:\Swift_lab\water_heater.X\eeprom_ext.c
+257 text4 CODE >94:D:\Swift_lab\water_heater.X\eeprom_ext.c
+27A text4 CODE >95:D:\Swift_lab\water_heater.X\eeprom_ext.c
+3EA text3 CODE >301:D:\Swift_lab\water_heater.X\teste_b4.c
+3EA text3 CODE >304:D:\Swift_lab\water_heater.X\teste_b4.c
+3FA text3 CODE >305:D:\Swift_lab\water_heater.X\teste_b4.c
+400 text3 CODE >307:D:\Swift_lab\water_heater.X\teste_b4.c
+419 text3 CODE >308:D:\Swift_lab\water_heater.X\teste_b4.c
+41A text3 CODE >311:D:\Swift_lab\water_heater.X\teste_b4.c
+42B text3 CODE >312:D:\Swift_lab\water_heater.X\teste_b4.c
+43A text3 CODE >314:D:\Swift_lab\water_heater.X\teste_b4.c
+7BB text2 CODE >206:D:\Swift_lab\water_heater.X\teste_b4.c
+7BB text2 CODE >209:D:\Swift_lab\water_heater.X\teste_b4.c
+7BF text2 CODE >212:D:\Swift_lab\water_heater.X\teste_b4.c
+7C3 text2 CODE >213:D:\Swift_lab\water_heater.X\teste_b4.c
+7B1 text1 CODE >216:D:\Swift_lab\water_heater.X\teste_b4.c
+7B1 text1 CODE >220:D:\Swift_lab\water_heater.X\teste_b4.c
+7B4 text1 CODE >221:D:\Swift_lab\water_heater.X\teste_b4.c
+7B5 text1 CODE >224:D:\Swift_lab\water_heater.X\teste_b4.c
+7B7 text1 CODE >225:D:\Swift_lab\water_heater.X\teste_b4.c
+7B9 text1 CODE >228:D:\Swift_lab\water_heater.X\teste_b4.c
+7BA text1 CODE >229:D:\Swift_lab\water_heater.X\teste_b4.c
+4E maintext CODE >316:D:\Swift_lab\water_heater.X\teste_b4.c
+4E maintext CODE >322:D:\Swift_lab\water_heater.X\teste_b4.c
+52 maintext CODE >324:D:\Swift_lab\water_heater.X\teste_b4.c
+54 maintext CODE >326:D:\Swift_lab\water_heater.X\teste_b4.c
+55 maintext CODE >328:D:\Swift_lab\water_heater.X\teste_b4.c
+56 maintext CODE >330:D:\Swift_lab\water_heater.X\teste_b4.c
+57 maintext CODE >333:D:\Swift_lab\water_heater.X\teste_b4.c
+5C maintext CODE >334:D:\Swift_lab\water_heater.X\teste_b4.c
+61 maintext CODE >335:D:\Swift_lab\water_heater.X\teste_b4.c
+66 maintext CODE >338:D:\Swift_lab\water_heater.X\teste_b4.c
+6B maintext CODE >341:D:\Swift_lab\water_heater.X\teste_b4.c
+70 maintext CODE >349:D:\Swift_lab\water_heater.X\teste_b4.c
+78 maintext CODE >351:D:\Swift_lab\water_heater.X\teste_b4.c
+7C maintext CODE >353:D:\Swift_lab\water_heater.X\teste_b4.c
+7D maintext CODE >354:D:\Swift_lab\water_heater.X\teste_b4.c
+7D maintext CODE >355:D:\Swift_lab\water_heater.X\teste_b4.c
+81 maintext CODE >357:D:\Swift_lab\water_heater.X\teste_b4.c
+90 maintext CODE >359:D:\Swift_lab\water_heater.X\teste_b4.c
+91 maintext CODE >360:D:\Swift_lab\water_heater.X\teste_b4.c
+97 maintext CODE >361:D:\Swift_lab\water_heater.X\teste_b4.c
+98 maintext CODE >362:D:\Swift_lab\water_heater.X\teste_b4.c
+99 maintext CODE >364:D:\Swift_lab\water_heater.X\teste_b4.c
+9E maintext CODE >366:D:\Swift_lab\water_heater.X\teste_b4.c
+A2 maintext CODE >368:D:\Swift_lab\water_heater.X\teste_b4.c
+A3 maintext CODE >369:D:\Swift_lab\water_heater.X\teste_b4.c
+A3 maintext CODE >370:D:\Swift_lab\water_heater.X\teste_b4.c
+A7 maintext CODE >371:D:\Swift_lab\water_heater.X\teste_b4.c
+B6 maintext CODE >373:D:\Swift_lab\water_heater.X\teste_b4.c
+B7 maintext CODE >374:D:\Swift_lab\water_heater.X\teste_b4.c
+BE maintext CODE >382:D:\Swift_lab\water_heater.X\teste_b4.c
+CC maintext CODE >383:D:\Swift_lab\water_heater.X\teste_b4.c
+D9 maintext CODE >385:D:\Swift_lab\water_heater.X\teste_b4.c
+DE maintext CODE >386:D:\Swift_lab\water_heater.X\teste_b4.c
+E3 maintext CODE >387:D:\Swift_lab\water_heater.X\teste_b4.c
+E4 maintext CODE >388:D:\Swift_lab\water_heater.X\teste_b4.c
+F3 maintext CODE >390:D:\Swift_lab\water_heater.X\teste_b4.c
+F8 maintext CODE >391:D:\Swift_lab\water_heater.X\teste_b4.c
+FD maintext CODE >392:D:\Swift_lab\water_heater.X\teste_b4.c
+FE maintext CODE >395:D:\Swift_lab\water_heater.X\teste_b4.c
+103 maintext CODE >396:D:\Swift_lab\water_heater.X\teste_b4.c
+7D6 clrtext CODE >1734:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7D6 clrtext CODE >1735:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7D7 clrtext CODE >1736:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7D7 clrtext CODE >1737:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7D8 clrtext CODE >1738:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7D9 clrtext CODE >1739:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7DA clrtext CODE >1740:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7DB clrtext CODE >1741:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7DC clrtext CODE >1742:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+7DD clrtext CODE >1743:C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.s
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+___latbits 2 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+i1e2pext_r@addr 74 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+___lwmod@counter 74 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__LdataBANK0 0 0 ABS 0 dataBANK0 -
+__Hspace_0 7F9 0 ABS 0 - -
+__Hspace_1 CD 0 ABS 0 - -
+__Hspace_2 0 0 ABS 0 - -
+__Hspace_3 0 0 ABS 0 - -
+__Hspace_4 400F 0 ABS 0 - -
+i1_delay F9A 0 CODE 0 text34 dist/16F877A/production\water_heater.X.production.o
+__HidataBANK0 0 0 ABS 0 idataBANK0 -
+__end_of_adc_sample_and_update_average 674 0 CODE 0 text21 dist/16F877A/production\water_heater.X.production.o
+i1i2c_rb@i 73 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+i1i2c_wb@i 73 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__Heeprom_data 0 0 EEDATA 3 eeprom_data -
+__end_of_deactivate_cooler E8E 0 CODE 0 text14 dist/16F877A/production\water_heater.X.production.o
+i1_i2c_start EFA 0 CODE 0 text32 dist/16F877A/production\water_heater.X.production.o
+_i2c_init FCC 0 CODE 0 text12 dist/16F877A/production\water_heater.X.production.o
+_i2c_stop E8E 0 CODE 0 text7 dist/16F877A/production\water_heater.X.production.o
+__end_ofi1_e2pext_r A4C 0 CODE 0 text29 dist/16F877A/production\water_heater.X.production.o
+__end_ofi1_e2pext_w 5C0 0 CODE 0 text28 dist/16F877A/production\water_heater.X.production.o
+i1e2pext_w@addr 79 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__Hstrings 0 0 ABS 0 strings -
+_INTE 5C 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_INTF 59 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_PEIE 5E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR0 1 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+___sp 0 0 STACK 2 stack C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+_date 41 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+_main 9C 0 CODE 0 maintext dist/16F877A/production\water_heater.X.production.o
+_time B4 0 BANK1 1 bssBANK1 dist/16F877A/production\water_heater.X.production.o
+btemp 7E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+start 24 0 CODE 0 init C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+__end_of_i2c_init FDC 0 CODE 0 text12 dist/16F877A/production\water_heater.X.production.o
+__end_of_i2c_stop EB2 0 CODE 0 text7 dist/16F877A/production\water_heater.X.production.o
+__size_of_main 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of___lwdiv 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of___lwmod 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__end_of_deactivate_heater E4E 0 CODE 0 text13 dist/16F877A/production\water_heater.X.production.o
+?___wmul 7A 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+i1e2pext_r@ah 78 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+i1e2pext_r@al 77 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+i1e2pext_w@ah 20 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i1e2pext_w@al 21 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i1e2pext_w@nt 22 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__LidataBANK0 0 0 ABS 0 idataBANK0 -
+__Hpowerup 0 0 CODE 0 powerup -
+__size_of_set_temp_exteeprom_check 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+set_temp_exteeprom_check@read_char CA 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+wtemp0 7E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_timer0_init F76 0 CODE 0 text2 dist/16F877A/production\water_heater.X.production.o
+i1e2pext_r@ret 76 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__Hfunctab 0 0 ENTRY 0 functab -
+i1e2pext_w@tmp 23 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i1e2pext_w@val 7B 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+_timer1_init F62 0 CODE 0 text1 dist/16F877A/production\water_heater.X.production.o
+__Hclrtext 0 0 ABS 0 clrtext -
+_n_blinks 4F 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+___wmul@multiplicand 7C 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+_ADCON0 1F 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_ADCON1 9F 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_ADRESH 1E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_ADRESL 9E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_EECON1bits 18C 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_CCPR1L 15 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__7sd_mask 56 0 BANK0 1 dataBANK0 dist/16F877A/production\water_heater.X.production.o
+__end_of___wmul E0E 0 CODE 0 text26 dist/16F877A/production\water_heater.X.production.o
+_deactivate_cooler E4E 0 CODE 0 text14 dist/16F877A/production\water_heater.X.production.o
+_EECON2 18D 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_EEDATA 10C 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Lmaintext 0 0 ABS 0 maintext -
+__end_of_i2c_start ED6 0 CODE 0 text8 dist/16F877A/production\water_heater.X.production.o
+calc_avg@i 30 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__size_of_i2c_start 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+___lwmod@divisor 70 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__end_of___lwdiv AD8 0 CODE 0 text23 dist/16F877A/production\water_heater.X.production.o
+__end_of___lwmod D50 0 CODE 0 text20 dist/16F877A/production\water_heater.X.production.o
+_deactivate_heater E0E 0 CODE 0 text13 dist/16F877A/production\water_heater.X.production.o
+_OPTION_REG 81 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+___stackhi 0 0 ABS 0 - C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+___stacklo 0 0 ABS 0 - C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+__end_of_set_temp_exteeprom_check 876 0 CODE 0 text3 dist/16F877A/production\water_heater.X.production.o
+__size_of_adc_sample_and_update_average 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+___lwdiv@quotient 26 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__size_of_delay 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_i2c_start EB2 0 CODE 0 text8 dist/16F877A/production\water_heater.X.production.o
+__end_of_i2c_rb 9B2 0 CODE 0 text9 dist/16F877A/production\water_heater.X.production.o
+__end_of_i2c_wb C60 0 CODE 0 text6 dist/16F877A/production\water_heater.X.production.o
+___lwmod@dividend 72 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+start_initialization 2A 0 CODE 0 cinit dist/16F877A/production\water_heater.X.production.o
+_temps_iterator 4B 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+_TRISCbits 87 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TRISDbits 88 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_e2pext_r 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_e2pext_w 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+i2c_rb@i 3B 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i2c_wb@i 3B 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i1i2c_rb@ack 71 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+i1i2c_rb@ret 72 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__size_ofi1_i2c_rb 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_ofi1_i2c_wb 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+clear_ram0 FAC 0 CODE 0 clrtext dist/16F877A/production\water_heater.X.production.o
+__size_ofi1_e2pext_r 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_ofi1_e2pext_w 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__pcstackBANK0 20 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__pcstackBANK1 BE 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+__end_of__1s_handler BE4 0 CODE 0 text27 dist/16F877A/production\water_heater.X.production.o
+_TMR0IE 5D 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR0IF 5A 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR1IE 460 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR1IF 60 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR1ON 80 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+adc_sample@canal 79 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+___int_sp 0 0 STACK 2 stack C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+i1i2c_wb@val 72 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__Hbank0 0 0 ABS 0 bank0 -
+__Hbank1 0 0 ABS 0 bank1 -
+__Hbank2 0 0 ABS 0 bank2 -
+__Hbank3 0 0 ABS 0 bank3 -
+__Hcinit 9C 0 CODE 0 cinit -
+__Hstack 0 0 STACK 2 stack -
+__stringbase F58 0 STRING 0 strings dist/16F877A/production\water_heater.X.production.o
+___lwdiv@counter 28 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__Hmaintext 0 0 ABS 0 maintext -
+__Hcommon 0 0 ABS 0 common -
+__Hconfig 4010 0 CONFIG 4 config -
+__end_ofi1_i2c_start F1E 0 CODE 0 text32 dist/16F877A/production\water_heater.X.production.o
+__Lbank0 0 0 ABS 0 bank0 -
+__Lbank1 0 0 ABS 0 bank1 -
+__Lbank2 0 0 ABS 0 bank2 -
+__Lbank3 0 0 ABS 0 bank3 -
+__Lcinit 2A 0 CODE 0 cinit -
+__Lstack 0 0 STACK 2 stack -
+_adc_sample AD8 0 CODE 0 text24 dist/16F877A/production\water_heater.X.production.o
+_PORTCbits 7 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_PORTDbits 8 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_PORTEbits 9 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_ofi1_delay 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Habs1 0 0 ABS 0 abs1 -
+__Hcode 0 0 ABS 0 code -
+__Hinit 24 0 CODE 0 init -
+__Hsfr0 0 0 ABS 0 sfr0 -
+__Hsfr1 0 0 ABS 0 sfr1 -
+__Hsfr2 0 0 ABS 0 sfr2 -
+__Hsfr3 0 0 ABS 0 sfr3 -
+__Htext 0 0 ABS 0 text -
+__Labs1 0 0 ABS 0 abs1 -
+_e2pext_r 674 0 CODE 0 text5 dist/16F877A/production\water_heater.X.production.o
+_e2pext_w 420 0 CODE 0 text4 dist/16F877A/production\water_heater.X.production.o
+__Lcode 0 0 ABS 0 code -
+__Linit 24 0 CODE 0 init -
+__Lsfr0 0 0 ABS 0 sfr0 -
+__Lsfr1 0 0 ABS 0 sfr1 -
+__Lsfr2 0 0 ABS 0 sfr2 -
+__Lsfr3 0 0 ABS 0 sfr3 -
+__Ltext 0 0 ABS 0 text -
+___wmul DB8 0 CODE 0 text26 dist/16F877A/production\water_heater.X.production.o
+__end_of_activate_cooler F4E 0 CODE 0 text16 dist/16F877A/production\water_heater.X.production.o
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 -
+__LcstackBANK1 0 0 ABS 0 cstackBANK1 -
+__HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+i1_i2c_rb 876 0 CODE 0 text33 dist/16F877A/production\water_heater.X.production.o
+i1_i2c_wb C60 0 CODE 0 text30 dist/16F877A/production\water_heater.X.production.o
+i1_i2c_stop ED6 0 CODE 0 text31 dist/16F877A/production\water_heater.X.production.o
+_GIE 5F 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_ISR 346 0 CODE 0 text17 dist/16F877A/production\water_heater.X.production.o
+_PR2 92 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_RB1 31 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_RB2 32 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_RB6 36 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_RC2 3A 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_RC5 3D 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__S0 7F9 0 ABS 0 - -
+__S1 CD 0 ABS 0 - -
+__S2 0 0 ABS 0 - -
+__S3 0 0 ABS 0 - -
+_heater_on 51 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+__end_of_e2pext_r 726 0 CODE 0 text5 dist/16F877A/production\water_heater.X.production.o
+__end_of_e2pext_w 4F6 0 CODE 0 text4 dist/16F877A/production\water_heater.X.production.o
+__size_of_show_7sd 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__1s_handler$500 25 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+calc_avg@avg 2E 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__end_ofi1_i2c_rb 916 0 CODE 0 text33 dist/16F877A/production\water_heater.X.production.o
+__end_ofi1_i2c_wb CDC 0 CODE 0 text30 dist/16F877A/production\water_heater.X.production.o
+saved_w 7E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__end_of_activate_heater F36 0 CODE 0 text15 dist/16F877A/production\water_heater.X.production.o
+e2pext_r@addr 3C 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__end_of_ISR 420 0 CODE 0 text17 dist/16F877A/production\water_heater.X.production.o
+_set_temperature 52 0 BANK0 1 dataBANK0 dist/16F877A/production\water_heater.X.production.o
+__end_of_timer0_init F88 0 CODE 0 text2 dist/16F877A/production\water_heater.X.production.o
+_i2c_rb 916 0 CODE 0 text9 dist/16F877A/production\water_heater.X.production.o
+_i2c_wb BE4 0 CODE 0 text6 dist/16F877A/production\water_heater.X.production.o
+__Lintentry 8 0 CODE 0 intentry -
+__stringtab F4E 0 STRING 0 strings dist/16F877A/production\water_heater.X.production.o
+__end_of_timer1_init F76 0 CODE 0 text1 dist/16F877A/production\water_heater.X.production.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\MOHAMM~1\AppData\Local\Temp\sd0s.o
+e2pext_w@addr BE 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+__size_of_adc_init 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__pdataBANK0 52 0 BANK0 1 dataBANK0 dist/16F877A/production\water_heater.X.production.o
+__size_of___wmul 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__LbssBANK0 0 0 ABS 0 bssBANK0 -
+__LbssBANK1 0 0 ABS 0 bssBANK1 -
+__end_of_adc_sample B64 0 CODE 0 text24 dist/16F877A/production\water_heater.X.production.o
+_cooler_on 50 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+_activate_cooler F36 0 CODE 0 text16 dist/16F877A/production\water_heater.X.production.o
+__size_of_calc_avg 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_RCSTAbits 18 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__end_of_interrupts_init FCC 0 CODE 0 text11 dist/16F877A/production\water_heater.X.production.o
+__ptext10 F88 0 CODE 0 text10 dist/16F877A/production\water_heater.X.production.o
+__ptext11 FBC 0 CODE 0 text11 dist/16F877A/production\water_heater.X.production.o
+__ptext12 FCC 0 CODE 0 text12 dist/16F877A/production\water_heater.X.production.o
+__ptext13 E0E 0 CODE 0 text13 dist/16F877A/production\water_heater.X.production.o
+__ptext14 E4E 0 CODE 0 text14 dist/16F877A/production\water_heater.X.production.o
+__ptext15 F1E 0 CODE 0 text15 dist/16F877A/production\water_heater.X.production.o
+__ptext16 F36 0 CODE 0 text16 dist/16F877A/production\water_heater.X.production.o
+__ptext17 346 0 CODE 0 text17 dist/16F877A/production\water_heater.X.production.o
+__ptext18 218 0 CODE 0 text18 dist/16F877A/production\water_heater.X.production.o
+__ptext19 726 0 CODE 0 text19 dist/16F877A/production\water_heater.X.production.o
+__ptext20 CDC 0 CODE 0 text20 dist/16F877A/production\water_heater.X.production.o
+__ptext21 5C0 0 CODE 0 text21 dist/16F877A/production\water_heater.X.production.o
+__ptext22 D50 0 CODE 0 text22 dist/16F877A/production\water_heater.X.production.o
+__ptext23 A4C 0 CODE 0 text23 dist/16F877A/production\water_heater.X.production.o
+__ptext24 AD8 0 CODE 0 text24 dist/16F877A/production\water_heater.X.production.o
+__ptext25 FE8 0 CODE 0 text25 dist/16F877A/production\water_heater.X.production.o
+__ptext26 DB8 0 CODE 0 text26 dist/16F877A/production\water_heater.X.production.o
+__ptext27 B64 0 CODE 0 text27 dist/16F877A/production\water_heater.X.production.o
+__ptext28 4F6 0 CODE 0 text28 dist/16F877A/production\water_heater.X.production.o
+__ptext29 9B2 0 CODE 0 text29 dist/16F877A/production\water_heater.X.production.o
+__ptext30 C60 0 CODE 0 text30 dist/16F877A/production\water_heater.X.production.o
+__ptext31 ED6 0 CODE 0 text31 dist/16F877A/production\water_heater.X.production.o
+__ptext32 EFA 0 CODE 0 text32 dist/16F877A/production\water_heater.X.production.o
+__ptext33 876 0 CODE 0 text33 dist/16F877A/production\water_heater.X.production.o
+__ptext34 F9A 0 CODE 0 text34 dist/16F877A/production\water_heater.X.production.o
+main@difference CB 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+i2c_rb@ack 39 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i2c_rb@ret 3A 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+___lwdiv A4C 0 CODE 0 text23 dist/16F877A/production\water_heater.X.production.o
+___lwmod CDC 0 CODE 0 text20 dist/16F877A/production\water_heater.X.production.o
+__end_ofi1_i2c_stop EFA 0 CODE 0 text31 dist/16F877A/production\water_heater.X.production.o
+__pmaintext 9C 0 CODE 0 maintext dist/16F877A/production\water_heater.X.production.o
+_show_7sd 218 0 CODE 0 text18 dist/16F877A/production\water_heater.X.production.o
+__Lcommon 0 0 ABS 0 common -
+__Lconfig 0 0 CONFIG 4 config -
+__size_of__1s_handler 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_activate_heater F1E 0 CODE 0 text15 dist/16F877A/production\water_heater.X.production.o
+___wmul@multiplier 7A 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__end_of_show_7sd 346 0 CODE 0 text18 dist/16F877A/production\water_heater.X.production.o
+__end_ofi1_delay FAC 0 CODE 0 text34 dist/16F877A/production\water_heater.X.production.o
+__size_of_i2c_rb 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_i2c_wb 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+___lwdiv@divisor 22 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+i2c_wb@val 3A 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+_t_1sec 4E 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+e2pext_r@ah 40 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+e2pext_r@al 3F 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+e2pext_w@ah C3 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+e2pext_w@al C4 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+e2pext_w@nt C5 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+_avg_measured_temperature 54 0 BANK0 1 dataBANK0 dist/16F877A/production\water_heater.X.production.o
+_adc_sample_and_update_average 5C0 0 CODE 0 text21 dist/16F877A/production\water_heater.X.production.o
+__end_of_display7s 7D4 0 CODE 0 text19 dist/16F877A/production\water_heater.X.production.o
+_ADCON0bits 1F 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_adc_init FE8 0 CODE 0 text25 dist/16F877A/production\water_heater.X.production.o
+__end_of__stringtab F5A 0 STRING 0 strings dist/16F877A/production\water_heater.X.production.o
+__size_of_display7s 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_2 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+__Lspace_4 0 0 ABS 0 - -
+__size_ofi1_i2c_start 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 -
+__HcstackBANK1 0 0 ABS 0 cstackBANK1 -
+_PIR1bits C 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Lend_init 24 0 CODE 0 end_init -
+_calc_avg D50 0 CODE 0 text22 dist/16F877A/production\water_heater.X.production.o
+__end_of_adc_init FF2 0 CODE 0 text25 dist/16F877A/production\water_heater.X.production.o
+__LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+_interrupts_init FBC 0 CODE 0 text11 dist/16F877A/production\water_heater.X.production.o
+end_of_initialization 94 0 CODE 0 cinit dist/16F877A/production\water_heater.X.production.o
+__Hintentry 24 0 CODE 0 intentry -
+__Lstrings 0 0 ABS 0 strings -
+_display7s 726 0 CODE 0 text19 dist/16F877A/production\water_heater.X.production.o
+___lwdiv@dividend 24 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__end_of_calc_avg DB8 0 CODE 0 text22 dist/16F877A/production\water_heater.X.production.o
+?___lwdiv 22 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+?___lwmod 70 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__Hreset_vec 6 0 CODE 0 reset_vec -
+display7s@v 70 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__HbssBANK0 0 0 ABS 0 bssBANK0 -
+__HbssBANK1 0 0 ABS 0 bssBANK1 -
+__ptext1 F62 0 CODE 0 text1 dist/16F877A/production\water_heater.X.production.o
+__ptext2 F76 0 CODE 0 text2 dist/16F877A/production\water_heater.X.production.o
+__ptext3 7D4 0 CODE 0 text3 dist/16F877A/production\water_heater.X.production.o
+__ptext4 420 0 CODE 0 text4 dist/16F877A/production\water_heater.X.production.o
+__ptext5 674 0 CODE 0 text5 dist/16F877A/production\water_heater.X.production.o
+__ptext6 BE4 0 CODE 0 text6 dist/16F877A/production\water_heater.X.production.o
+__ptext7 E8E 0 CODE 0 text7 dist/16F877A/production\water_heater.X.production.o
+__ptext8 EB2 0 CODE 0 text8 dist/16F877A/production\water_heater.X.production.o
+__ptext9 916 0 CODE 0 text9 dist/16F877A/production\water_heater.X.production.o
+__size_of_activate_cooler 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Lpowerup 0 0 CODE 0 powerup -
+__Leeprom_data 0 0 EEDATA 3 eeprom_data -
+__size_of_deactivate_cooler 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Lreset_vec 0 0 CODE 0 reset_vec -
+__size_of_timer0_init 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_activate_heater 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_timer1_init 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__end_of__initialization 94 0 CODE 0 cinit dist/16F877A/production\water_heater.X.production.o
+__Lfunctab 0 0 ENTRY 0 functab -
+__size_of_deactivate_heater 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__pidataBANK0 FDC 0 CODE 0 idataBANK0 dist/16F877A/production\water_heater.X.production.o
+__Lclrtext 0 0 ABS 0 clrtext -
+_set_temp_exteeprom_check 7D4 0 CODE 0 text3 dist/16F877A/production\water_heater.X.production.o
+_T1CKPS0 84 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_T1CKPS1 85 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+_TXSTAbits 98 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_ISR$515 36 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__size_of_adc_sample 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__Hend_init 2A 0 CODE 0 end_init -
+__end_of_main 218 0 CODE 0 maintext dist/16F877A/production\water_heater.X.production.o
+__size_of_interrupts_init 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+i1_e2pext_r 9B2 0 CODE 0 text29 dist/16F877A/production\water_heater.X.production.o
+i1_e2pext_w 4F6 0 CODE 0 text28 dist/16F877A/production\water_heater.X.production.o
+_EEADR 10D 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_i2c_init 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__size_of_i2c_stop 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__end_of_delay F9A 0 CODE 0 text10 dist/16F877A/production\water_heater.X.production.o
+_PORTA 5 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_PORTB 6 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_PORTD 8 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__end_of_linha F62 0 STRING 0 strings dist/16F877A/production\water_heater.X.production.o
+_RCREG 1A 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_SPBRG 99 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR1H F 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TMR1L E 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TRISA 85 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TRISB 86 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TRISC 87 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TRISD 88 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TRISE 89 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_TXREG 19 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+?_adc_sample 70 0 COMMON 1 cstackCOMMON dist/16F877A/production\water_heater.X.production.o
+__Hram 0 0 ABS 0 ram -
+__Lram 0 0 ABS 0 ram -
+interrupt_function 8 0 CODE 0 intentry dist/16F877A/production\water_heater.X.production.o
+_delay F88 0 CODE 0 text10 dist/16F877A/production\water_heater.X.production.o
+_i_7sd 4D 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+_linha F5A 0 STRING 0 strings dist/16F877A/production\water_heater.X.production.o
+_state 57 0 BANK0 1 dataBANK0 dist/16F877A/production\water_heater.X.production.o
+_temps A0 0 BANK1 1 bssBANK1 dist/16F877A/production\water_heater.X.production.o
+__size_ofi1_i2c_stop 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+_CCP1CON 17 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__pintentry 8 0 CODE 0 intentry dist/16F877A/production\water_heater.X.production.o
+__size_of_ISR 0 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__HdataBANK0 0 0 ABS 0 dataBANK0 -
+e2pext_r@ret 3E 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+__initialization 2A 0 CODE 0 cinit dist/16F877A/production\water_heater.X.production.o
+e2pext_w@tmp C6 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+e2pext_w@val C0 0 BANK1 1 cstackBANK1 dist/16F877A/production\water_heater.X.production.o
+__pbssBANK0 41 0 BANK0 1 bssBANK0 dist/16F877A/production\water_heater.X.production.o
+__pbssBANK1 A0 0 BANK1 1 bssBANK1 dist/16F877A/production\water_heater.X.production.o
+__1s_handler B64 0 CODE 0 text27 dist/16F877A/production\water_heater.X.production.o
+_T2CONbits 12 0 ABS 0 - dist/16F877A/production\water_heater.X.production.o
+__pstrings F4E 0 STRING 0 strings dist/16F877A/production\water_heater.X.production.o
+___wmul@product 20 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+?_calc_avg 29 0 BANK0 1 cstackBANK0 dist/16F877A/production\water_heater.X.production.o
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+- 1 7E 2
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+text1 0 7B1 F62 48 2
+cstackCOMMON 1 70 70 E 1
+cstackBANK0 1 20 20 38 1
+intentry 0 4 8 7A3 2
+reset_vec 0 0 0 3 2
+bssBANK1 1 A0 A0 2D 1
+strings 0 7A7 F4E A 2
+# %NOTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by %NOTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES
