@@ -7,12 +7,6 @@
 [v _adc_init adc_init `(v  1 e 1 0 ]
 "9
 [v _adc_sample adc_sample `(ui  1 e 2 0 ]
-"26 D:\Swift_lab\water_heater.X\atraso.c
-[v _atraso_ms atraso_ms `(v  1 e 1 0 ]
-"5 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\__lldiv.c
-[v ___lldiv __lldiv `(ul  1 e 4 0 ]
-"5 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\aldiv.c
-[v ___aldiv __aldiv `(l  1 e 4 0 ]
 "5 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwdiv.c
 [v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
 "5 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\lwmod.c
@@ -21,8 +15,6 @@
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
-"15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul32.c
-[v ___lmul __lmul `(ul  1 e 4 0 ]
 "4 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\common\Umul8_16.c
 [v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
 "6 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c90\pic\__eeprom.c
@@ -54,18 +46,6 @@
 "87
 [v _i2c_rb i2c_rb `(uc  1 e 1 0 ]
 [v i1_i2c_rb i2c_rb `(uc  1 e 1 0 ]
-"30 D:\Swift_lab\water_heater.X\lcd.c
-[v _lcd_wr lcd_wr `(v  1 e 1 0 ]
-"35
-[v _lcd_cmd lcd_cmd `(v  1 e 1 0 ]
-"46
-[v _lcd_dat lcd_dat `(v  1 e 1 0 ]
-"33 D:\Swift_lab\water_heater.X\rtc_r.c
-[v _getd getd `(uc  1 e 1 0 ]
-"38
-[v _getu getu `(uc  1 e 1 0 ]
-"50 D:\Swift_lab\water_heater.X\serial.c
-[v _serial_tx serial_tx `(v  1 e 1 0 ]
 "62 D:\Swift_lab\water_heater.X\teste_b4.c
 [v _activate_heater activate_heater `(v  1 e 1 0 ]
 "73
@@ -100,7 +80,7 @@
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
 "216
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
-[s S171 . 1 `uc 1 RC0 1 0 :1:0 
+[s S136 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
 `uc 1 RC3 1 0 :1:3 
@@ -110,90 +90,14 @@
 `uc 1 RC7 1 0 :1:7 
 ]
 "295
-[u S180 . 1 `S171 1 . 1 0 ]
-[v _PORTCbits PORTCbits `VES180  1 e 1 @7 ]
+[u S145 . 1 `S136 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES145  1 e 1 @7 ]
 "340
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
-[s S408 . 1 `uc 1 RD0 1 0 :1:0 
-`uc 1 RD1 1 0 :1:1 
-`uc 1 RD2 1 0 :1:2 
-`uc 1 RD3 1 0 :1:3 
-`uc 1 RD4 1 0 :1:4 
-`uc 1 RD5 1 0 :1:5 
-`uc 1 RD6 1 0 :1:6 
-`uc 1 RD7 1 0 :1:7 
-]
-"357
-[u S417 . 1 `S408 1 . 1 0 ]
-[v _PORTDbits PORTDbits `VES417  1 e 1 @8 ]
-[s S224 . 1 `uc 1 RE0 1 0 :1:0 
-`uc 1 RE1 1 0 :1:1 
-`uc 1 RE2 1 0 :1:2 
-]
-"414
-[u S228 . 1 `S224 1 . 1 0 ]
-[v _PORTEbits PORTEbits `VES228  1 e 1 @9 ]
-[s S351 . 1 `uc 1 TMR1IF 1 0 :1:0 
-`uc 1 TMR2IF 1 0 :1:1 
-`uc 1 CCP1IF 1 0 :1:2 
-`uc 1 SSPIF 1 0 :1:3 
-`uc 1 TXIF 1 0 :1:4 
-`uc 1 RCIF 1 0 :1:5 
-`uc 1 ADIF 1 0 :1:6 
-`uc 1 PSPIF 1 0 :1:7 
-]
-"549
-[u S360 . 1 `S351 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES360  1 e 1 @12 ]
 "641
 [v _TMR1L TMR1L `VEuc  1 e 1 @14 ]
 "648
 [v _TMR1H TMR1H `VEuc  1 e 1 @15 ]
-[s S595 . 1 `uc 1 T2CKPS 1 0 :2:0 
-`uc 1 TMR2ON 1 0 :1:2 
-`uc 1 TOUTPS 1 0 :4:3 
-]
-"758
-[s S599 . 1 `uc 1 T2CKPS0 1 0 :1:0 
-`uc 1 T2CKPS1 1 0 :1:1 
-`uc 1 . 1 0 :1:2 
-`uc 1 TOUTPS0 1 0 :1:3 
-`uc 1 TOUTPS1 1 0 :1:4 
-`uc 1 TOUTPS2 1 0 :1:5 
-`uc 1 TOUTPS3 1 0 :1:6 
-]
-[u S607 . 1 `S595 1 . 1 0 `S599 1 . 1 0 ]
-[v _T2CONbits T2CONbits `VES607  1 e 1 @18 ]
-"892
-[v _CCPR1L CCPR1L `VEuc  1 e 1 @21 ]
-"906
-[v _CCP1CON CCP1CON `VEuc  1 e 1 @23 ]
-[s S305 . 1 `uc 1 RX9D 1 0 :1:0 
-`uc 1 OERR 1 0 :1:1 
-`uc 1 FERR 1 0 :1:2 
-`uc 1 ADDEN 1 0 :1:3 
-`uc 1 CREN 1 0 :1:4 
-`uc 1 SREN 1 0 :1:5 
-`uc 1 RX9 1 0 :1:6 
-`uc 1 SPEN 1 0 :1:7 
-]
-"994
-[s S314 . 1 `uc 1 RCD8 1 0 :1:0 
-`uc 1 . 1 0 :5:1 
-`uc 1 RC9 1 0 :1:6 
-]
-[s S318 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 nRC8 1 0 :1:6 
-]
-[s S321 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 RC8_9 1 0 :1:6 
-]
-[u S324 . 1 `S305 1 . 1 0 `S314 1 . 1 0 `S318 1 . 1 0 `S321 1 . 1 0 ]
-[v _RCSTAbits RCSTAbits `VES324  1 e 1 @24 ]
-"1059
-[v _TXREG TXREG `VEuc  1 e 1 @25 ]
-"1066
-[v _RCREG RCREG `VEuc  1 e 1 @26 ]
 "1152
 [v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
 "1159
@@ -229,7 +133,7 @@
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
 "1437
 [v _TRISC TRISC `VEuc  1 e 1 @135 ]
-[s S150 . 1 `uc 1 TRISC0 1 0 :1:0 
+[s S115 . 1 `uc 1 TRISC0 1 0 :1:0 
 `uc 1 TRISC1 1 0 :1:1 
 `uc 1 TRISC2 1 0 :1:2 
 `uc 1 TRISC3 1 0 :1:3 
@@ -239,67 +143,16 @@
 `uc 1 TRISC7 1 0 :1:7 
 ]
 "1454
-[u S159 . 1 `S150 1 . 1 0 ]
-[v _TRISCbits TRISCbits `VES159  1 e 1 @135 ]
+[u S124 . 1 `S115 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES124  1 e 1 @135 ]
 "1499
 [v _TRISD TRISD `VEuc  1 e 1 @136 ]
-[s S549 . 1 `uc 1 TRISD0 1 0 :1:0 
-`uc 1 TRISD1 1 0 :1:1 
-`uc 1 TRISD2 1 0 :1:2 
-`uc 1 TRISD3 1 0 :1:3 
-`uc 1 TRISD4 1 0 :1:4 
-`uc 1 TRISD5 1 0 :1:5 
-`uc 1 TRISD6 1 0 :1:6 
-`uc 1 TRISD7 1 0 :1:7 
-]
-"1516
-[u S558 . 1 `S549 1 . 1 0 ]
-[v _TRISDbits TRISDbits `VES558  1 e 1 @136 ]
 "1561
 [v _TRISE TRISE `VEuc  1 e 1 @137 ]
-"1816
-[v _PR2 PR2 `VEuc  1 e 1 @146 ]
-[s S268 . 1 `uc 1 TX9D 1 0 :1:0 
-`uc 1 TRMT 1 0 :1:1 
-`uc 1 BRGH 1 0 :1:2 
-`uc 1 . 1 0 :1:3 
-`uc 1 SYNC 1 0 :1:4 
-`uc 1 TXEN 1 0 :1:5 
-`uc 1 TX9 1 0 :1:6 
-`uc 1 CSRC 1 0 :1:7 
-]
-"2025
-[s S277 . 1 `uc 1 TXD8 1 0 :1:0 
-`uc 1 . 1 0 :5:1 
-`uc 1 nTX8 1 0 :1:6 
-]
-[s S281 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 TX8_9 1 0 :1:6 
-]
-[u S284 . 1 `S268 1 . 1 0 `S277 1 . 1 0 `S281 1 . 1 0 ]
-[v _TXSTAbits TXSTAbits `VES284  1 e 1 @152 ]
-"2080
-[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
 "2222
 [v _ADRESL ADRESL `VEuc  1 e 1 @158 ]
 "2229
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @159 ]
-"2288
-[v _EEDATA EEDATA `VEuc  1 e 1 @268 ]
-"2295
-[v _EEADR EEADR `VEuc  1 e 1 @269 ]
-[s S89 . 1 `uc 1 RD 1 0 :1:0 
-`uc 1 WR 1 0 :1:1 
-`uc 1 WREN 1 0 :1:2 
-`uc 1 WRERR 1 0 :1:3 
-`uc 1 . 1 0 :3:4 
-`uc 1 EEPGD 1 0 :1:7 
-]
-"2331
-[u S96 . 1 `S89 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES96  1 e 1 @396 ]
-"2361
-[v _EECON2 EECON2 `VEuc  1 e 1 @397 ]
 "2569
 [v _GIE GIE `VEb  1 e 0 @95 ]
 "2599
@@ -332,12 +185,6 @@
 [v _TMR1IF TMR1IF `VEb  1 e 0 @96 ]
 "2893
 [v _TMR1ON TMR1ON `VEb  1 e 0 @128 ]
-"29 D:\Swift_lab\water_heater.X\rtc_r.c
-[v _date date `VE[10]uc  1 e 10 0 ]
-"30
-[v _time time `VE[10]uc  1 e 10 0 ]
-"30 D:\Swift_lab\water_heater.X\teclado.c
-[v _linha linha `DC[4]uc  1 e 4 0 ]
 "10 D:\Swift_lab\water_heater.X\teste_b4.c
 [v _heater_on heater_on `uc  1 e 1 0 ]
 "11
@@ -364,7 +211,7 @@
 [v _main main `(v  1 e 1 0 ]
 {
 "319
-[v main@difference difference `i  1 a 2 13 ]
+[v main@difference difference `i  1 a 2 3 ]
 "405
 } 0
 "216
@@ -381,23 +228,23 @@
 [v _set_temp_exteeprom_check set_temp_exteeprom_check `(v  1 e 1 0 ]
 {
 "303
-[v set_temp_exteeprom_check@read_char read_char `uc  1 a 1 12 ]
+[v set_temp_exteeprom_check@read_char read_char `uc  1 a 1 2 ]
 "314
 } 0
 "65 D:\Swift_lab\water_heater.X\eeprom_ext.c
 [v _e2pext_w e2pext_w `(v  1 e 1 0 ]
 {
 "67
-[v e2pext_w@tmp tmp `ui  1 a 2 8 ]
+[v e2pext_w@tmp tmp `ui  1 a 2 41 ]
 "70
-[v e2pext_w@nt nt `uc  1 a 1 7 ]
+[v e2pext_w@nt nt `uc  1 a 1 40 ]
 "69
-[v e2pext_w@al al `uc  1 a 1 6 ]
+[v e2pext_w@al al `uc  1 a 1 39 ]
 "68
-[v e2pext_w@ah ah `uc  1 a 1 5 ]
+[v e2pext_w@ah ah `uc  1 a 1 38 ]
 "65
-[v e2pext_w@addr addr `ui  1 p 2 0 ]
-[v e2pext_w@val val `uc  1 p 1 2 ]
+[v e2pext_w@addr addr `ui  1 p 2 33 ]
+[v e2pext_w@val val `uc  1 p 1 35 ]
 "95
 } 0
 "29

@@ -5,22 +5,10 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>adc.h</itemPath>
-      <itemPath>atraso.h</itemPath>
       <itemPath>display7s.h</itemPath>
-      <itemPath>eeprom.h</itemPath>
       <itemPath>eeprom_ext.h</itemPath>
       <itemPath>i2c.h</itemPath>
-      <itemPath>itoa.h</itemPath>
-      <itemPath>lcd.h</itemPath>
-      <itemPath>rtc.h</itemPath>
-      <itemPath>serial.h</itemPath>
-      <itemPath>teclado.h</itemPath>
-      <itemPath>config_452.h</itemPath>
-      <itemPath>config_4620.h</itemPath>
-      <itemPath>config_4550.h</itemPath>
-      <itemPath>pwm.h</itemPath>
       <itemPath>config_877A.h</itemPath>
-      <itemPath>config_777.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -30,18 +18,10 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>adc.c</itemPath>
-      <itemPath>atraso.c</itemPath>
       <itemPath>display7s.c</itemPath>
-      <itemPath>eeprom.c</itemPath>
       <itemPath>eeprom_ext.c</itemPath>
       <itemPath>i2c.c</itemPath>
-      <itemPath>itoa.c</itemPath>
-      <itemPath>lcd.c</itemPath>
-      <itemPath>rtc_r.c</itemPath>
-      <itemPath>serial.c</itemPath>
-      <itemPath>teclado.c</itemPath>
-      <itemPath>teste_b4.c</itemPath>
-      <itemPath>pwm.c</itemPath>
+      <itemPath>water_heater_main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
