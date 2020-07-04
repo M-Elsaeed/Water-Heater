@@ -58,6 +58,23 @@ unsigned int temps[10];
 */
 int temps_iterator = 0;
 
+// Function Declarations
+
+void activate_heater();
+void deactivate_heater();
+void activate_cooler();
+void deactivate_cooler();
+unsigned int calc_avg();
+void show_7sd();
+void _1s_handler();
+void adc_sample_and_update_average();
+void interrupts_init();
+void timer0_init();
+void timer1_init();
+void interrupt ISR();
+void set_temp_exteeprom_check();
+void main();
+
 // Activate heating element, its LED, and set the heating state variable
 void activate_heater()
 {
